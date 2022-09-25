@@ -10,23 +10,28 @@ import lombok.Data;
 @Data
 public class LedgerEntry {
 
-  /** Ledger identifier */
+  /** Ledger identifier
+   * 分类帐标识符*/
   private long id;
-  /** The symbol of the currency (ex. "BTC") */
+  /** The symbol of the currency (ex. "BTC")
+   * 货币符号（例如“BTC”） */
   private String currency;
 
   private Object placeHolder0;
-  /** Timestamp in milliseconds */
+  /** Timestamp in milliseconds
+   * 以毫秒为单位的时间戳*/
   private long timestamp;
 
   private Object placeHolder1;
-  /** Amount of funds moved */
+  /** Amount of funds moved
+   * 转移的资金数额*/
   private BigDecimal amount;
-  /** New balance */
+  /** New balance  新 余额*/
   private BigDecimal balance;
 
   private Object placeHolder2;
-  /** Description of ledger transaction */
+  /** Description of ledger transaction
+   * 账本交易说明 */
   private String description;
 
   public Date getTimestamp() {

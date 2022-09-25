@@ -8,6 +8,7 @@ import java.util.Date;
 
 /**
  * Data object representing a CandleStick
+ * * 代表烛台的数据对象
  */
 @JsonDeserialize(builder = CandleStick.Builder.class)
 public class CandleStick {
@@ -19,7 +20,7 @@ public class CandleStick {
     private final BigDecimal close;
     private final BigDecimal volume;
     private final BigDecimal quotaVolume;
-    private final BigDecimal vwap; // these 5 fields can be null if not provided by the exchange
+    private final BigDecimal vwap; // these 5 fields can be null if not provided by the exchange 如果交易所不提供，这 5 个字段可以为空
     private final BigDecimal bid;
     private final BigDecimal bidSize;
     private final BigDecimal ask;

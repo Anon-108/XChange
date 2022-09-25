@@ -12,6 +12,7 @@ public class BankeraMarketDataServiceDemo {
     MarketDataService marketDataService = exchange.getMarketDataService();
 
     // Get the market data ticker
+    // 获取市场数据代码
     Ticker ticker = marketDataService.getTicker(CurrencyPair.ETH_BTC);
     System.out.println("Ticker as String: " + ticker.toString());
   }

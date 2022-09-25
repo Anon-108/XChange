@@ -13,11 +13,17 @@ import org.knowm.xchange.instrument.Instrument;
 
 /**
  * DTO representing a market order
+ * * DTO 代表市价单
  *
  * <p>A market order is a buy or sell order to be executed immediately at current market prices. As
- * long as there are willing sellers and buyers, market orders are filled. Market orders are
- * therefore used when certainty of execution is a priority over price of execution. <strong>Use
- * market orders with caution, and review {@link LimitOrder} in case it is more suitable.</strong>
+  long as there are willing sellers and buyers, market orders are filled. Market orders are
+  therefore used when certainty of execution is a priority over price of execution. <strong>Use
+  market orders with caution, and review {@link LimitOrder} in case it is more suitable.</strong>
+ <p>市价单是以当前市场价格立即执行的买入或卖出订单。 作为
+ 只要有愿意的卖家和买家，市场订单就会被执行。 市场订单是
+ 因此，当执行的确定性优先于执行价格时使用。 <strong>使用
+ 谨慎使用市价单，并查看 {@link LimitOrder} 以防更合适。</strong>
+
  */
 @JsonDeserialize(builder = MarketOrder.Builder.class)
 public class MarketOrder extends Order {
@@ -26,15 +32,31 @@ public class MarketOrder extends Order {
 
   /**
    * @param type Either BID (buying) or ASK (selling)
+   *             BID（买入）或 ASK（卖出）
+   *
    * @param originalAmount The amount to trade
+   *                       交易金额
+   *
    * @param instrument The identifier (e.g. BTC/USD)
+   *                   标识符（例如 BTC/USD）
+   *
    * @param id An id (usually provided by the exchange)
-   * @param timestamp a Date object representing the order's timestamp according to the exchange's
-   *     server, null if not provided
+   *           一个 id（通常由交易所提供）
+   *
+   * @param timestamp a Date object representing the order's timestamp according to the exchange's  server, null if not provided
+   *                  一个 Date 对象，表示根据交易所服务器的订单时间戳，如果未提供，则为 null
+   *
    * @param averagePrice the weighted average price of any fills belonging to the order
+   *                     属于订单的任何成交的加权平均价格
+   *
    * @param cumulativeAmount the amount that has been filled
+   *                         已填写的金额
+   *
    * @param fee the fee associated with this order
+   *            与此订单相关的费用
+   *
    * @param status the status of the order at the exchange or broker
+   *               交易所或经纪人的订单状态
    */
   public MarketOrder(
       OrderType type,
@@ -62,15 +84,31 @@ public class MarketOrder extends Order {
 
   /**
    * @param type Either BID (buying) or ASK (selling)
+   *             BID（买入）或 ASK（卖出）
+   *
    * @param originalAmount The amount to trade
+   *                       交易金额
+   *
    * @param instrument The identifier (e.g. BTC/USD)
+   *                   标识符（例如 BTC/USD）
+   *
    * @param id An id (usually provided by the exchange)
-   * @param timestamp a Date object representing the order's timestamp according to the exchange's
-   *     server, null if not provided
+   *           一个 id（通常由交易所提供）
+   *
+   * @param timestamp a Date object representing the order's timestamp according to the exchange's  server, null if not provided
+   *                  一个 Date 对象，表示根据交易所服务器的订单时间戳，如果未提供，则为 null
+   *
    * @param averagePrice the weighted average price of any fills belonging to the order
+   *                     属于订单的任何成交的加权平均价格
+   *
    * @param cumulativeAmount the amount that has been filled
+   *                         已填写的金额
+   *
    * @param fee the fee associated with this order
+   *            与此订单相关的费用
+   *
    * @param status the status of the order at the exchange or broker
+   *               交易所或经纪人的订单状态
    */
   public MarketOrder(
       OrderType type,
@@ -96,10 +134,19 @@ public class MarketOrder extends Order {
 
   /**
    * @param type Either BID (buying) or ASK (selling)
+   *             BID（买入）或 ASK（卖出）
+   *
    * @param originalAmount The amount to trade
+   *                       交易金额
+   *
    * @param instrument The identifier (e.g. BTC/USD)
+   *                   标识符（例如 BTC/USD）
+   *
    * @param id An id (usually provided by the exchange)
+   *           一个 id（通常由交易所提供）
+   *
    * @param timestamp the absolute time for this order
+   *                  此订单的绝对时间
    */
   public MarketOrder(
       OrderType type, BigDecimal originalAmount, Instrument instrument, String id, Date timestamp) {
@@ -109,9 +156,16 @@ public class MarketOrder extends Order {
 
   /**
    * @param type Either BID (buying) or ASK (selling)
+   *             BID（买入）或 ASK（卖出）
+   *
    * @param originalAmount The amount to trade
+   *                       交易金额
+   *
    * @param instrument The identifier (e.g. BTC/USD)
+   *                   标识符（例如 BTC/USD）
+   *
    * @param timestamp the absolute time for this order
+   *                  此订单的绝对时间
    */
   public MarketOrder(
       OrderType type, BigDecimal originalAmount, Instrument instrument, Date timestamp) {
@@ -121,8 +175,13 @@ public class MarketOrder extends Order {
 
   /**
    * @param type Either BID (buying) or ASK (selling)
+   *             BID（买入）或 ASK（卖出）
+   *
    * @param originalAmount The amount to trade
+   *                       交易金额
+   *
    * @param instrument The identifier (e.g. BTC/USD)
+   *                   标识符（例如 BTC/USD）
    */
   public MarketOrder(OrderType type, BigDecimal originalAmount, Instrument instrument) {
 

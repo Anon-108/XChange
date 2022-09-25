@@ -27,7 +27,7 @@ public class TradesTest {
       new Trades.TradeIDComparator().compare(t3, t1);
       new Trades.TradeIDComparator().compare(t3, t4);
     } catch (Exception e) {
-      Assert.fail("Could not compare trades");
+      Assert.fail("Could not compare trades 无法比较交易");
     }
   }
 

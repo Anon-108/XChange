@@ -67,7 +67,8 @@ public class BitfinexTradeService extends BitfinexTradeServiceRaw implements Tra
     }
   }
 
-  /** Bitfinex API does not provide filtering option. So we should filter orders ourselves */
+  /** Bitfinex API does not provide filtering option. So we should filter orders ourselves
+   * Bitfinex API 不提供过滤选项。 所以我们应该自己过滤订单 */
   @SuppressWarnings("unchecked")
   private OpenOrders filterOrders(OpenOrders rawOpenOrders, OpenOrdersParams params) {
     if (params == null) {
@@ -137,7 +138,7 @@ public class BitfinexTradeService extends BitfinexTradeServiceRaw implements Tra
   public String placeStopOrder(StopOrder stopOrder) throws IOException {
     if (stopOrder.getLimitPrice() != null) {
       throw new NotYetImplementedForExchangeException(
-          "Limit stops are not supported by the Bitfinex v1 API.");
+          "Limit stops are not supported by the Bitfinex v1 API. Bitfinex v1 API 不支持限位点。");
     }
     LimitOrder limitOrder =
         new LimitOrder(
@@ -173,17 +174,19 @@ public class BitfinexTradeService extends BitfinexTradeServiceRaw implements Tra
       }
 
       throw new IllegalArgumentException(
-          String.format("Unknown parameter type: %s", orderParams.getClass()));
+          String.format("Unknown parameter type 未知参数类型: %s", orderParams.getClass()));
     } catch (BitfinexException e) {
       throw BitfinexErrorAdapter.adapt(e);
     }
   }
 
   /**
-   * @param params Implementation of {@link TradeHistoryParamCurrencyPair} is mandatory. Can
-   *     optionally implement {@link TradeHistoryParamPaging} and {@link
-   *     TradeHistoryParamsTimeSpan#getStartTime()}. All other TradeHistoryParams types will be
-   *     ignored.
+   * @param params Implementation of {@link TradeHistoryParamCurrencyPair} is mandatory.
+   *               Can optionally implement {@link TradeHistoryParamPaging} and {@link   TradeHistoryParamsTimeSpan#getStartTime()}.
+   *               All other TradeHistoryParams types will be  ignored.
+   *               {@link TradeHistoryParamCurrencyPair} 的实施是强制性的。
+   *     * 可以选择实现 {@link TradeHistoryParamPaging} 和 {@link TradeHistoryParamsTimeSpan#getStartTime()}。
+   *     * 所有其他 TradeHistoryParams 类型将被忽略。
    */
   @Override
   public UserTrades getTradeHistory(TradeHistoryParams params) throws IOException {

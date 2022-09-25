@@ -10,59 +10,78 @@ public class CurrencyPairMetaData implements Serializable {
 
   private static final long serialVersionUID = 4749144540694704221L;
 
-  /** Trading fee (fraction) */
+  /** Trading fee (fraction)
+   * 交易费（分数）*/
   @JsonProperty("trading_fee")
   private final BigDecimal tradingFee;
 
-  /** Trading fee tiers by volume (fraction). Sorted in ascending order by quantity */
+  /** Trading fee tiers by volume (fraction). Sorted in ascending order by quantity
+   * 按交易量（分数）计算的交易费用等级。 按数量升序排列*/
   @JsonProperty("fee_tiers")
   private final FeeTier[] feeTiers;
 
-  /** Minimum trade amount */
+  /** Minimum trade amount
+   * 最低交易金额 */
   @JsonProperty("min_amount")
   private final BigDecimal minimumAmount;
 
-  /** Maximum trade amount */
+  /** Maximum trade amount
+   * 最大交易金额 */
   @JsonProperty("max_amount")
   private final BigDecimal maximumAmount;
 
-  /** Minimum trade amount */
+  /** Minimum trade amount
+   * 最低交易金额*/
   @JsonProperty("counter_min_amount")
   private final BigDecimal counterMinimumAmount;
 
-  /** Maximum trade amount */
+  /** Maximum trade amount
+   * 最大交易金额*/
   @JsonProperty("counter_max_amount")
   private final BigDecimal counterMaximumAmount;
 
-  /** Decimal places for base amount */
+  /** Decimal places for base amount
+   * 基本金额的小数位 */
   @JsonProperty("base_scale")
   private final Integer baseScale;
 
-  /** Decimal places for counter amount */
+  /** Decimal places for counter amount
+   * 计数器金额的小数位 */
   @JsonProperty("price_scale")
   private final Integer priceScale;
 
-  /** Decimal places for volume amount */
+  /** Decimal places for volume amount
+   * 数量的小数位*/
   @JsonProperty("volume_scale")
   private final Integer volumeScale;
 
-  /** Amount step size. If set, any amounts must be a multiple of this */
+  /** Amount step size. If set, any amounts must be a multiple of this
+   * 量步长。 如果设置，任何金额必须是这个的倍数*/
   @JsonProperty("amount_step_size")
   private final BigDecimal amountStepSize;
 
-  /** Currency that will be used to change for this trade. */
+  /** Currency that will be used to change for this trade.
+   * 将用于更改此交易的货币。 */
   private final Currency tradingFeeCurrency;
 
-  /** Is market order type allowed on this pair. */
+  /** Is market order type allowed on this pair.
+   * 该货币对是否允许市价单类型。 */
   private final boolean marketOrderEnabled;
 
   /**
    * Constructor
    *
    * @param tradingFee Trading fee (fraction)
+   *                   交易费（分数）
+   *
    * @param minimumAmount Minimum trade amount
+   *                      最低交易金额
+   *
    * @param maximumAmount Maximum trade amount
+   *                      最大交易金额
+   *
    * @param priceScale Price scale
+   *                   价格尺度
    */
   public CurrencyPairMetaData(
       BigDecimal tradingFee,
@@ -89,10 +108,19 @@ public class CurrencyPairMetaData implements Serializable {
    * Constructor
    *
    * @param tradingFee Trading fee (fraction)
+   *                   交易费（分数）
+   *
    * @param minimumAmount Minimum trade amount
+   *                      最低交易金额
+   *
    * @param maximumAmount Maximum trade amount
+   *                      最大交易金额
+   *
    * @param priceScale Price scale
+   *                   价格尺度
+   *
    * @param amountStepSize Amounts must be a multiple of this amount if set.
+   *                       如果设置，金额必须是该金额的倍数。
    */
   public CurrencyPairMetaData(
       BigDecimal tradingFee,
@@ -143,10 +171,19 @@ public class CurrencyPairMetaData implements Serializable {
    * Constructor
    *
    * @param tradingFee Trading fee (fraction)
+   *                   交易费（分数）
+   *
    * @param minimumAmount Minimum trade amount
+   *                      最低交易金额
+   *
    * @param maximumAmount Maximum trade amount
+   *                      最大交易金额
+   *
    * @param priceScale Price scale
+   *                   价格尺度
+   *
    * @param amountStepSize Amounts must be a multiple of this amount if set.
+   *                       如果设置，金额必须是该金额的倍数。
    */
   public CurrencyPairMetaData(
       @JsonProperty("trading_fee") BigDecimal tradingFee,

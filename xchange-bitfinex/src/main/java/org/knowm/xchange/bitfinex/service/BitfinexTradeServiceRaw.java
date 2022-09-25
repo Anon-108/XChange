@@ -159,7 +159,7 @@ public class BitfinexTradeServiceRaw extends BitfinexBaseService {
       LimitOrder limitOrder, BitfinexOrderType orderType, long replaceOrderId) throws IOException {
     if (limitOrder instanceof BitfinexLimitOrder
         && ((BitfinexLimitOrder) limitOrder).getOcoStopLimit() != null) {
-      throw new ExchangeException("OCO orders are not yet editable");
+      throw new ExchangeException("OCO orders are not yet editable OCO 订单尚不可编辑");
     }
     return sendLimitOrder(limitOrder, orderType, replaceOrderId);
   }
@@ -190,7 +190,7 @@ public class BitfinexTradeServiceRaw extends BitfinexBaseService {
     }
 
     BitfinexOrderStatusResponse response;
-    if (replaceOrderId == Long.MIN_VALUE) { // order entry
+    if (replaceOrderId == Long.MIN_VALUE) { // order entry // 订单入口
       BigDecimal ocoAmount =
           limitOrder instanceof BitfinexLimitOrder
               ? ((BitfinexLimitOrder) limitOrder).getOcoStopLimit()
@@ -213,7 +213,7 @@ public class BitfinexTradeServiceRaw extends BitfinexBaseService {
               .withRateLimiter(rateLimiter(BITFINEX_RATE_LIMITER))
               .call();
 
-    } else { // order amend
+    } else { // order amend // 订单修改
       boolean useRemaining = limitOrder.hasFlag(BitfinexOrderFlags.USE_REMAINING);
 
       BitfinexReplaceOrderRequest request =
@@ -349,7 +349,7 @@ public class BitfinexTradeServiceRaw extends BitfinexBaseService {
           .call();
       return true;
     } catch (BitfinexException e) {
-      if (e.getMessage().equals("Order could not be cancelled.")) {
+      if (e.getMessage().equals("Order could not be cancelled. 无法取消订单。")) {
         return false;
       } else {
         throw e;
@@ -372,7 +372,7 @@ public class BitfinexTradeServiceRaw extends BitfinexBaseService {
           .call();
       return true;
     } catch (BitfinexException e) {
-      if (e.getMessage().equals("Orders could not be cancelled.")) {
+      if (e.getMessage().equals("Orders could not be cancelled. 无法取消订单。")) {
         return false;
       } else {
         throw e;
@@ -586,7 +586,7 @@ public class BitfinexTradeServiceRaw extends BitfinexBaseService {
 
   public List<ActiveOrder> getBitfinexActiveOrdesV2(String symbol) throws IOException {
     if (symbol == null) {
-      symbol = ""; // for empty symbol all active orders are returned
+      symbol = ""; // for empty symbol all active orders are returned  // 对于空品种，返回所有活跃订单
     }
     final String symbol2 = symbol;
     return decorateApiCall(
@@ -606,7 +606,7 @@ public class BitfinexTradeServiceRaw extends BitfinexBaseService {
     if (symbol == null || orderId == null)
       throw new NullPointerException(
           String.format(
-              "Invalid request fields symbol [%s] and orderId [%s] are mandatory for get order trades call",
+              "Invalid request fields symbol 无效的请求字段符号 [%s] and orderId 和 orderId [%s] are mandatory for get order trades call 对于获取订单交易调用是强制性的",
               symbol, orderId));
 
     return decorateApiCall(

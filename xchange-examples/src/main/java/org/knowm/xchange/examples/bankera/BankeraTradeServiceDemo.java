@@ -11,6 +11,7 @@ public class BankeraTradeServiceDemo {
     TradeService tradeService = exchange.getTradeService();
 
     // Get the open orders
+    // 获取未结订单
     OpenOrders openOrders = tradeService.getOpenOrders();
     System.out.println("OpenOrders as String: " + openOrders.toString());
   }

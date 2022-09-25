@@ -85,11 +85,13 @@ public class BitfinexAdaptersTest {
   @Test
   public void shouldAdaptBalances() throws IOException {
     // Read in the JSON from the example resources
+    // 从示例资源中读取 JSON
     InputStream is =
         BitfinexWalletJSONTest.class.getResourceAsStream(
             "/org/knowm/xchange/bitfinex/v1/dto/account/example-account-info-balance.json");
 
     // Use Jackson to parse it
+    // 使用 Jackson 解析
     ObjectMapper mapper = new ObjectMapper();
     BitfinexBalancesResponse[] response = mapper.readValue(is, BitfinexBalancesResponse[].class);
 
@@ -171,8 +173,9 @@ public class BitfinexAdaptersTest {
 
   /**
    * Create 60 {@link BitfinexLevel}s. The values increase as the array index does. The timestamps
-   * increase by 1 second + 1 minute + 1 hour + 1 day in order to test the correct handling of the
-   * given timestamp.
+    increase by 1 second + 1 minute + 1 hour + 1 day in order to test the correct handling of the   given timestamp.
+   创建 60 个 {@link BitfinexLevel}。 这些值随着数组索引的增加而增加。 时间戳
+   增加 1 秒 + 1 分钟 + 1 小时 + 1 天，以测试给定时间戳的正确处理。
    *
    * @return The generated responses.
    */
@@ -218,11 +221,14 @@ public class BitfinexAdaptersTest {
   }
 
   /**
-   * Create 60 {@link BitfinexOrderStatusResponse}s. The values increase as array index does. The
-   * timestamps increase by 1 second + 1 minute + 1 hour + 1 day in order to test the correct
-   * handling of the given timestamp.
+   * Create 60 {@link BitfinexOrderStatusResponse}s. The values increase as array index does.
+    The timestamps increase by 1 second + 1 minute + 1 hour + 1 day in order to test the correct handling of the given timestamp.
+
+   创建 60 个 {@link BitfinexOrderStatusResponse}。 这些值随着数组索引的增加而增加。
+   时间戳增加 1 秒 + 1 分钟 + 1 小时 + 1 天，以测试给定时间戳的正确处理。
    *
    * @return The generated responses.
+   * * @return 生成的响应。
    */
   private BitfinexOrderStatusResponse[] initOrderStatusResponses() {
 
@@ -286,11 +292,13 @@ public class BitfinexAdaptersTest {
   }
 
   /**
-   * Create 60 {@link BitfinexTradeResponse}s. The values increase as array index does. The
-   * timestamps increase by 1 second + 1 minute + 1 hour + 1 day in order to test the correct
-   * handling of the given timestamp.
+   * Create 60 {@link BitfinexTradeResponse}s. The values increase as array index does.
+   The timestamps increase by 1 second + 1 minute + 1 hour + 1 day in order to test the correct handling of the given timestamp.
+   创建 60 个 {@link BitfinexTradeResponse}。 这些值随着数组索引的增加而增加。
+   时间戳增加 1 秒 + 1 分钟 + 1 小时 + 1 天，以测试给定时间戳的正确处理。
    *
    * @return The generated responses.
+   * @return 生成的响应。
    */
   private BitfinexTradeResponse[] initTradeResponses() {
 
@@ -329,6 +337,7 @@ public class BitfinexAdaptersTest {
   public void testAdaptFundingHistory() throws IOException {
 
     // Read in the JSON from the example resources
+    // 从示例资源中读取 JSON
     InputStream is =
         BitfinexAdaptersTest.class.getResourceAsStream(
             "/org/knowm/xchange/bitfinex/v1/dto/account/example-deposit-withdrawal-info-data.json");

@@ -31,7 +31,7 @@ public class ArrayUtils {
       if (arrayElement != null && !expectedType.isAssignableFrom(arrayElement.getClass())) {
         throw new ExchangeException(
             String.format(
-                "Array[%d] element expected type is %s but actual is %s",
+                "Array[%d] element expected type is 元素预期类型是 %s but actual is 但实际是 %s",
                 index, expectedType.getName(), arrayElement.getClass().getName()));
       }
       result = (T) arrayElement;
@@ -42,7 +42,7 @@ public class ArrayUtils {
         result = defaultValue;
       }
       if (errorIfNull && result == null) {
-        throw new ExchangeException("Array[" + index + "] element is NULL");
+        throw new ExchangeException("Array[" + index + "] element is NULL 元素为 NULL");
       }
     }
 

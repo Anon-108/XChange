@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import lombok.extern.slf4j.Slf4j;
 import org.knowm.xchange.BaseExchange;
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.ExchangeSpecification;
@@ -23,7 +25,7 @@ import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.exceptions.ExchangeException;
 import org.knowm.xchange.utils.nonce.AtomicLongIncrementalTime2013NonceFactory;
 import si.mazi.rescu.SynchronizedValueFactory;
-
+@Slf4j
 public class BitfinexExchange extends BaseExchange implements Exchange {
 
   private static ResilienceRegistries RESILIENCE_REGISTRIES;
@@ -48,7 +50,11 @@ public class BitfinexExchange extends BaseExchange implements Exchange {
 
   @Override
   public ExchangeSpecification getDefaultExchangeSpecification() {
-
+    // 请求代理接口  仅在本地测试开启
+//    System.setProperty("proxyType", "4");
+//    System.setProperty("proxyPort", Integer.toString(10809));
+//    System.setProperty("proxyHost", "127.0.0.1");
+//    System.setProperty("proxySet", "true");
     ExchangeSpecification exchangeSpecification = new ExchangeSpecification(this.getClass());
     exchangeSpecification.setSslUri("https://api.bitfinex.com/");
     exchangeSpecification.setHost("api.bitfinex.com");
@@ -57,6 +63,12 @@ public class BitfinexExchange extends BaseExchange implements Exchange {
     exchangeSpecification.setExchangeDescription("BitFinex is a bitcoin exchange.");
     exchangeSpecification.getResilience().setRateLimiterEnabled(true);
     exchangeSpecification.getResilience().setRetryEnabled(true);
+    // TODO 请求代理接口  仅在本地测试开启
+//    exchangeSpecification.setProxyHost("127.0.0.1");
+//    exchangeSpecification.setProxyPort(10809);
+//    log.info("当前代理地址为:"+exchangeSpecification.getProxyHost());
+//    log.info("当前代理端口为:"+exchangeSpecification.getProxyPort());
+
 
     return exchangeSpecification;
   }
@@ -76,8 +88,8 @@ public class BitfinexExchange extends BaseExchange implements Exchange {
       List<CurrencyPair> currencyPairs = dataService.getExchangeSymbols();
       exchangeMetaData = BitfinexAdapters.adaptMetaData(currencyPairs, exchangeMetaData);
 
-      // Get the last-price of each pair. It is needed to infer XChange's priceScale out of
-      // Bitfinex's pricePercision
+      // Get the last-price of each pair. It is needed to infer XChange's priceScale out of Bitfinex's pricePercision
+      // 获取每对的最后价格。 需要从 Bitfinex 的 pricePercision 中推断出 XChange 的 priceScale
 
       Map<CurrencyPair, BigDecimal> lastPrices =
           Arrays.stream(dataService.getBitfinexTickers(null))
@@ -90,12 +102,13 @@ public class BitfinexExchange extends BaseExchange implements Exchange {
 
       if (exchangeSpecification.getApiKey() != null
           && exchangeSpecification.getSecretKey() != null) {
-        // Bitfinex does not provide any specific wallet health info
-        // So instead of wallet status, fetch platform status to get wallet health
+        // Bitfinex does not provide any specific wallet health info So instead of wallet status, fetch platform status to get wallet health
+        // Bitfinex 不提供任何特定的钱包健康信息 所以不是钱包状态，而是获取平台状态来获取钱包健康
         Integer bitfinexPlatformStatusData = dataService.getBitfinexPlatformStatus()[0];
         boolean bitfinexPlatformStatusPresent = bitfinexPlatformStatusData != null;
         int bitfinexPlatformStatus = bitfinexPlatformStatusPresent ? bitfinexPlatformStatusData : 0;
         // Additional remoteInit configuration for authenticated instances
+        // 已验证实例的附加 remoteInit 配置
         BitfinexAccountService accountService = (BitfinexAccountService) this.accountService;
         final BitfinexAccountFeesResponse accountFees = accountService.getAccountFees();
         exchangeMetaData =

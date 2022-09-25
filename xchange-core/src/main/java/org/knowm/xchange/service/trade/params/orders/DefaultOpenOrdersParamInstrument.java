@@ -42,6 +42,6 @@ public class DefaultOpenOrdersParamInstrument implements OpenOrdersParamInstrume
 
   @Override
   public String toString() {
-    return String.format("DefaultOpenOrdersParamInstrument{%s}", instrument);
+    return String.format("DefaultOpenOrdersParamInstrument 默认未结订单参数工具{%s}", instrument);
   }
 }

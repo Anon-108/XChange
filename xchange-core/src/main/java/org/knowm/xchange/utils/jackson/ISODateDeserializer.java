@@ -9,7 +9,9 @@ import org.knowm.xchange.utils.DateUtils;
 
 /**
  * Deserializes an ISO formatted Date String to a Java Date ISO format:
- * 'yyyy-MM-dd'T'HH:mm:ss.SSS'Z''
+  'yyyy-MM-dd'T'HH:mm:ss.SSS'Z''
+ 将 ISO 格式的日期字符串反序列化为 Java 日期 ISO 格式：
+ 'yyyy-MM-dd'T'HH:mm:ss.SSS'Z''
  *
  * @author jamespedwards42
  */

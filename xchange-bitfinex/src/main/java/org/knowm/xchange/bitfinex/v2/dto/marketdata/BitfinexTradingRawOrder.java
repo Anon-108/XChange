@@ -14,10 +14,13 @@ import lombok.Value;
 @Value
 @NoArgsConstructor(force = true, access = AccessLevel.PRIVATE)
 public class BitfinexTradingRawOrder {
-  /** Order ID */
+  /** Order ID
+   * 订单编号*/
   long orderId;
-  /** Price level */
+  /** Price level
+   * 价格水平*/
   BigDecimal price;
-  /** Total amount available at that price level. if AMOUNT > 0 then bid else ask. */
+  /** Total amount available at that price level. if AMOUNT > 0 then bid else ask.
+   * 在该价格水平下可用的总量。 如果 AMOUNT > 0 然后出价，否则询问。*/
   BigDecimal amount;
 }

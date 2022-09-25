@@ -19,7 +19,8 @@ public final class ResilienceUtils {
     return new DecorateCallableApi<>(resilienceSpecification, callable);
   }
 
-  /** Function which can be used check if a particular HTTP status code was returned */
+  /** Function which can be used check if a particular HTTP status code was returned
+   * 可用于检查是否返回特定 HTTP 状态代码的函数*/
   public static boolean matchesHttpCode(
       final Either<? extends Throwable, ?> e, final Response.Status status) {
     if (e.isRight()) {

@@ -11,7 +11,8 @@ import lombok.Value;
 @Value
 @NoArgsConstructor(force = true, access = AccessLevel.PRIVATE)
 public class BitfinexTradingOrder {
-  /** Price level */
+  /** Price level
+   * 价格水平*/
   BigDecimal price;
   /** Number of orders at that price level */
   int count;

@@ -25,7 +25,7 @@ public class BitfinexTicker {
    * @param low
    * @param high
    * @param last
-   * @param timestamp
+   * @param timestamp 时间戳
    * @param volume
    */
   public BitfinexTicker(

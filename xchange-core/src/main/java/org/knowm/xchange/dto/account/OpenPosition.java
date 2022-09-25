@@ -11,18 +11,23 @@ import org.knowm.xchange.instrument.Instrument;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class OpenPosition implements Serializable {
-  /** The instrument */
+  /** The instrument  这个仪器/仪表*/
   private final Instrument instrument;
-  /** Is this a long or a short position */
+  /** Is this a long or a short position
+   * 这是多头头寸还是空头头寸 */
   private final Type type;
-  /** The size of the position */
+  /** The size of the position
+   * 职位大小 */
   private final BigDecimal size;
-  /** The average entry price for the position */
+  /** The average entry price for the position
+   * 该头寸的平均入场价 */
   @JsonIgnore private final BigDecimal price;
-  /** The estimatedLiquidationPrice */
+  /** The estimatedLiquidationPrice
+   * 估计的清算价格*/
   @JsonIgnore private final BigDecimal liquidationPrice;
 
-  /** The unrealised pnl of the position */
+  /** The unrealised pnl of the position
+   * 仓位未实现盈亏 */
   @JsonIgnore private final BigDecimal unRealisedPnl;
 
   public OpenPosition(

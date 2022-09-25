@@ -64,7 +64,7 @@ public class OptionsContract extends Instrument
   public OptionsContract(final String symbol) {
     String[] parts = symbol.split("/");
     if (parts.length != 5) {
-      throw new IllegalArgumentException("Could not parse options contract from '" + symbol + "'");
+      throw new IllegalArgumentException("Could not parse options contract from 无法解析期权合同 '" + symbol + "'");
     }
 
     String base = parts[0];
@@ -77,7 +77,7 @@ public class OptionsContract extends Instrument
     try {
       this.expireDate = DATE_PARSER.get().parse(expireDate);
     } catch (ParseException e) {
-      throw new IllegalArgumentException("Could not parse expire date from '" + symbol + "'");
+      throw new IllegalArgumentException("Could not parse expire date from 无法解析过期日期'" + symbol + "'");
     }
     this.strike = new BigDecimal(strike);
     this.type = OptionType.fromString(type);

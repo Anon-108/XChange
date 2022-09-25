@@ -32,7 +32,7 @@ import org.knowm.xchange.utils.DateUtils;
 public class BitfinexAccountService extends BitfinexAccountServiceRaw implements AccountService {
 
   /**
-   * Constructor
+   * Constructor 构造器
    *
    * @param exchange
    */
@@ -50,10 +50,14 @@ public class BitfinexAccountService extends BitfinexAccountServiceRaw implements
 
   /**
    * Withdrawal support
+   * 提款支持
    *
    * @param currency
+   *    货币
    * @param amount
+   *      数量
    * @param address
+   *      地址
    * @return
    * @throws IOException
    */
@@ -62,15 +66,13 @@ public class BitfinexAccountService extends BitfinexAccountServiceRaw implements
       throws IOException {
     try {
       // determine withdrawal type
+      // 判断提现类型
       String type = BitfinexUtils.convertToBitfinexWithdrawalType(currency.toString());
-      // Bitfinex withdeawal can be from different type of wallets    *
-      // we have to use one of these for now: Exchange -
-      // to be able to withdraw instantly after trading for example
-      // The wallet to withdraw from, can be “trading”, “exchange”, or “deposit”.
+      // Bitfinex withdeawal can be from different type of wallets    *  we have to use one of these for now: Exchange -  to be able to withdraw instantly after trading for example  The wallet to withdraw from, can be “trading”, “exchange”, or “deposit”.
+      // Bitfinex 提款可以来自不同类型的钱包 * 我们现在必须使用其中一种： 交易所 - 例如，能够在交易后立即提款 要提款的钱包，可以是“交易”、“交易所”、 或“存款”。
       String walletSelected = "exchange";
-      // We have to convert XChange currencies to Bitfinex currencies: can be “bitcoin”, “litecoin”
-      // or
-      // “ether” or “tether” or “wire”.
+      // We have to convert XChange currencies to Bitfinex currencies: can be “bitcoin”, “litecoin”  or  “ether” or “tether” or “wire”.
+      // 我们必须将 XChange 货币转换为 Bitfinex 货币：可以是“bitcoin”、“litecoin”或“ether”或“tether”或“wire”。
       return withdraw(type, walletSelected, amount, address);
     } catch (BitfinexException e) {
       throw BitfinexErrorAdapter.adapt(e);
@@ -79,11 +81,17 @@ public class BitfinexAccountService extends BitfinexAccountServiceRaw implements
 
   /**
    * Used for XRP withdrawals
+   * * 用于 XRP 提款
    *
    * @param currency
+   *      货币
    * @param amount
+   *      数量
    * @param address
+   *      地址
    * @param tagOrPaymentId
+   *      标签或付款 ID
+   *
    * @return
    * @throws IOException
    */
@@ -92,15 +100,13 @@ public class BitfinexAccountService extends BitfinexAccountServiceRaw implements
       throws IOException {
     try {
       // determine withdrawal type
+      // 判断提现类型
       String type = BitfinexUtils.convertToBitfinexWithdrawalType(currency.toString());
-      // Bitfinex withdeawal can be from different type of wallets    *
-      // we have to use one of these for now: Exchange -
-      // to be able to withdraw instantly after trading for example
-      // The wallet to withdraw from, can be “trading”, “exchange”, or “deposit”.
+      // Bitfinex withdeawal can be from different type of wallets    *   we have to use one of these for now: Exchange -  to be able to withdraw instantly after trading for example The wallet to withdraw from, can be “trading”, “exchange”, or “deposit”.
+      // Bitfinex 提款可以来自不同类型的钱包 * 我们现在必须使用其中一种： 交易所 - 例如，能够在交易后立即提款 要提款的钱包，可以是“交易”、“交易所”、 或“存款”。
       String walletSelected = "exchange";
-      // We have to convert XChange currencies to Bitfinex currencies: can be “bitcoin”, “litecoin”
-      // or
-      // “ether” or “tether” or “wire”.
+      // We have to convert XChange currencies to Bitfinex currencies: can be “bitcoin”, “litecoin”  or  “ether” or “tether” or “wire”.
+      // 我们必须将 XChange 货币转换为 Bitfinex 货币：可以是“bitcoin”、“litecoin”或“ether”或“tether”或“wire”。
       return withdraw(type, walletSelected, amount, address, tagOrPaymentId);
     } catch (BitfinexException e) {
       throw BitfinexErrorAdapter.adapt(e);
@@ -130,7 +136,7 @@ public class BitfinexAccountService extends BitfinexAccountServiceRaw implements
             defaultParams.getCurrency(), defaultParams.getAmount(), defaultParams.getAddress());
       }
 
-      throw new IllegalStateException("Don't know how to withdraw: " + params);
+      throw new IllegalStateException("Don't know how to withdraw 不知道怎么退: " + params);
     } catch (BitfinexException e) {
       throw BitfinexErrorAdapter.adapt(e);
     }

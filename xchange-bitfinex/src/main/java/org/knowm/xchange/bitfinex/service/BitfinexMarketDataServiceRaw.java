@@ -33,9 +33,11 @@ import si.mazi.rescu.HttpStatusIOException;
 
 /**
  * Implementation of the market data service for Bitfinex
+ * 为 Bitfinex 实施市场数据服务
  *
  * <ul>
  *   <li>Provides access to various market data values
+ *   * <li>提供对各种市场数据值的访问
  * </ul>
  */
 public class BitfinexMarketDataServiceRaw extends BitfinexBaseService {
@@ -256,18 +258,32 @@ public class BitfinexMarketDataServiceRaw extends BitfinexBaseService {
 
   /**
    * @see https://docs.bitfinex.com/reference#rest-public-stats1 The Stats endpoint provides various
-   *     statistics on a specified trading pair or funding currency. Use the available keys to
-   *     specify which statistic you wish to retrieve. Please note that the "Side" path param is
-   *     only required for the pos.size key.
-   * @param key Allowed values: "funding.size", "credits.size", "credits.size.sym", "pos.size",
-   *     "vol.1d", "vol.7d", "vol.30d", "vwap"
+        statistics on a specified trading pair or funding currency. Use the available keys to
+        specify which statistic you wish to retrieve. Please note that the "Side" path param is
+        only required for the pos.size key.
+   @see https://docs.bitfinex.com/reference#rest-public-stats1 Stats 端点提供了各种
+   指定交易对或资金货币的统计数据。 使用可用的键
+   指定要检索的统计信息。 请注意，“Side”路径参数是
+   仅 pos.size 键需要。
+
+   * @param key Allowed values: "funding.size", "credits.size", "credits.size.sym", "pos.size","vol.1d", "vol.7d", "vol.30d", "vwap"
+   *            允许的值：“funding.size”、“credits.size”、“credits.size.sym”、“pos.size”、“vol.1d”、“vol.7d”、“vol.30d”、“vwap”
+   *
    * @param size Available values: "30m", "1d", '1m'
+   *             可用值：“30m”、“1d”、“1m”
+   *
    * @param symbol The symbol you want information about. (e.g. tBTCUSD, tETHUSD, fUSD, fBTC)
+   *               您想要了解的符号。 （例如 tBTCUSD、tETHUSD、fUSD、fBTC）
    * @param side Available values: "long", "short". Only for non-funding queries.
+   *             可用值：“长”、“短”。 仅适用于非资金查询。
    * @param sort if = 1 it sorts results returned with old > new
+   *             if = 1 它对返回的结果进行排序 old > new
    * @param startTimestamp Millisecond start time
+   *                       毫秒开始时间
    * @param endTimestamp Millisecond end time
+   *                     毫秒结束时间
    * @param limit Number of records (Max: 10000)
+   *              记录数（最大：10000）
    * @return
    * @throws IOException
    */
@@ -293,9 +309,16 @@ public class BitfinexMarketDataServiceRaw extends BitfinexBaseService {
   /**
    * @see https://docs.bitfinex.com/reference#rest-public-book
    * @param symbol The symbol you want information about. (e.g. tBTCUSD, tETHUSD, fUSD, fBTC)
+   *               您想要了解的符号。 （例如 tBTCUSD、tETHUSD、fUSD、fBTC）
+   *
    * @param precision Level of price aggregation (P0, P1, P2, P3, P4, R0)
+   *                  价格聚合级别（P0、P1、P2、P3、P4、R0）
+   *
    * @param len Number of price points ("1", "25", "100")
+   *            价格点数（“1”、“25”、“100”）
+   *
    * @return list of orders in the book
+   *        书中的订单清单
    * @throws IOException
    */
   public List<BitfinexTradingOrder> tradingBook(String symbol, BookPrecision precision, Integer len)
@@ -308,8 +331,13 @@ public class BitfinexMarketDataServiceRaw extends BitfinexBaseService {
   /**
    * @see https://docs.bitfinex.com/reference#rest-public-book
    * @param symbol The symbol you want information about. (e.g. tBTCUSD, tETHUSD, fUSD, fBTC)
+   *               您想要了解的符号。 （例如 tBTCUSD、tETHUSD、fUSD、fBTC）
+   *
    * @param len Number of price points ("1", "25", "100")
+   *            价格点数（“1”、“25”、“100”）
+   *
    * @return list of orders in the book
+   *        书中的订单清单
    * @throws IOException
    */
   public List<BitfinexTradingRawOrder> tradingBookRaw(String symbol, Integer len)
@@ -323,9 +351,14 @@ public class BitfinexMarketDataServiceRaw extends BitfinexBaseService {
   /**
    * @see https://docs.bitfinex.com/reference#rest-public-book
    * @param symbol The symbol you want information about. (e.g. tBTCUSD, tETHUSD, fUSD, fBTC)
+   *               您想要了解的符号。 （例如 tBTCUSD、tETHUSD、fUSD、fBTC）
+   *
    * @param precision Level of price aggregation (P0, P1, P2, P3, P4, R0)
+   *                  价格聚合级别（P0、P1、P2、P3、P4、R0）
+   *
    * @param len Number of price points ("1", "25", "100")
-   * @return list of orders in the book
+   *            价格点数（“1”、“25”、“100”）
+   * @return list of orders in the book  书中的订单清单
    * @throws IOException
    */
   public List<BitfinexFundingOrder> fundingBook(String symbol, BookPrecision precision, Integer len)
@@ -338,8 +371,13 @@ public class BitfinexMarketDataServiceRaw extends BitfinexBaseService {
   /**
    * @see https://docs.bitfinex.com/reference#rest-public-book
    * @param symbol The symbol you want information about. (e.g. tBTCUSD, tETHUSD, fUSD, fBTC)
+   *               您想要了解的符号。 （例如 tBTCUSD、tETHUSD、fUSD、fBTC）
+   *
    * @param len Number of price points ("1", "25", "100")
+   *            价格点数（“1”、“25”、“100”）
+   *
    * @return list of orders in the book
+   *        书中的订单清单
    * @throws IOException
    */
   public List<BitfinexFundingRawOrder> fundingBookRaw(String symbol, Integer len)

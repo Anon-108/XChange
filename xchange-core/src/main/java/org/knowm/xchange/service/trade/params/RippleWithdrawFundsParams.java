@@ -5,7 +5,7 @@ import javax.annotation.Nullable;
 import org.knowm.xchange.currency.Currency;
 
 public class RippleWithdrawFundsParams extends DefaultWithdrawFundsParams {
-  @Nullable public final String tag; // optional
+  @Nullable public final String tag; // optional 可选的
 
   public RippleWithdrawFundsParams(String address, Currency currency, BigDecimal amount) {
     this(address, currency, amount, null);

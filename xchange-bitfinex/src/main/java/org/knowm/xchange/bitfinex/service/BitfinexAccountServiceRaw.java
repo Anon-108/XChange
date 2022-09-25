@@ -39,7 +39,7 @@ import org.knowm.xchange.exceptions.ExchangeException;
 public class BitfinexAccountServiceRaw extends BitfinexBaseService {
 
   /**
-   * Constructor
+   * Constructor 构造器
    *
    * @param exchange
    */

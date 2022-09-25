@@ -15,6 +15,6 @@ public class NonceException extends ExchangeException {
   }
 
   public NonceException() {
-    super("Something went wrong with using the provided Nonce.");
+    super("Something went wrong with using the provided Nonce. 使用提供的 Nonce 出现问题。");
   }
 }

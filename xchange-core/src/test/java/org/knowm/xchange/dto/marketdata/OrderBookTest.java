@@ -88,7 +88,7 @@ public class OrderBookTest {
             .originalAmount(BigDecimal.ONE)
             .limitPrice(BigDecimal.TEN)
             .timestamp(timeStamp)
-            .cumulativeAmount(BigDecimal.ONE) // remaining amount is now 0
+            .cumulativeAmount(BigDecimal.ONE) // remaining amount is now 0 // 剩余金额现在为 0
             .build();
     orderBook.update(limitOrder);
     assertThat(orderBook.getBids().size()).isEqualTo(0);

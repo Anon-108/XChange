@@ -10,7 +10,8 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.concurrent.TimeUnit;
 
-/** Describe a call rate limit as a number of calls per some time span. */
+/** Describe a call rate limit as a number of calls per some time span.
+ * 将呼叫速率限制描述为每个时间跨度的呼叫次数。 */
 public class RateLimit implements Serializable {
 
   private static final long serialVersionUID = 90431040086828390L;
@@ -48,8 +49,9 @@ public class RateLimit implements Serializable {
 
   /**
    * @return this rate limit as a number of milliseconds required between any two remote calls,
-   *     assuming the client makes consecutive calls without any bursts or breaks for an infinite
-   *     period of time.
+        assuming the client makes consecutive calls without any bursts or breaks for an infinite  period of time.
+   @return 此速率限制为任意两个远程调用之间所需的毫秒数，
+   假设客户端在无限时间段内连续调用没有任何突发或中断。
    */
   @JsonIgnore
   public long getPollDelayMillis() {

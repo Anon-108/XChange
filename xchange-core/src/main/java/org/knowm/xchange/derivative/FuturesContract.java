@@ -17,10 +17,12 @@ public class FuturesContract extends Instrument
       Comparator.comparing(FuturesContract::getCurrencyPair)
           .thenComparing(FuturesContract::getPrompt);
 
-  /** The CurrencyPair the FuturesContract is based upon */
+  /** The CurrencyPair the FuturesContract is based upon
+   * 期货合约所基于的货币对 */
   private final CurrencyPair currencyPair;
 
-  /** The Date when the FuturesContract expires, when null it is perpetual */
+  /** The Date when the FuturesContract expires, when null it is perpetual
+   * FuturesContract 到期的日期，如果为 null，则为永久*/
   private final String prompt;
 
   public FuturesContract(CurrencyPair currencyPair, String prompt) {
@@ -32,7 +34,7 @@ public class FuturesContract extends Instrument
   public FuturesContract(final String symbol) {
     String[] parts = symbol.split("/");
     if (parts.length < 3) {
-      throw new IllegalArgumentException("Could not parse futures contract from '" + symbol + "'");
+      throw new IllegalArgumentException("Could not parse futures contract from  无法解析期货合约'" + symbol + "'");
     }
 
     String base = parts[0];

@@ -15,7 +15,8 @@ public class BitfinexPastFundingTradesRequest {
   @JsonProperty("symbol")
   protected String symbol;
 
-  /** Trades made after this timestamp won’t be returned. */
+  /** Trades made after this timestamp won’t be returned.
+   * 在此时间戳之后进行的交易将不会被退回。 */
   @JsonProperty("until")
   @JsonInclude(JsonInclude.Include.NON_NULL)
   protected Date until;

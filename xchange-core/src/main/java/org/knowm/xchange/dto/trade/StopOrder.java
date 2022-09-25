@@ -15,10 +15,14 @@ import org.knowm.xchange.instrument.Instrument;
 
 /**
  * DTO representing a stop order
+ * DTO 代表止损单
  *
  * <p>A stop order lets you set a minimum or maximum price before your trade will be treated by the
- * exchange as a {@link MarketOrder} unless a limit price is also set. There is no guarantee that
- * your conditions will be met on the exchange, so your order may not be executed.
+  exchange as a {@link MarketOrder} unless a limit price is also set. There is no guarantee that
+  your conditions will be met on the exchange, so your order may not be executed.
+ <p>止损单可让您设置最低或最高价格，然后您的交易将被
+ 除非还设置了限价，否则以 {@link MarketOrder} 的形式进行交易。 不能保证
+ 您的条件将在交易所得到满足，因此您的订单可能不会被执行。
  */
 @JsonDeserialize(builder = StopOrder.Builder.class)
 public class StopOrder extends Order implements Comparable<StopOrder> {
@@ -30,29 +34,41 @@ public class StopOrder extends Order implements Comparable<StopOrder> {
     TAKE_PROFIT
   }
 
-  /** The stop price */
+  /** The stop price
+   * 止损价 */
   protected final BigDecimal stopPrice;
   /**
-   * The limit price this should be null if the stop order should be treated as a market order once
-   * the stop price is hit
+   * The limit price this should be null if the stop order should be treated as a market order once the stop price is hit
+   * 如果止损单被视为市价单，则限价应该为空
    */
   protected BigDecimal limitPrice = null;
 
-  /** Some exchanges requires to define the goal of stop order */
+  /** Some exchanges requires to define the goal of stop order
+   * 一些交易所需要定义止损单的目标*/
   protected Intention intention = null;
 
-  /** TrailValue is being used when the stop order is a trailing one */
+  /** TrailValue is being used when the stop order is a trailing one
+   * 当止损单是尾随单时，使用 TrailValue */
   protected BigDecimal trailValue = null;
 
   /**
    * @param type Either BID (buying) or ASK (selling)
+   *             BID（买入）或 ASK（卖出）
+   *
    * @param originalAmount The amount to trade
+   *                       交易金额
+   *
    * @param instrument The identifier (e.g. BTC/USD)
+   *                   标识符（例如 BTC/USD）
+   *
    * @param id An id (usually provided by the exchange)
-   * @param timestamp a Date object representing the order's timestamp according to the exchange's
-   *     server, null if not provided
-   * @param stopPrice In a BID this is the highest acceptable price, in an ASK this is the lowest
-   *     acceptable price
+   *           一个 id（通常由交易所提供）
+   *
+   * @param timestamp a Date object representing the order's timestamp according to the exchange's  server, null if not provided
+   *                  一个 Date 对象，表示根据交易所服务器的订单时间戳，如果未提供，则为 null
+   *
+   * @param stopPrice In a BID this is the highest acceptable price, in an ASK this is the lowest  acceptable price
+   *                  在 BID 中，这是可接受的最高价格，在 ASK 中，这是可接受的最低价格
    */
   public StopOrder(
       OrderType type,
@@ -68,14 +84,25 @@ public class StopOrder extends Order implements Comparable<StopOrder> {
 
   /**
    * @param type Either BID (buying) or ASK (selling)
+   *             BID（买入）或 ASK（卖出）
+   *
    * @param originalAmount The amount to trade
+   *                       交易金额
+   *
    * @param cumulativeAmount The cumulative amount
+   *                         累计金额
+   *
    * @param instrument The identifier (e.g. BTC/USD)
+   *                   标识符（例如 BTC/USD）
+   *
    * @param id An id (usually provided by the exchange)
-   * @param timestamp a Date object representing the order's timestamp according to the exchange's
-   *     server, null if not provided
-   * @param stopPrice In a BID this is the highest acceptable price, in an ASK this is the lowest
-   *     acceptable price
+   *           一个 id（通常由交易所提供）
+   *
+   * @param timestamp a Date object representing the order's timestamp according to the exchange's   server, null if not provided
+   *                  一个 Date 对象，表示根据交易所服务器的订单时间戳，如果未提供，则为 null
+   *
+   * @param stopPrice In a BID this is the highest acceptable price, in an ASK this is the lowest  acceptable price
+   *                  在 BID 中，这是可接受的最高价格，在 ASK 中，这是可接受的最低价格
    */
   public StopOrder(
       OrderType type,
@@ -101,16 +128,30 @@ public class StopOrder extends Order implements Comparable<StopOrder> {
 
   /**
    * @param type Either BID (buying) or ASK (selling)
+   *             BID（买入）或 ASK（卖出）
    * @param originalAmount The amount to trade
+   *                       交易金额
+   *
    * @param instrument The identifier (e.g. BTC/USD)
+   *                   标识符（例如 BTC/USD）
+   *
    * @param id An id (usually provided by the exchange)
-   * @param timestamp a Date object representing the order's timestamp according to the exchange's
-   *     server, null if not provided
-   * @param stopPrice In a BID this is the highest acceptable price, in an ASK this is the lowest
-   *     acceptable price
+   *           一个 id（通常由交易所提供）
+   *
+   * @param timestamp a Date object representing the order's timestamp according to the exchange's  server, null if not provided
+   *                  一个 Date 对象，表示根据交易所服务器的订单时间戳，如果未提供，则为 null
+   *
+   * @param stopPrice In a BID this is the highest acceptable price, in an ASK this is the lowest   acceptable price
+   *                  在 BID 中，这是可接受的最高价格，在 ASK 中，这是可接受的最低价格
+   *
    * @param averagePrice the weighted average price of any fills belonging to the order
+   *                     属于订单的任何成交的加权平均价格
+   *
    * @param cumulativeAmount the amount that has been filled
+   *                         已填写的金额
+   *
    * @param status the status of the order at the exchange or broker
+   *               交易所或经纪人的订单状态
    */
   public StopOrder(
       OrderType type,
@@ -138,18 +179,35 @@ public class StopOrder extends Order implements Comparable<StopOrder> {
 
   /**
    * @param type Either BID (buying) or ASK (selling)
+   *             BID（买入）或 ASK（卖出）
+   *
    * @param originalAmount The amount to trade
+   *                       交易金额
+   *
    * @param instrument The identifier (e.g. BTC/USD)
+   *                   标识符（例如 BTC/USD）
+   *
    * @param id An id (usually provided by the exchange)
-   * @param timestamp a Date object representing the order's timestamp according to the exchange's
-   *     server, null if not provided
-   * @param stopPrice In a BID this is the highest acceptable price, in an ASK this is the lowest
-   *     acceptable price
-   * @param limitPrice The limit price the order should be placed at once the stopPrice has been hit
-   *     null for market
+   *           一个 id（通常由交易所提供）
+   *
+   * @param timestamp a Date object representing the order's timestamp according to the exchange's  server, null if not provided
+   *                  一个 Date 对象，表示根据交易所服务器的订单时间戳，如果未提供，则为 null
+   *
+   * @param stopPrice In a BID this is the highest acceptable price, in an ASK this is the lowest    acceptable price
+   *                  在 BID 中，这是可接受的最高价格，在 ASK 中，这是可接受的最低价格
+   *
+   * @param limitPrice The limit price the order should be placed at once the stopPrice has been hit   null for market
+   *                   一旦 stopPrice 被击中为空，订单应下达的限价
+   *
    * @param averagePrice the weighted average price of any fills belonging to the order
+   *                     属于订单的任何成交的加权平均价格
+   *
    * @param cumulativeAmount the amount that has been filled
+   *                         已填写的金额
+   *
    * @param status the status of the order at the exchange or broker
+   *               交易所或经纪人的订单状态
+   *
    */
   public StopOrder(
       OrderType type,
@@ -179,19 +237,37 @@ public class StopOrder extends Order implements Comparable<StopOrder> {
 
   /**
    * @param type Either BID (buying) or ASK (selling)
+   *             BID（买入）或 ASK（卖出）
+   *
    * @param originalAmount The amount to trade
+   *                       交易金额
+   *
    * @param instrument The identifier (e.g. BTC/USD)
+   *                   标识符（例如 BTC/USD）
+   *
    * @param id An id (usually provided by the exchange)
-   * @param timestamp a Date object representing the order's timestamp according to the exchange's
-   *     server, null if not provided
-   * @param stopPrice In a BID this is the highest acceptable price, in an ASK this is the lowest
-   *     acceptable price
-   * @param limitPrice The limit price the order should be placed at once the stopPrice has been hit
-   *     null for market
+   *           一个 id（通常由交易所提供）
+   *
+   * @param timestamp a Date object representing the order's timestamp according to the exchange's   server, null if not provided
+   *                  一个 Date 对象，表示根据交易所服务器的订单时间戳，如果未提供，则为 null
+   *
+   * @param stopPrice In a BID this is the highest acceptable price, in an ASK this is the lowest   acceptable price
+   *                  在 BID 中，这是可接受的最高价格，在 ASK 中，这是可接受的最低价格
+   *
+   * @param limitPrice The limit price the order should be placed at once the stopPrice has been hit  null for market
+   *                   一旦 stopPrice 被击中为空，订单应下达的限价
+   *
    * @param averagePrice the weighted average price of any fills belonging to the order
+   *                     属于订单的任何成交的加权平均价格
+   *
    * @param cumulativeAmount the amount that has been filled
+   *                         已填写的金额
+   *
    * @param fee the fee associated with this order
+   *            与此订单相关的费用
+   *
    * @param status the status of the order at the exchange or broker
+   *               交易所或经纪人的订单状态
    */
   public StopOrder(
       OrderType type,
@@ -222,18 +298,32 @@ public class StopOrder extends Order implements Comparable<StopOrder> {
 
   /**
    * @param type Either BID (buying) or ASK (selling)
+   *             BID（买入）或 ASK（卖出）
    * @param originalAmount The amount to trade
+   *                       交易金额
+   *
    * @param instrument The identifier (e.g. BTC/USD)
+   *                   标识符（例如 BTC/USD）
+   *
    * @param id An id (usually provided by the exchange)
-   * @param timestamp a Date object representing the order's timestamp according to the exchange's
-   *     server, null if not provided
-   * @param stopPrice In a BID this is the highest acceptable price, in an ASK this is the lowest
-   *     acceptable price
-   * @param limitPrice The limit price the order should be placed at once the stopPrice has been hit
-   *     null for market
+   *           一个 id（通常由交易所提供）
+   *
+   * @param timestamp a Date object representing the order's timestamp according to the exchange's  server, null if not provided
+   *                  一个 Date 对象，表示根据交易所服务器的订单时间戳，如果未提供，则为 null
+   *
+   * @param stopPrice In a BID this is the highest acceptable price, in an ASK this is the lowest  acceptable price
+   *                  在 BID 中，这是可接受的最高价格，在 ASK 中，这是可接受的最低价格
+   *
+   * @param limitPrice The limit price the order should be placed at once the stopPrice has been hit  null for market
+   *                   一旦 stopPrice 被击中为空，订单应下达的限价
+   *
    * @param averagePrice the weighted average price of any fills belonging to the order
-   * @param cumulativeAmount the amount that has been filled
+   *                     属于订单的任何成交的加权平均价格
+   *
+   * @param cumulativeAmount 已填写的金额
+   *
    * @param status the status of the order at the exchange or broker
+   *               交易所或经纪人的订单状态
    */
   public StopOrder(
       OrderType type,
@@ -268,19 +358,22 @@ public class StopOrder extends Order implements Comparable<StopOrder> {
     this.trailValue = trailValue;
   }
 
-  /** @return The stop price */
+  /** @return The stop price
+   * 止损价 */
   public BigDecimal getStopPrice() {
 
     return stopPrice;
   }
 
-  /** @return The limit price */
+  /** @return The limit price
+   * 限价 */
   public BigDecimal getLimitPrice() {
 
     return limitPrice;
   }
 
-  /** @return The order intention */
+  /** @return The order intention
+   * 订货意向*/
   public Intention getIntention() {
     return intention;
   }

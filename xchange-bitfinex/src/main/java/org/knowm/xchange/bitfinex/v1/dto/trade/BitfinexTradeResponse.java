@@ -18,15 +18,15 @@ public class BitfinexTradeResponse {
   /**
    * Constructor
    *
-   * @param price
-   * @param amount
-   * @param timestamp
-   * @param exchange
-   * @param type
-   * @param tradeId
-   * @param orderId
-   * @param feeAmount
-   * @param feeCurrency
+   * @param price 价格
+   * @param amount 数量
+   * @param timestamp 时间戳
+   * @param exchange 交换
+   * @param type 类型
+   * @param tradeId 贸易编号
+   * @param orderId 订单号
+   * @param feeAmount 收费多少
+   * @param feeCurrency 费用货币
    */
   public BitfinexTradeResponse(
       @JsonProperty("price") final BigDecimal price,

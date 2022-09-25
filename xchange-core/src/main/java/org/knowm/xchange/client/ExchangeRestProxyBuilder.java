@@ -82,18 +82,20 @@ public final class ExchangeRestProxyBuilder<T> {
   }
 
   /**
-   * Get a ClientConfig object which contains exchange-specific timeout values
-   * (<i>httpConnTimeout</i> and <i>httpReadTimeout</i>) if they were present in the
-   * ExchangeSpecification of this instance.
+   * Get a ClientConfig object which contains exchange-specific timeout values  (<i>httpConnTimeout</i> and <i>httpReadTimeout</i>)
+    if they were present in the   ExchangeSpecification of this instance.
+   获取包含特定于交换的超时值（<i>httpConnTimeout</i> 和 <i>httpReadTimeout</i>）的 ClientConfig 对象
+   如果它们出现在此实例的 ExchangeSpecification 中。
    *
    * @return a rescu client config object
+   * * @return 一个 rescu 客户端配置对象
    */
   public static ClientConfig createClientConfig(ExchangeSpecification exchangeSpecification) {
 
-    ClientConfig rescuConfig = new ClientConfig(); // create default rescu config
+    ClientConfig rescuConfig = new ClientConfig(); // create default rescu config  // 创建默认rescu配置
 
-    // set per exchange connection- and read-timeout (if they have been set in the
-    // ExchangeSpecification)
+    // set per exchange connection- and read-timeout (if they have been set in the ExchangeSpecification)
+    // 设置每个交换连接和读取超时（如果它们已在 ExchangeSpecification 中设置）
     int customHttpConnTimeout = exchangeSpecification.getHttpConnTimeout();
     if (customHttpConnTimeout > 0) {
       rescuConfig.setHttpConnTimeout(customHttpConnTimeout);

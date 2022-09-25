@@ -12,7 +12,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-/** DTO representing a collection of trades */
+/** DTO representing a collection of trades
+ * 代表交易集合的 DTO*/
 public class Trades implements Serializable {
 
   private static final long serialVersionUID = 5790082783307641329L;
@@ -28,8 +29,10 @@ public class Trades implements Serializable {
 
   /**
    * Constructor Default sort is SortByID
+   * 构造函数默认排序是 SortByID
    *
    * @param trades List of trades
+   *               交易清单
    */
   public Trades(List<Trade> trades) {
 
@@ -40,7 +43,10 @@ public class Trades implements Serializable {
    * Constructor
    *
    * @param trades List of trades
+   *               交易清单
+   *
    * @param tradeSortType Trade sort type
+   *                      贸易排序类型
    */
   @JsonCreator
   public Trades(@JsonProperty("trades") List<Trade> trades,
@@ -53,8 +59,13 @@ public class Trades implements Serializable {
    * Constructor
    *
    * @param trades A list of trades
+   *               交易清单
+   *
    * @param lastID Last Unique ID
+   *               最后唯一 ID
+   *
    * @param tradeSortType Trade sort type
+   *                      贸易排序类型
    */
   public Trades(List<Trade> trades, long lastID, TradeSortType tradeSortType) {
     this(trades, lastID, tradeSortType, null);
@@ -64,10 +75,16 @@ public class Trades implements Serializable {
    * Constructor
    *
    * @param trades A list of trades
+   *               交易清单
+   *
    * @param lastID Last Unique ID
+   *               最后唯一 ID
+   *
    * @param tradeSortType Trade sort type
-   * @param nextPageCursor a marker that lets you receive the next page of trades using
-   *     TradeHistoryParamNextPageCursor
+   *                      贸易排序类型
+   *
+   * @param nextPageCursor a marker that lets you receive the next page of trades using  TradeHistoryParamNextPageCursor
+   *                       一个标记，可让您使用 TradeHistoryParamNextPageCursor 接收下一页交易
    */
   public Trades(
       List<Trade> trades, long lastID, TradeSortType tradeSortType, String nextPageCursor) {
@@ -90,13 +107,15 @@ public class Trades implements Serializable {
     }
   }
 
-  /** @return A list of trades ordered by id */
+  /** @return A list of trades ordered by id
+   * 按 id 排序的交易列表*/
   public List<Trade> getTrades() {
 
     return trades;
   }
 
-  /** @return a Unique ID for the fetched trades */
+  /** @return a Unique ID for the fetched trades
+   * 获取交易的唯一 ID */
   public long getlastID() {
 
     return lastID;

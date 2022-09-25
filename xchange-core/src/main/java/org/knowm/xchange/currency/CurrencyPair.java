@@ -7,20 +7,24 @@ import org.knowm.xchange.instrument.Instrument;
 
 /**
  * Value object to provide the following to API:
+ * 向 API 提供以下内容的值对象：
  *
  * <ul>
  *   <li>Provision of major currency symbol pairs (EUR/USD, GBP/USD etc)
  *   <li>Provision of arbitrary symbol pairs for exchange index trading, notional currencies etc
+ *   <li>提供主要货币符号对（欧元/美元、英镑/美元等）
+ *   <li>为交易所指数交易、名义货币等提供任意符号对
  * </ul>
  *
- * <p>Symbol pairs are quoted, for example, as EUR/USD 1.25 such that 1 EUR can be purchased with
- * 1.25 USD
+ * <p>Symbol pairs are quoted, for example, as EUR/USD 1.25 such that 1 EUR can be purchased with 1.25 USD
+ * * <p>符号对的报价例如为 EUR/USD 1.25，因此可以用 1.25 USD 购买 1 EUR
  */
 public class CurrencyPair extends Instrument implements Comparable<CurrencyPair>, Serializable {
 
   private static final long serialVersionUID = 414711266389792746L;
 
   // Provide some standard major symbols
+  // 提供一些标准的主要符号
   public static final CurrencyPair EUR_USD = new CurrencyPair(Currency.EUR, Currency.USD);
   public static final CurrencyPair GBP_USD = new CurrencyPair(Currency.GBP, Currency.USD);
   public static final CurrencyPair USD_JPY = new CurrencyPair(Currency.USD, Currency.JPY);
@@ -37,6 +41,7 @@ public class CurrencyPair extends Instrument implements Comparable<CurrencyPair>
   public static final CurrencyPair KRW_XRP = new CurrencyPair(Currency.KRW, Currency.XRP);
 
   // Provide some courtesy BTC major symbols
+  // 提供一些礼貌的 BTC 主要符号
   public static final CurrencyPair BTC_USD = new CurrencyPair(Currency.BTC, Currency.USD);
   public static final CurrencyPair BTC_GBP = new CurrencyPair(Currency.BTC, Currency.GBP);
   public static final CurrencyPair BTC_EUR = new CurrencyPair(Currency.BTC, Currency.EUR);
@@ -197,6 +202,7 @@ public class CurrencyPair extends Instrument implements Comparable<CurrencyPair>
   public static final CurrencyPair TRX_BNB = new CurrencyPair(Currency.TRX, Currency.BNB);
 
   // start of extra ANX supported pair
+  // 额外 ANX 支持对的开始
   // BTC
   public static final CurrencyPair BTC_XDC = new CurrencyPair(Currency.BTC, Currency.XDC);
   public static final CurrencyPair BTC_PPC = new CurrencyPair(Currency.BTC, Currency.PPC);
@@ -232,19 +238,19 @@ public class CurrencyPair extends Instrument implements Comparable<CurrencyPair>
   public static final CurrencyPair PPC_HKD = new CurrencyPair(Currency.PPC, Currency.HKD);
   public static final CurrencyPair PPC_XDC = new CurrencyPair(Currency.PPC, Currency.XDC);
   public static final CurrencyPair PPC_NMC = new CurrencyPair(Currency.PPC, Currency.NMC);
-  // end
+  // end 结束
 
   // IOTA
   public static final CurrencyPair IOTA_USD = new CurrencyPair(Currency.IOT, Currency.USD);
   public static final CurrencyPair IOTA_BTC = new CurrencyPair(Currency.IOT, Currency.BTC);
   public static final CurrencyPair IOTA_ETH = new CurrencyPair(Currency.IOT, Currency.ETH);
-  // end
+  // end 结束
 
   // OMG
   public static final CurrencyPair OMG_USD = new CurrencyPair(Currency.OMG, Currency.USD);
   public static final CurrencyPair OMG_BTC = new CurrencyPair(Currency.OMG, Currency.BTC);
   public static final CurrencyPair OMG_ETH = new CurrencyPair(Currency.OMG, Currency.ETH);
-  // end
+  // end 结束
 
   // NEO
   public static final CurrencyPair NEO_USD = new CurrencyPair(Currency.NEO, Currency.USD);
@@ -254,6 +260,7 @@ public class CurrencyPair extends Instrument implements Comparable<CurrencyPair>
   // end
 
   // not real currencies, but tradable commodities (GH/s)
+  // 不是真实货币，而是可交易商品 (GH/s)
   public static final CurrencyPair GHs_BTC = new CurrencyPair(Currency.GHs, Currency.BTC);
   public static final CurrencyPair GHs_NMC = new CurrencyPair(Currency.GHs, Currency.NMC);
 
@@ -271,6 +278,7 @@ public class CurrencyPair extends Instrument implements Comparable<CurrencyPair>
   public static final CurrencyPair UTC_LTC = new CurrencyPair(Currency.UTC, Currency.LTC);
 
   // Kraken additional pairs
+  // Kraken 附加对
   public static final CurrencyPair ADA_USD = new CurrencyPair(Currency.ADA, Currency.USD);
   public static final CurrencyPair ADA_EUR = new CurrencyPair(Currency.ADA, Currency.EUR);
   public static final CurrencyPair ADA_CAD = new CurrencyPair(Currency.ADA, Currency.CAD);
@@ -310,6 +318,7 @@ public class CurrencyPair extends Instrument implements Comparable<CurrencyPair>
 
   public static final CurrencyPair EOS_ETH = new CurrencyPair(Currency.EOS, Currency.ETH);
   public static final CurrencyPair EOS_BTC = new CurrencyPair(Currency.EOS, Currency.BTC);
+  public static final CurrencyPair EOS_USD = new CurrencyPair(Currency.EOS, Currency.USD);
 
   public static final CurrencyPair BCC_USD = new CurrencyPair(Currency.BCC, Currency.USD);
   public static final CurrencyPair BCC_BTC = new CurrencyPair(Currency.BCC, Currency.BTC);
@@ -317,16 +326,17 @@ public class CurrencyPair extends Instrument implements Comparable<CurrencyPair>
   public static final CurrencyPair BAT_USD = new CurrencyPair(Currency.BAT, Currency.USD);
   public static final CurrencyPair BAT_BTC = new CurrencyPair(Currency.BAT, Currency.BTC);
 
-  // Tether Pairs
+  // Tether Pairs 泰达币对
   public static final CurrencyPair BTC_USDT = new CurrencyPair(Currency.BTC, Currency.USDT);
   public static final CurrencyPair DASH_USDT = new CurrencyPair(Currency.DASH, Currency.USDT);
 
-  // UAH pairs
+  // UAH pairs UAH 对
   public static final CurrencyPair BTC_UAH = new CurrencyPair(Currency.BTC, Currency.UAH);
   public static final CurrencyPair ETH_UAH = new CurrencyPair(Currency.ETH, Currency.UAH);
   public static final CurrencyPair BCH_UAH = new CurrencyPair(Currency.BCH, Currency.UAH);
 
   // Bitmex futures contracts
+  // Bitmex 期货合约
   public static final CurrencyPair XBT_USD = new CurrencyPair(Currency.XBT, Currency.USD);
   public static final CurrencyPair XBT_H18 = new CurrencyPair(Currency.XBT, Currency.H18);
   public static final CurrencyPair XBT_M18 = new CurrencyPair(Currency.XBT, Currency.M18);
@@ -365,6 +375,7 @@ public class CurrencyPair extends Instrument implements Comparable<CurrencyPair>
       new CurrencyPair(Currency.ETC, Currency.getInstance("7D"));
 
   // Bankera Exchange pairs
+  // Bankera 交易所对
   public static final CurrencyPair BNK_BTC = new CurrencyPair(Currency.BNK, Currency.BTC);
   public static final CurrencyPair BNK_ETH = new CurrencyPair(Currency.BNK, Currency.ETH);
   public static final CurrencyPair BNK_USDT = new CurrencyPair(Currency.BNK, Currency.USDT);
@@ -389,6 +400,7 @@ public class CurrencyPair extends Instrument implements Comparable<CurrencyPair>
   public static final CurrencyPair LINK_ETH = new CurrencyPair(Currency.LINK, Currency.ETH);
 
   // dydx Exchange Spot and Perpetual Pairs
+  // dydx 交易现货和永续对
   public static final CurrencyPair WETH_USDC = new CurrencyPair(Currency.WETH, Currency.USDC);
   public static final CurrencyPair WETH_DAI = new CurrencyPair(Currency.WETH, Currency.DAI);
   public static final CurrencyPair DAI_USDC = new CurrencyPair(Currency.DAI, Currency.USDC);
@@ -402,11 +414,15 @@ public class CurrencyPair extends Instrument implements Comparable<CurrencyPair>
 
   /**
    * Full constructor In general the CurrencyPair.base is what you're wanting to buy/sell. The
-   * CurrencyPair.counter is what currency you want to use to pay/receive for your purchase/sale.
+    CurrencyPair.counter is what currency you want to use to pay/receive for your purchase/sale.
+   完整的构造函数 一般来说 CurrencyPair.base 是你想要买/卖的东西。 这
+   CurrencyPair.counter 是您想用来支付/接收购买/销售的货币。
    *
    * @param base The base currency is what you're wanting to buy/sell
-   * @param counter The counter currency is what currency you want to use to pay/receive for your
-   *     purchase/sale.
+   *             基础货币是您想要购买/出售的货币
+   *
+   * @param counter The counter currency is what currency you want to use to pay/receive for your  purchase/sale.
+   *                相对货币是您想用来支付/接收购买/销售的货币。
    */
   public CurrencyPair(Currency base, Currency counter) {
 
@@ -416,11 +432,15 @@ public class CurrencyPair extends Instrument implements Comparable<CurrencyPair>
 
   /**
    * String constructor In general the CurrencyPair.base is what you're wanting to buy/sell. The
-   * CurrencyPair.counter is what currency you want to use to pay/receive for your purchase/sale.
+    CurrencyPair.counter is what currency you want to use to pay/receive for your purchase/sale.
+   字符串构造函数 一般来说，CurrencyPair.base 是您想要购买/出售的东西。 这
+   CurrencyPair.counter 是您想用来支付/接收购买/销售的货币。
    *
    * @param baseSymbol The base symbol is what you're wanting to buy/sell
-   * @param counterSymbol The counter symbol is what currency you want to use to pay/receive for
-   *     your purchase/sale.
+   *                   基本符号是您要购买/出售的
+   *
+   * @param counterSymbol The counter symbol is what currency you want to use to pay/receive for  your purchase/sale.
+   *                      计数器符号是您想用来支付/接收购买/销售的货币。
    */
   public CurrencyPair(String baseSymbol, String counterSymbol) {
 
@@ -429,6 +449,7 @@ public class CurrencyPair extends Instrument implements Comparable<CurrencyPair>
 
   /**
    * Parse currency pair from a string in the same format as returned by toString() method - ABC/XYZ
+   * 从与 toString() 方法返回的格式相同的字符串中解析货币对 - ABC/XYZ
    */
   @JsonCreator
   public CurrencyPair(String currencyPair) {
@@ -443,7 +464,7 @@ public class CurrencyPair extends Instrument implements Comparable<CurrencyPair>
 
     if (split < 1) {
       throw new IllegalArgumentException(
-          "Could not parse currency pair from '" + currencyPair + "'");
+          "Could not parse currency pair from 无法解析来自的货币对'" + currencyPair + "'");
     }
 
     String base = currencyPair.substring(0, split);

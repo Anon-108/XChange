@@ -12,8 +12,8 @@ public class BitfinexDigest extends BaseParamsDigest {
    * Constructor
    *
    * @param secretKeyBase64
-   * @throws IllegalArgumentException if key is invalid (cannot be base-64-decoded or the decoded
-   *     key is invalid).
+   * @throws IllegalArgumentException if key is invalid (cannot be base-64-decoded or the decoded key is invalid).
+   *                                    如果密钥无效（不能是 base64 编码或解码的密钥无效）。
    */
   private BitfinexDigest(String secretKeyBase64) {
 

@@ -14,11 +14,13 @@ public class BitfinexPastTradesRequest {
   @JsonProperty("symbol")
   protected String symbol;
 
-  /** REQUIRED Trades made before this timestamp won’t be returned */
+  /** REQUIRED Trades made before this timestamp won’t be returned
+   * 在此时间戳之前进行的必需交易将不会被退回*/
   @JsonProperty("timestamp")
   protected long startTime;
 
-  /** Trades made after this timestamp won’t be returned. */
+  /** Trades made after this timestamp won’t be returned.
+   * 在此时间戳之后进行的交易将不会被退回。 */
   @JsonProperty("until")
   @JsonInclude(JsonInclude.Include.NON_NULL)
   protected Long endTime;
@@ -28,8 +30,8 @@ public class BitfinexPastTradesRequest {
   protected Integer limitTrades;
 
   /**
-   * Return trades in reverse order (the oldest comes first). Default is returning newest trades
-   * first. default: 0
+   * Return trades in reverse order (the oldest comes first). Default is returning newest trades first. default: 0
+   * * 以相反的顺序返回交易（最旧的先出现）。 默认是首先返回最新的交易。 默认值：0
    */
   @JsonProperty("reverse")
   @JsonInclude(JsonInclude.Include.NON_NULL)

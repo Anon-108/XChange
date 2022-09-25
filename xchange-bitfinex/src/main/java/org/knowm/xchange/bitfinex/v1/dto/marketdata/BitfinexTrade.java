@@ -15,10 +15,10 @@ public class BitfinexTrade {
   /**
    * Constructor
    *
-   * @param price
-   * @param amount
-   * @param timestamp
-   * @param exchange
+   * @param price 价格
+   * @param amount 数量
+   * @param timestamp 时间戳
+   * @param exchange 交换
    * @param tradeId
    */
   public BitfinexTrade(

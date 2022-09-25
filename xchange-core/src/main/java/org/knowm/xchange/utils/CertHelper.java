@@ -27,9 +27,13 @@ public class CertHelper {
 
   /**
    * Creates a custom {@link SSLSocketFactory} that accepts an expired certificate.
+   * * 创建一个接受过期证书的自定义 {@link SSLSocketFactory}。
    *
    * @param subjectPrincipalName RFC 2253 name on the expired certificate
+   *                             过期证书上的 RFC 2253 名称
+   *
    * @return An {@link SSLSocketFactory} that will accept the passed certificate if it is expired
+   * * @return 一个 {@link SSLSocketFactory}，如果它过期了将接受通过的证书
    */
   public static SSLSocketFactory createExpiredAcceptingSSLSocketFactory(
       final String subjectPrincipalName) {
@@ -72,7 +76,7 @@ public class CertHelper {
             public void checkClientTrusted(X509Certificate[] certs, String authType)
                 throws CertificateException {
 
-              System.out.println("checking client trusted: " + Arrays.toString(certs));
+              System.out.println("checking client trusted 检查客户信任: " + Arrays.toString(certs));
 
               getDefaultTrustManager().checkClientTrusted(certs, authType);
             }
@@ -88,7 +92,7 @@ public class CertHelper {
 
                 if (certificateMatches(certs, false))
                   throw new CertificateException(
-                      "Update code to reject expired certificate, up-to-date certificate found: "
+                      "Update code to reject expired certificate, up-to-date certificate found 更新代码以拒绝过期的证书，找到最新的证书: "
                           + subjectPrincipalName);
               } catch (CertificateException e) {
                 for (Throwable t = e; t != null; t = t.getCause())
@@ -110,11 +114,14 @@ public class CertHelper {
   }
 
   /**
-   * Creates a custom {@link SSLSocketFactory} that disallows the use of a set of protocols and/or
-   * ciphers, no matter the current default configuration.
+   * Creates a custom {@link SSLSocketFactory} that disallows the use of a set of protocols and/or ciphers, no matter the current default configuration.
+   * * 创建一个自定义 {@link SSLSocketFactory}，它不允许使用一组协议和/或密码，无论当前的默认配置如何。
    *
    * @param disabledProtocolsAndCiphers list of protocol or cipher names to disallow
+   *                                    要禁止的协议或密码名称列表
+   *
    * @return An {@link SSLSocketFactory} that will never use the passed protocols or ciphers
+   * * @return 一个永远不会使用传递的协议或密码的 {@link SSLSocketFactory}
    */
   public static SSLSocketFactory createRestrictedSSLSocketFactory(
       String... disabledProtocolsAndCiphers) {
@@ -136,13 +143,13 @@ public class CertHelper {
 
         if (filtered.isEmpty())
           throw new IOException(
-              "No supported SSL attributed enabled.  "
+              "No supported SSL attributed enabled. 未启用受支持的 SSL 属性。 "
                   + Arrays.toString(original)
                   + " provided, "
                   + disabled.toString()
                   + " disabled, "
                   + Arrays.toString(supported)
-                  + " supported, result: "
+                  + " supported, result 支持，结果: "
                   + filtered.toString());
 
         return filtered.toArray(new String[filtered.size()]);
@@ -209,13 +216,17 @@ public class CertHelper {
   }
 
   /**
-   * Creates a custom {@link HostnameVerifier} that allows a specific certificate to be accepted for
-   * a mismatching hostname.
+   * Creates a custom {@link HostnameVerifier} that allows a specific certificate to be accepted for a mismatching hostname.
+   * * 创建一个自定义 {@link HostnameVerifier}，允许接受不匹配主机名的特定证书。
    *
-   * @param requestHostname hostname used to access the service which offers the incorrectly named
-   *     certificate
+   * @param requestHostname hostname used to access the service which offers the incorrectly named   certificate
+   *                        * @param requestHostname 用于访问提供错误命名证书的服务的主机名
+   *
    * @param certPrincipalName RFC 2253 name on the certificate
+   *                          * @param certPrincipalName 证书上的 RFC 2253 名称
+   *
    * @return A {@link HostnameVerifier} that will accept the provided combination of names
+   * * @return 将接受提供的名称组合的 {@link HostnameVerifier}
    */
   public static HostnameVerifier createIncorrectHostnameVerifier(
       final String requestHostname, final String certPrincipalName) {
@@ -242,10 +253,12 @@ public class CertHelper {
 
   /**
    * Manually override the JVM's TrustManager to accept all HTTPS connections. Use this ONLY for
-   * testing, and even at that use it cautiously. Someone could steal your API keys with a MITM
-   * attack!
+    testing, and even at that use it cautiously. Someone could steal your API keys with a MITM attack!
+   手动覆盖 JVM 的 TrustManager 以接受所有 HTTPS 连接。 仅用于
+   测试，甚至在那个时候谨慎使用它。 有人可以通过 MITM 攻击窃取您的 API 密钥！
    *
    * @deprecated create an exclusion specific to your need rather than changing all behavior
+   * * @deprecated 创建一个特定于您需要的排除项，而不是更改所有行为
    */
   @Deprecated
   public static void trustAllCerts() throws Exception {
@@ -269,11 +282,13 @@ public class CertHelper {
         };
 
     // Install the all-trusting trust manager
+    // 安装全信任信任管理器
     SSLContext sc = SSLContext.getInstance("SSL");
     sc.init(null, trustAllCerts, new java.security.SecureRandom());
     HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
 
     // Create all-trusting host name verifier
+    // 创建全信任主机名验证器
     HostnameVerifier allHostsValid =
         new HostnameVerifier() {
 
@@ -285,6 +300,7 @@ public class CertHelper {
         };
 
     // Install the all-trusting host verifier
+    // 安装全信任主机验证器
     HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
   }
 }

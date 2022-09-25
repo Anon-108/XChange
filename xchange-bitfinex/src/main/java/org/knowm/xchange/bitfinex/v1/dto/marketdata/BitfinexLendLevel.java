@@ -15,9 +15,13 @@ public class BitfinexLendLevel {
    * Constructor
    *
    * @param rate
+   *      速度
    * @param amount
+   *      数量
    * @param period
+   *      时期
    * @param timestamp
+   *      时间戳
    * @param frr
    */
   public BitfinexLendLevel(

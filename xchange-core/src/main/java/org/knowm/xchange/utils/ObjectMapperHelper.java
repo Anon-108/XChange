@@ -14,6 +14,9 @@ import java.nio.charset.StandardCharsets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * 对象映射器助手
+ */
 public class ObjectMapperHelper {
 
   private static final Logger logger = LoggerFactory.getLogger(ObjectMapperHelper.class);
@@ -48,21 +51,28 @@ public class ObjectMapperHelper {
   }
 
   /**
-   * Useful for testing. Performs a round trip via a JSON string allowing ser/deser to be tested
-   * andv erified.
+   * Useful for testing. Performs a round trip via a JSON string allowing ser/deser to be tested andv erified.
+   * * 对测试有用。 通过 JSON 字符串执行往返，允许测试和验证 ser/deser。
    *
-   * <p>Note that this deliberately uses a very strict {@link ObjectMapper} since we need to be sure
-   * that the source object is fully recreated without errors.
+   * <p>Note that this deliberately uses a very strict {@link ObjectMapper} since we need to be sure that the source object is fully recreated without errors.
+   * * <p>请注意，这故意使用了非常严格的 {@link ObjectMapper}，因为我们需要确保源对象被完全重新创建而没有错误。
    *
    * @param <T> The object type
+   *           对象类型
+   *
    * @param valueType The object to be converted
+   *                  要转换的对象
+   *
    * @return A copy of the object performed via JSON.
+   * * @return 通过 JSON 执行的对象的副本。
+   *
    * @throws IOException If there are deserialization issues.
+   * * @throws IOException 如果存在反序列化问题。
    */
   @SuppressWarnings("unchecked")
   public static <T> T viaJSON(T valueType) throws IOException {
     String json = toJSON(objectMapperStrict, valueType);
-    logger.debug("Converted " + valueType + " to " + json);
+    logger.debug("Converted 已转换 " + valueType + " to " + json);
     return readValueStrict(json, (Class<T>) valueType.getClass());
   }
 
@@ -71,7 +81,7 @@ public class ObjectMapperHelper {
       return objectMapper.writeValueAsString(valueType);
     } catch (JsonProcessingException e) {
       e.printStackTrace();
-      return "Problem serializing " + valueType.getClass();
+      return "Problem serializing 问题序列化" + valueType.getClass();
     }
   }
 

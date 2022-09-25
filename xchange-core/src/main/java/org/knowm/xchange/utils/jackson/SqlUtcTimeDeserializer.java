@@ -27,7 +27,7 @@ public class SqlUtcTimeDeserializer extends JsonDeserializer<Date> {
     try {
       return dateFormat.parse(str);
     } catch (ParseException e) {
-      throw new InvalidFormatException(null, "Error parsing as date", str, Date.class);
+      throw new InvalidFormatException(null, "Error parsing as date 解析为日期时出错", str, Date.class);
     }
   }
 }

@@ -86,8 +86,9 @@ public final class BitfinexAdapters {
 
   /**
    * Each element in the response array contains a set of currencies that are at a given fee tier.
-   * The API returns the fee per currency in each tier and does not make any promises that they are
-   * all the same, so this adapter will use the fee per currency instead of the fee per tier.
+   * 响应数组中的每个元素都包含一组处于给定费用等级的货币。
+   * The API returns the fee per currency in each tier and does not make any promises that they are all the same, so this adapter will use the fee per currency instead of the fee per tier.
+   * * API 返回每个层级的每个货币的费用，并且不承诺它们都是相同的，所以这个适配器将使用每个货币的费用而不是每个层级的费用。
    */
   public static Map<CurrencyPair, Fee> adaptDynamicTradingFees(
       BitfinexTradingFeeResponse[] responses, List<CurrencyPair> currencyPairs) {
@@ -104,11 +105,13 @@ public final class BitfinexAdapters {
                 responseRow.getTakerFee().multiply(percentToFraction));
         for (CurrencyPair pair : currencyPairs) {
           // Fee to trade for a currency is the fee to trade currency pairs with this base.
+          //交易货币的费用是用此基础交易货币对的费用。
           // Fee is typically assessed in units counter.
+          // 费用通常以单位计数器进行评估。
           if (pair.base.equals(currency)) {
             if (result.put(pair, fee) != null) {
               throw new IllegalStateException(
-                  "Fee for currency pair " + pair + " is overspecified");
+                  "Fee for currency pair 货币对费用" + pair + " is overspecified 被过度指定");
             }
           }
         }
@@ -135,7 +138,7 @@ public final class BitfinexAdapters {
         return "sell";
     }
 
-    throw new IllegalArgumentException(String.format("Unexpected type of order: %s", type));
+    throw new IllegalArgumentException(String.format("Unexpected type of order 意外的订单类型: %s", type));
   }
 
   public static BitfinexOrderType adaptOrderFlagsToType(Set<Order.IOrderFlags> flags) {
@@ -169,6 +172,7 @@ public final class BitfinexAdapters {
         bitfinexSymbol.startsWith("t") && Character.isUpperCase(bitfinexSymbol.charAt(1)) ? 1 : 0;
     if (bitfinexSymbol.contains(":")) {
       // ie 'dusk:usd' or 'btc:cnht'
+      // 即 'dusk:usd' 或 'btc:cnht'
       int idx = bitfinexSymbol.indexOf(":");
       tradableIdentifier = bitfinexSymbol.substring(startIndex, idx);
       transactionCurrency = bitfinexSymbol.substring(idx + 1);
@@ -255,6 +259,7 @@ public final class BitfinexAdapters {
       }
 
       // Bid orderbook is reversed order. Insert at reversed indices
+      // 投标订单簿是相反的顺序。 在反向索引处插入
       if (orderType.equalsIgnoreCase("loan")) {
         loanOrders.add(
             0,
@@ -294,6 +299,7 @@ public final class BitfinexAdapters {
       }
 
       // Bid orderbook is reversed order. Insert at reversed indices
+      // 投标订单簿是相反的顺序。 在反向索引处插入
       if (orderType.equalsIgnoreCase("loan")) {
         loanOrders.add(
             0,
@@ -328,7 +334,7 @@ public final class BitfinexAdapters {
     BigDecimal amount = trade.getAmount();
     BigDecimal price = trade.getPrice();
     Date date =
-        DateUtils.fromMillisUtc(trade.getTimestamp() * 1000L); // Bitfinex uses Unix timestamps
+        DateUtils.fromMillisUtc(trade.getTimestamp() * 1000L); // Bitfinex uses Unix timestamps  // Bitfinex 使用 Unix 时间戳
     final String tradeId = String.valueOf(trade.getTradeId());
     return new Trade.Builder()
         .type(orderType)
@@ -386,7 +392,10 @@ public final class BitfinexAdapters {
     Map<String, Map<String, BigDecimal[]>> walletsBalancesMap = new HashMap<>();
 
     // for each currency we have multiple balances types: exchange, trading, deposit.
+    // 对于每种货币，我们有多种余额类型：兑换、交易、存款。
+
     // each of those may be partially frozen/available
+    // 这些中的每一个都可能部分冻结/可用
     for (BitfinexBalancesResponse balance : response) {
       String walletId = balance.getType();
 
@@ -394,7 +403,7 @@ public final class BitfinexAdapters {
         walletsBalancesMap.put(walletId, new HashMap<>());
       }
       Map<String, BigDecimal[]> balancesByCurrency =
-          walletsBalancesMap.get(walletId); // {total, available}
+          walletsBalancesMap.get(walletId); // {total, available}  // {总数，可用}
 
       String currencyName = adaptBitfinexCurrency(balance.getCurrency());
       BigDecimal[] balanceDetail = balancesByCurrency.get(currencyName);
@@ -541,12 +550,12 @@ public final class BitfinexAdapters {
             break;
           default:
             log.warn(
-                "Unhandled Bitfinex order type [{}]. Defaulting to limit order", order.getType());
+                "Unhandled Bitfinex order type 未处理的 Bitfinex 订单类型 [{}]. Defaulting to limit order 默认限价单", order.getType());
             limitOrder = limitOrderCreator.get();
             break;
         }
       } else {
-        log.warn("Unknown Bitfinex order type [{}]. Defaulting to limit order", order.getType());
+        log.warn("Unknown Bitfinex order type 未知的 Bitfinex 订单类型 [{}]. Defaulting to limit order 默认限价单", order.getType());
         limitOrder = limitOrderCreator.get();
       }
 
@@ -565,9 +574,10 @@ public final class BitfinexAdapters {
   private static void stopLimitWarning() {
     if (warnedStopLimit.compareAndSet(false, true)) {
       log.warn(
-          "Found a stop-limit order. Bitfinex v1 API does not return limit prices for stop-limit "
-              + "orders so these are returned as stop-at-market orders. This warning will only appear "
-              + "once.");
+          "Found a stop-limit order. Bitfinex v1 API does not return limit prices for stop-limit orders so these are returned as stop-at-market orders." +
+                  "找到止损限价单。 Bitfinex v1 API 不返回限价止损订单的限价，因此这些订单作为市价止损订单返回。" +
+                  " This warning will only appear once." +
+                  "此警告只会出现一次。");
     }
   }
 
@@ -639,9 +649,11 @@ public final class BitfinexAdapters {
     Map<Currency, CurrencyMetaData> currenciesMap = metaData.getCurrencies();
 
     // Remove pairs that are no-longer in use
+    // 删除不再使用的对
     pairsMap.keySet().retainAll(currencyPairs);
 
     // Remove currencies that are no-longer in use
+    // 移除不再使用的货币
     Set<Currency> currencies =
         currencyPairs.stream()
             .flatMap(pair -> Stream.of(pair.base, pair.counter))
@@ -649,6 +661,7 @@ public final class BitfinexAdapters {
     currenciesMap.keySet().retainAll(currencies);
 
     // Add missing pairs and currencies
+    // 添加缺失的货币对和货币
     for (CurrencyPair c : currencyPairs) {
       if (!pairsMap.containsKey(c)) {
         pairsMap.put(c, null);
@@ -659,8 +672,7 @@ public final class BitfinexAdapters {
             c.base,
             new CurrencyMetaData(
                 2,
-                null)); // When missing, add default meta-data with scale of 2 (Bitfinex's minimal
-        // scale)
+                null)); // When missing, add default meta-data with scale of 2 (Bitfinex's minimal scale)  // 缺失时，添加比例为 2 的默认元数据（Bitfinex 最小比例）
       }
       if (!currenciesMap.containsKey(c.counter)) {
         currenciesMap.put(c.counter, new CurrencyMetaData(2, null));
@@ -671,12 +683,14 @@ public final class BitfinexAdapters {
   }
 
   /**
-   * Flipped order of arguments to avoid type-erasure clash with {@link #adaptMetaData(List,
-   * ExchangeMetaData)}
+   * Flipped order of arguments to avoid type-erasure clash with {@link #adaptMetaData(List, ExchangeMetaData)}
+   * * 翻转参数顺序以避免与 {@link #adaptMetaData(List, ExchangeMetaData)} 发生类型擦除冲突
    *
    * @param exchangeMetaData The exchange metadata provided from bitfinex.json.
+   *                         从 bitfinex.json 提供的交换元数据。
    * @param symbolDetails The symbol data fetced from Bitfinex.
-   * @return The combined result.
+   *                      从 Bitfinex 获取的符号数据。
+   * @return The combined result. 综合结果。
    */
   public static ExchangeMetaData adaptMetaData(
       ExchangeMetaData exchangeMetaData,
@@ -691,6 +705,7 @@ public final class BitfinexAdapters {
               final CurrencyPair currencyPair = adaptCurrencyPair(bitfinexSymbolDetail.getPair());
 
               // Infer price-scale from last and price-precision
+              // 从最后一个和价格精度推断价格比例
               BigDecimal last = lastPrices.get(currencyPair);
 
               if (last != null) {
@@ -703,7 +718,7 @@ public final class BitfinexAdapters {
                             ? null
                             : currencyPairs
                                 .get(currencyPair)
-                                .getTradingFee(), // Take tradingFee from static metaData if exists
+                                .getTradingFee(), // Take tradingFee from static metaData if exists // 如果存在，则从静态元数据中获取 tradingFee
                         bitfinexSymbolDetail.getMinimum_order_size(),
                         bitfinexSymbolDetail.getMaximum_order_size(),
                         priceScale,
@@ -739,6 +754,7 @@ public final class BitfinexAdapters {
           CurrencyMetaData newMetaData =
               new CurrencyMetaData(
                   // Currency should have at least the scale of the withdrawalFee
+                      // 币种至少应该有提现手续费的规模
                   currencies.get(currency) == null
                       ? withdrawalFee.scale()
                       : Math.max(withdrawalFee.scale(), currencies.get(currency).getScale()),
@@ -755,9 +771,10 @@ public final class BitfinexAdapters {
     final Map<CurrencyPair, CurrencyPairMetaData> currencyPairs =
         exchangeMetaData.getCurrencyPairs();
 
-    // lets go with the assumption that the trading fees are common across all trading pairs for
-    // now.
+    // lets go with the assumption that the trading fees are common across all trading pairs for now.
+    // 假设目前所有交易对的交易费用都是通用的。
     // also setting the taker_fee as the trading_fee for now.
+    // 现在也将 taker_fee 设置为 trading_fee。
     final CurrencyPairMetaData metaData =
         new CurrencyPairMetaData(
             bitfinexAccountInfos[0].getTakerFees().movePointLeft(2), null, null, null, null);
@@ -792,16 +809,14 @@ public final class BitfinexAdapters {
       if (status == null
           && movement
               .getStatus()
-              .equalsIgnoreCase("CANCELED")) // there's a spelling mistake in the protocol
+              .equalsIgnoreCase("CANCELED")) // there's a spelling mistake in the protocol  // 协议中有拼写错误
       status = FundingRecord.Status.CANCELLED;
 
       BigDecimal amount = movement.getAmount().abs();
       BigDecimal fee = movement.getFees().abs();
       if (fee != null && type.isOutflowing()) {
-        // The amount reported form Bitfinex on a withdrawal is without the fee, so it has to be
-        // added to get the full amount withdrawn from the wallet
-        // Deposits don't seem to have fees, but it seems reasonable to assume that the reported
-        // value is the full amount added to the wallet
+        // The amount reported form Bitfinex on a withdrawal is without the fee, so it has to be added to get the full amount withdrawn from the wallet  Deposits don't seem to have fees, but it seems reasonable to assume that the reported value is the full amount added to the wallet
+        // Bitfinex 报告的提款金额是免费的，因此必须添加才能从钱包中提取全部金额 存款似乎没有费用，但假设报告的值为 添加到钱包的全部金额
         amount = amount.add(fee);
       }
 
@@ -838,31 +853,37 @@ public final class BitfinexAdapters {
       if (status == null
           && responseEntry
               .getStatus()
-              .equalsIgnoreCase("CANCELED")) // there's a spelling mistake in the protocol
+              .equalsIgnoreCase("CANCELED")) // there's a spelling mistake in the protocol  // 协议中有拼写错误
       status = FundingRecord.Status.CANCELLED;
 
       String txnId = null;
       if (status == null || !status.equals(FundingRecord.Status.CANCELLED)) {
         /*
         sometimes the description looks like this (with the txn hash in it):
+        有时描述看起来像这样（其中包含 txn 哈希）：
         "description":"a9d387cf5d9df58ff2ac4a338e0f050fd3857cf78d1dbca4f33619dc4ccdac82","address":"1Enx...
+        “描述”：“a9d387cf5d9df58ff2ac4a338e0f050fd3857cf78d1dbca4f33619dc4ccdac82”，“地址”：“1Enx ...
 
         and sometimes like this (with the address in it as well as the txn hash):
+        有时像这样（其中包含地址以及 txn 哈希）：
         "description":"3AXVnDapuRiAn73pjKe7gukLSx5813oFyn, txid: aa4057486d5f73747167beb9949a0dfe17b5fc630499a66af075abdaf4986987","address":"3AX...
+        “描述”：“3AXVnDapuRiAn73pjKe7gukLSx5813oFyn，txid：aa4057486d5f73747167beb9949a0dfe17b5fc630499a66af075abdaf4986987”，“地址”：“3AX ...
 
-        and sometimes when cancelled
-        "description":"3LFVTLFZoDDzLCcLGDDQ7MNkk4YPe26Yva, expired","address":"3LFV...
+        and sometimes when cancelled description":"3LFVTLFZoDDzLCcLGDDQ7MNkk4YPe26Yva, expired","address":"3LFV...
+        有时当取消描述":"3LFVTLFZoDDzLCcLGDDQ7MNkk4YPe26Yva, expired","address":"3LFV...
          */
 
         String cleanedDescription =
             description.replace(",", "").replace("txid:", "").trim().toLowerCase();
 
         // Address will only be present for crypto payments. It will be null for all fiat payments
+        // 地址只会出现在加密支付中。 所有法定支付都将为空
         if (address != null) {
           cleanedDescription = cleanedDescription.replace(address.toLowerCase(), "").trim();
         }
 
         // check its just some hex characters, and if so lets assume its the txn hash
+        // 检查它只是一些十六进制字符，如果是，假设它是 txn 哈希
         if (cleanedDescription.matches("^(0x)?[0-9a-f]+$")) {
           txnId = cleanedDescription;
         }
@@ -896,7 +917,8 @@ public final class BitfinexAdapters {
      * Constructor
      *
      * @param timestamp The timestamp for the data fetched.
-     * @param limitOrders The orders.
+     *                  获取数据的时间戳。
+     * @param limitOrders The orders. 命令。
      */
     public OrdersContainer(long timestamp, List<LimitOrder> limitOrders) {
 
@@ -993,8 +1015,9 @@ public final class BitfinexAdapters {
     return tickers.stream()
         .map(
             array -> {
-              // tBTCUSD -> traiding pair
-              // fUSD -> funding currency
+              // tBTCUSD -> traiding pair  tBTCUSD -> 交易对
+
+              // fUSD -> funding currency   fUSD -> 资金货币
               try {
                 String symbol = array.get(0).asText();
                 switch (symbol.charAt(0)) {
@@ -1004,10 +1027,10 @@ public final class BitfinexAdapters {
                     return mapper.treeToValue(array, BitfinexTickerFundingCurrency.class);
                   default:
                     throw new RuntimeException(
-                        "Invalid symbol <" + symbol + ">, it must start with 't' or 'f'.");
+                        "Invalid symbol 无效symbol <" + symbol + ">, it must start with 't' or 'f' 它必须以“t”或“f”开头.");
                 }
               } catch (JsonProcessingException e) {
-                throw new RuntimeException("Could not convert ticker.", e);
+                throw new RuntimeException("Could not convert ticker. 无法转换代码。", e);
               }
             })
         .toArray(org.knowm.xchange.bitfinex.v2.dto.marketdata.BitfinexTicker[]::new);

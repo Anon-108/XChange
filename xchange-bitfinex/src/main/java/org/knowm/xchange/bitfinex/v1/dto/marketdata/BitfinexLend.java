@@ -13,8 +13,11 @@ public class BitfinexLend {
    * Constructor
    *
    * @param rate
+   *      速度
    * @param amountLent
+   *      借出金额
    * @param timestamp
+   *        时间戳
    */
   public BitfinexLend(
       @JsonProperty("rate") BigDecimal rate,

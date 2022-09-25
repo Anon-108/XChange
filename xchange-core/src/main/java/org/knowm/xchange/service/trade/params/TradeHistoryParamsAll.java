@@ -11,9 +11,11 @@ import org.knowm.xchange.service.trade.TradeService;
 
 /**
  * Generic {@link TradeHistoryParams} implementation that implements all the interfaces in the
- * hierarchy and can be safely (without getting exceptions, if that all the required fields are
- * non-null) passed to any implementation of {@link
- * TradeService#getTradeHistory(TradeHistoryParams)} .
+  hierarchy and can be safely (without getting exceptions, if that all the required fields are
+  non-null) passed to any implementation of {@link TradeService#getTradeHistory(TradeHistoryParams)} .
+ 实现所有接口的通用 {@link TradeHistoryParams} 实现
+ 层次结构并且可以安全（如果所有必填字段都是 non-null) 传递给 {@link TradeService#getTradeHistory(TradeHistoryParams)} 的任何实现。
+
  */
 public class TradeHistoryParamsAll
     implements TradeHistoryParamsTimeSpan,

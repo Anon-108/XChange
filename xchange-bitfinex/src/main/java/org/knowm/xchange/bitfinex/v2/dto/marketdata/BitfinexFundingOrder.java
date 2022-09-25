@@ -11,12 +11,16 @@ import lombok.Value;
 @Value
 @NoArgsConstructor(force = true, access = AccessLevel.PRIVATE)
 public class BitfinexFundingOrder {
-  /** Rate level */
+  /** Rate level
+   * 费率水平*/
   BigDecimal rate;
-  /** Period level */
+  /** Period level
+   * 期间级别*/
   int period;
-  /** Number of orders at that price level */
+  /** Number of orders at that price level
+   * 该价格水平的订单数量*/
   int count;
-  /** Total amount available at that price level. if AMOUNT > 0 then ask else bid. */
+  /** Total amount available at that price level. if AMOUNT > 0 then ask else bid.
+   * 在该价格水平下可用的总量。 如果 AMOUNT > 0 则询问 else 出价。*/
   BigDecimal amount;
 }

@@ -33,10 +33,15 @@ public class BitfinexWithdrawalRequest {
    * Constructor
    *
    * @param nonce
+   *        随机数
    * @param withdrawType
+   *      撤回类型
    * @param walletSelected
+   *      钱包Selected
    * @param amount
+   *        数量
    * @param address
+   *      地址
    */
   public BitfinexWithdrawalRequest(
       String nonce,

@@ -13,38 +13,48 @@ import lombok.Value;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Value
 public class Movement {
-  /* Movement identifier */
+  /** Movement identifier
+  * 运动标识符 */
   String id;
 
-  /* The symbol of the currency (ex. "BTC") */
+  /** The symbol of the currency (ex. "BTC")
+   * 货币符号（例如“BTC”）*/
   String curency;
 
-  /* String	The extended name of the currency (ex. "BITCOIN") */
+  /** String	The extended name of the currency (ex. "BITCOIN")
+   * String 货币的扩展名称（例如“BITCOIN”）*/
   String currencyName;
 
-  /* Movement started at */
+  /** Movement started at
+   * 运动开始于*/
   Date mtsStarted;
 
-  /* Movement last updated at */
+  /** Movement last updated at
+   * 移动最后更新于*/
   Date mtsUpdated;
 
-  /* Current status */
+  /** Current status  当前状态*/
   String status;
 
-  /* Amount of funds moved (positive for deposits, negative for withdrawals) */
+  /** Amount of funds moved (positive for deposits, negative for withdrawals)
+   * 转移的资金量（存款为正，取款为负） */
   BigDecimal amount;
 
-  /* Tx Fees applied */
+  /** Tx Fees applied
+   * 申请的 Tx 费用*/
   BigDecimal fees;
 
-  /* Destination address */
+  /** Destination address
+   * 目的地址*/
   String destinationAddress;
 
-  /* Transaction identifier */
+  /** Transaction identifier
+   * 交易标识符*/
   String transactionId;
 
-  /*
+  /**
    nullField parameters are a trick to ignore empty positions in the receiving array
+   nullField 参数是忽略接收数组中的空位置的技巧
    Deposit: [[13105603,'ETH','ETHEREUM',null,null,1569348774000,1569348774000,null,null,'COMPLETED',null,null,0.26300954,-0.00135,null,null,'DESTINATION_ADDRESS',null,null,null,'TRANSACTION_ID',null]]
    Withdrawal: [[13293039,'ETH','ETHEREUM',null,null,1574175052000,1574181326000,null,null,'CANCELED',null,null,-0.24,-0.00135,null,null,'DESTINATION_ADDRESS',null,null,null,'TRANSACTION_ID',null]
   */

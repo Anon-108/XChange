@@ -14,7 +14,7 @@ public class BitfinexExceptionV2 extends BitfinexException {
   private Long errorCode;
   private String message;
 
-  // ["error",10100,"apikey: invalid"]
+  // ["error",10100,"apikey: invalid"] ["错误",10100,"apikey: 无效"]
   @JsonCreator
   public BitfinexExceptionV2(Object[] arr) {
     type = arr[0].toString();

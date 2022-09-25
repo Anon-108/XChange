@@ -11,7 +11,8 @@ public class BankeraAccountServiceDemo {
     AccountService accountService = exchange.getAccountService();
 
     // Get the account information
+    // 获取账户信息
     AccountInfo accountInfo = accountService.getAccountInfo();
-    System.out.println("AccountInfo as String: " + accountInfo.toString());
+    System.out.println("AccountInfo as String:AccountInfo 作为字符串： " + accountInfo.toString());
   }
 }

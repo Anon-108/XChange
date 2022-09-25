@@ -32,11 +32,17 @@ public class ResilienceRegistries {
 
   /**
    * Suggested for calls that are not idempotent like placing order or withdrawing funds
+   * 建议用于下单或提款等非幂等调用
    *
-   * <p>Well designed exchange APIs will have mechanisms that make even placing orders idempotent.
-   * Most however cannot handle retries on this type of calls and if you do one after a socket read
-   * timeout for eq. then this may result in placing two identical orders instead of one. For such
-   * exchanged this retry configuration is recommended.
+    <p>Well designed exchange APIs will have mechanisms that make even placing orders idempotent.
+    Most however cannot handle retries on this type of calls and if you do one after a socket read
+    timeout for eq. then this may result in placing two identical orders instead of one. For such
+    exchanged this retry configuration is recommended.
+
+   <p>设计良好的交易所 API 将具有使下单等幂等的机制。
+   但是，大多数都无法处理此类调用的重试，并且如果您在套接字读取后进行重试
+   eq 超时。 那么这可能会导致下两个相同的订单而不是一个。 对于这样
+   建议交换此重试配置。
    */
   public static final RetryConfig DEFAULT_NON_IDEMPOTENT_CALLS_RETRY_CONFIG =
       RetryConfig.from(DEFAULT_RETRY_CONFIG)

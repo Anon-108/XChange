@@ -8,7 +8,7 @@ import java.util.List;
 import org.knowm.xchange.dto.trade.FixedRateLoanOrder;
 import org.knowm.xchange.dto.trade.FloatingRateLoanOrder;
 
-/** DTO representing the exchange loan order book */
+/** DTO representing the exchange loan order book DTO代表汇贷订单簿 */
 public final class LoanOrderBook implements Serializable {
 
   private static final long serialVersionUID = -2894416631375841830L;
@@ -119,6 +119,7 @@ public final class LoanOrderBook implements Serializable {
             it.remove();
           }
           // check if the rate has changed and whether we know if it has changed
+          // 检查汇率是否发生了变化以及我们是否知道它是否发生了变化
           if (!order.getRate().equals(updatedLoanOrder.getRate()) && !rateChanged) {
             rateChanged = true;
           }
@@ -136,6 +137,7 @@ public final class LoanOrderBook implements Serializable {
             it.remove();
           }
           // check if the rate has changed and whether we know if it has changed
+          // 检查汇率是否发生了变化以及我们是否知道它是否发生了变化
           if (!order.getRate().equals(updatedLoanOrder.getRate()) && !rateChanged) {
             rateChanged = true;
           }

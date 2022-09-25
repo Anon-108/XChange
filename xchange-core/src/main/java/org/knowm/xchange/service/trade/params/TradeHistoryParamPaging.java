@@ -6,9 +6,11 @@ public interface TradeHistoryParamPaging extends TradeHistoryParams {
 
   void setPageLength(Integer pageLength);
 
-  /** 0-based page number */
+  /** 0-based page number
+   * * 基于 0 的页码*/
   Integer getPageNumber();
 
-  /** 0-based page number */
+  /** 0-based page number
+   * 基于 0 的页码*/
   void setPageNumber(Integer pageNumber);
 }

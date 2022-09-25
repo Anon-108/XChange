@@ -24,17 +24,17 @@ public class BitfinexOrderStatusResponse {
    *
    * @param id
    * @param symbol
-   * @param price
-   * @param avgExecutionPrice
-   * @param side
-   * @param type
-   * @param timestamp
-   * @param isLive
-   * @param isCancelled
-   * @param wasForced
-   * @param originalAmount
-   * @param remainingAmount
-   * @param executedAmount
+   * @param price 价格
+   * @param avgExecutionPrice 平均执行价格
+   * @param side 边
+   * @param type 类型
+   * @param timestamp 时间戳
+   * @param isLive 是存活
+   * @param isCancelled 取消
+   * @param wasForced 被迫
+   * @param originalAmount 原始金额
+   * @param remainingAmount 剩余数量
+   * @param executedAmount 执行金额
    */
   public BitfinexOrderStatusResponse(
       @JsonProperty("order_id") long id,

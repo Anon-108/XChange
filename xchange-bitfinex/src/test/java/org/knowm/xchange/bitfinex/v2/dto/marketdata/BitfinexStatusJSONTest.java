@@ -14,11 +14,13 @@ public class BitfinexStatusJSONTest {
   public void testUnmarshal() throws IOException {
 
     // Read in the JSON from the example resources
+    // 从示例资源中读取 JSON
     InputStream is =
         BitfinexStatusJSONTest.class.getResourceAsStream(
             "/org/knowm/xchange/bitfinex/v2/dto/marketdata/example-status-data.json");
 
     // Use Jackson to parse it
+    // 使用 Jackson 解析
     ObjectMapper mapper = new ObjectMapper();
     CollectionType constructCollectionType =
         mapper.getTypeFactory().constructCollectionType(List.class, Status.class);

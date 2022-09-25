@@ -13,6 +13,9 @@ import org.knowm.xchange.dto.trade.FixedRateLoanOrder;
 import org.knowm.xchange.dto.trade.FloatingRateLoanOrder;
 import org.knowm.xchange.examples.bitfinex.BitfinexDemoUtils;
 
+/**
+ * Bitfinex 优惠演示
+ */
 public class BitfinexOfferDemo {
 
   public static void main(String[] args) throws IOException {
@@ -31,25 +34,25 @@ public class BitfinexOfferDemo {
             new FixedRateLoanOrder(
                 OrderType.BID, "USD", new BigDecimal("0.01"), 2, "", null, new BigDecimal("0.01")),
             BitfinexOrderType.LIMIT);
-    System.out.println("Fixed rate order response: " + fixedRateResponse);
+    System.out.println("Fixed rate order response 固定费率订单响应: " + fixedRateResponse);
 
     BitfinexOfferStatusResponse floatingRateResponse =
         tradeService.placeBitfinexFloatingRateLoanOrder(
             new FloatingRateLoanOrder(
                 OrderType.BID, "USD", new BigDecimal("0.01"), 2, "", null, BigDecimal.ZERO),
             BitfinexOrderType.MARKET);
-    System.out.println("Floating rate order response: " + floatingRateResponse);
+    System.out.println("Floating rate order response 浮动利率订单响应: " + floatingRateResponse);
 
     BitfinexCreditResponse[] activeCredits = tradeService.getBitfinexActiveCredits();
-    System.out.println("Active credits: " + Arrays.toString(activeCredits));
+    System.out.println("Active credits 有效学分: " + Arrays.toString(activeCredits));
 
     BitfinexOfferStatusResponse[] openOffers = tradeService.getBitfinexOpenOffers();
-    System.out.println("Open offers response: " + Arrays.toString(openOffers));
+    System.out.println("Open offers response 公开报价响应: " + Arrays.toString(openOffers));
 
     for (BitfinexOfferStatusResponse offer : openOffers) {
       BitfinexOfferStatusResponse cancelResponse =
           tradeService.cancelBitfinexOffer(Long.toString(offer.getId()));
-      System.out.println("Cancel offer response: " + cancelResponse);
+      System.out.println("Cancel offer response 取消报价响应: " + cancelResponse);
     }
   }
 }

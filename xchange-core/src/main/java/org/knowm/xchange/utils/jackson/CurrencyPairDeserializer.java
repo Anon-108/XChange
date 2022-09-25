@@ -19,6 +19,7 @@ public class CurrencyPairDeserializer extends JsonDeserializer<CurrencyPair> {
 
     /*
      * Preserve case if exchange is sending mixed-case, otherwise toUpperCase()
+     * * 如果交换发送混合大小写，则保留大小写，否则为 toUpperCase()
      */
     final boolean isMixedCase =
         currencyPairString.matches(".*[a-z]+.*") && currencyPairString.matches(".*[A-Z]+.*");
@@ -28,6 +29,7 @@ public class CurrencyPairDeserializer extends JsonDeserializer<CurrencyPair> {
 
     /*
      * Assume all symbols are alphanumeric; anything else is a separator
+     * * 假设所有符号都是字母数字； 其他任何东西都是分隔符
      */
     final String symbols[] = currencyPairString.split("[^a-zA-Z0-9]");
     if (symbols.length == 2) {
@@ -36,6 +38,7 @@ public class CurrencyPairDeserializer extends JsonDeserializer<CurrencyPair> {
 
     /*
      * The common case of two 3-character symbols (eg: "BTCUSD")
+     * * 两个 3 字符符号的常见情况（例如：“BTCUSD”）
      */
     if (currencyPairString.length() == 6) {
       final String tradeCurrency = currencyPairString.substring(0, 3);
@@ -45,6 +48,7 @@ public class CurrencyPairDeserializer extends JsonDeserializer<CurrencyPair> {
 
     /*
      * Last-ditch effort to obtain the correct CurrencyPair (eg: "DOGEBTC", "BCBTC", or even "USDEUSD")
+     * * 获得正确货币对的最后努力（例如：“DOGEBTC”、“BCBTC”，甚至“USDEUSD”）
      */
     int bestGuess = currencyPairString.length() / 2;
     int bestLength = 0;

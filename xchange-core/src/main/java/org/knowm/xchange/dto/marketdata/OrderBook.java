@@ -14,25 +14,31 @@ import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.Order.OrderType;
 import org.knowm.xchange.dto.trade.LimitOrder;
 
-/** DTO representing the exchange order book */
+/** DTO representing the exchange order book
+ * 代表交换订单簿的 DTO*/
 public final class OrderBook implements Serializable {
 
   private static final long serialVersionUID = -7788306758114464314L;
 
-  /** the asks */
+  /** the asks  */
   private final List<LimitOrder> asks;
   /** the bids */
   private final List<LimitOrder> bids;
-  /** the timestamp of the orderbook according to the exchange's server, null if not provided */
+  /** the timestamp of the orderbook according to the exchange's server, null if not provided
+   * 根据交易所服务器的订单簿时间戳，如果没有提供则为空*/
   private Date timeStamp;
 
   /**
    * Constructor
    *
-   * @param timeStamp - the timestamp of the orderbook according to the exchange's server, null if
-   *     not provided
+   * @param timeStamp - the timestamp of the orderbook according to the exchange's server, null if  not provided
+   *                  - 根据交易所服务器的订单簿时间戳，如果没有提供则为空
+   *
    * @param asks The ASK orders
+   *             ASK 订单
+   *
    * @param bids The BID orders
+   *             投标订单
    */
   @JsonCreator
   public OrderBook(
@@ -46,11 +52,17 @@ public final class OrderBook implements Serializable {
   /**
    * Constructor
    *
-   * @param timeStamp - the timestamp of the orderbook according to the exchange's server, null if
-   *     not provided
+   * @param timeStamp - the timestamp of the orderbook according to the exchange's server, null if  not provided
+   *                  - 根据交易所服务器的订单簿时间戳，如果没有提供则为空
+   *
    * @param asks The ASK orders
+   *             ASK 订单
+   *
    * @param bids The BID orders
+   *             投标订单
+   *
    * @param sort True if the asks and bids need to be sorted
+   *             如果需要对询价和出价进行排序，则为真
    */
   public OrderBook(Date timeStamp, List<LimitOrder> asks, List<LimitOrder> bids, boolean sort) {
 
@@ -69,10 +81,14 @@ public final class OrderBook implements Serializable {
   /**
    * Constructor
    *
-   * @param timeStamp - the timestamp of the orderbook according to the exchange's server, null if
-   *     not provided
+   * @param timeStamp - the timestamp of the orderbook according to the exchange's server, null if  not provided
+   *                  - 根据交易所服务器的订单簿时间戳，如果没有提供则为空
+   *
    * @param asks The ASK orders
+   *             ASK 订单
+   *
    * @param bids The BID orders
+   *             投标订单
    */
   public OrderBook(Date timeStamp, Stream<LimitOrder> asks, Stream<LimitOrder> bids) {
 
@@ -82,11 +98,17 @@ public final class OrderBook implements Serializable {
   /**
    * Constructor
    *
-   * @param timeStamp - the timestamp of the orderbook according to the exchange's server, null if
-   *     not provided
+   * @param timeStamp - the timestamp of the orderbook according to the exchange's server, null if   not provided
+   *                  - 根据交易所服务器的订单簿时间戳，如果没有提供则为空
+   *
    * @param asks The ASK orders
+   *             ASK 订单
+   *
    * @param bids The BID orders
+   *             投标订单
+   *
    * @param sort True if the asks and bids need to be sorted
+   *             如果需要对询价和出价进行排序，则为真
    */
   public OrderBook(Date timeStamp, Stream<LimitOrder> asks, Stream<LimitOrder> bids, boolean sort) {
 
@@ -101,6 +123,7 @@ public final class OrderBook implements Serializable {
   }
 
   // Returns a copy of limitOrder with tradeableAmount replaced.
+  // 返回 limitOrder 的副本，替换为 tradeableAmount。
   private static LimitOrder withAmount(LimitOrder limitOrder, BigDecimal tradeableAmount) {
 
     OrderType type = limitOrder.getType();
@@ -133,10 +156,12 @@ public final class OrderBook implements Serializable {
 
   /**
    * Given a new LimitOrder, it will replace a matching limit order in the orderbook if one is
-   * found, or add the new LimitOrder if one is not. timeStamp will be updated if the new timestamp
-   * is non-null and in the future.
+    found, or add the new LimitOrder if one is not. timeStamp will be updated if the new timestamp is non-null and in the future.
+   给定一个新的 LimitOrder，它将替换订单簿中匹配的限价单，如果
+   找到，如果没有找到，则添加新的 LimitOrder。 如果新的时间戳是非空的并且在未来，timeStamp 将被更新。
    *
    * @param limitOrder the new LimitOrder
+   *                   新的限价单
    */
   public void update(LimitOrder limitOrder) {
 
@@ -145,6 +170,7 @@ public final class OrderBook implements Serializable {
   }
 
   // Replace the amount for limitOrder's price in the provided list.
+  // 替换提供列表中limitOrder 价格的金额。
   private void update(List<LimitOrder> asks, LimitOrder limitOrder) {
 
     int idx = Collections.binarySearch(asks, limitOrder);
@@ -161,10 +187,12 @@ public final class OrderBook implements Serializable {
 
   /**
    * Given an OrderBookUpdate, it will replace a matching limit order in the orderbook if one is
-   * found, or add a new if one is not. timeStamp will be updated if the new timestamp is non-null
-   * and in the future.
+    found, or add a new if one is not. timeStamp will be updated if the new timestamp is non-null  and in the future.
+   给定一个 OrderBookUpdate，它将替换订单簿中匹配的限价单，如果
+   找到，如果没有找到，则添加新的。 如果新的时间戳是非空的并且在未来，timeStamp 将被更新。
    *
    * @param orderBookUpdate the new OrderBookUpdate
+   *                        新的 OrderBookUpdate
    */
   public void update(OrderBookUpdate orderBookUpdate) {
 
@@ -186,7 +214,9 @@ public final class OrderBook implements Serializable {
   }
 
   // Replace timeStamp if the provided date is non-null and in the future
+  // 如果提供的日期不为空且在未来，则替换 timeStamp
   // TODO should this raise an exception if the order timestamp is in the past?
+  //如果订单时间戳是过去的，这是否会引发异常？
   private void updateDate(Date updateDate) {
 
     if (updateDate != null && (timeStamp == null || updateDate.after(timeStamp))) {
@@ -244,9 +274,11 @@ public final class OrderBook implements Serializable {
 
   /**
    * Identical to {@link #equals(Object) equals} method except that this ignores different
-   * timestamps. In other words, this version of equals returns true if the order internal to the
-   * OrderBooks are equal but their timestamps are unequal. It returns false if any order between
-   * the two are different.
+    timestamps. In other words, this version of equals returns true if the order internal to the
+    OrderBooks are equal but their timestamps are unequal. It returns false if any order between the two are different.
+   与 {@link #equals(Object) equals} 方法相同，只是忽略了不同的
+   时间戳。 换句话说，这个版本的 equals 如果订单内部的订单返回 true
+   OrderBook 是相等的，但它们的时间戳不相等。 如果两者之间的任何顺序不同，则返回 false。
    *
    * @param ob
    * @return

@@ -15,9 +15,9 @@ public class BitfinexHmacSignature extends BaseParamsDigest {
   /**
    * Constructor
    *
-   * @param secretKeyBase64
-   * @throws IllegalArgumentException if key is invalid (cannot be base-64-decoded or the decoded
-   *     key is invalid).
+   * @param secretKeyBase64 密钥 Base64
+   * @throws IllegalArgumentException if key is invalid (cannot be base-64-decoded or the decoded  key is invalid).
+   *        如果密钥无效（不能是 base64 编码或解码的密钥无效）。
    */
   private BitfinexHmacSignature(String secretKeyBase64) {
 
@@ -38,7 +38,7 @@ public class BitfinexHmacSignature extends BaseParamsDigest {
     try {
       path = URLDecoder.decode(path, "utf8");
     } catch (UnsupportedEncodingException e) {
-      log.warn("Could not url decode the path {}.", path, e);
+      log.warn("Could not url decode the path 无法对路径进行 url 解码 {}.", path, e);
     }
 
     Object nonce = i.getParamValue(HeaderParam.class, BitfinexAuthenticated.BFX_NONCE);
@@ -54,7 +54,7 @@ public class BitfinexHmacSignature extends BaseParamsDigest {
       return signature;
 
     } catch (IllegalStateException | UnsupportedEncodingException e) {
-      throw new ExchangeException("Could not sign the request", e);
+      throw new ExchangeException("Could not sign the request 无法签署请求", e);
     }
   }
 }

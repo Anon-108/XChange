@@ -43,6 +43,6 @@ public class DefaultOpenOrdersParamCurrencyPair implements OpenOrdersParamCurren
 
   @Override
   public String toString() {
-    return String.format("DefaultOpenOrdersParamCurrencyPair{%s}", pair);
+    return String.format("DefaultOpenOrdersParamCurrencyPair 默认未结订单参数货币对{%s}", pair);
   }
 }

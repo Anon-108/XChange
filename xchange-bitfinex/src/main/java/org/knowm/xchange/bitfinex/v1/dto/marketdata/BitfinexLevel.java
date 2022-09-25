@@ -13,8 +13,11 @@ public class BitfinexLevel {
    * Constructor
    *
    * @param price
+   *        价格
    * @param amount
+   *      数量
    * @param timestamp
+   *      时间戳
    */
   public BitfinexLevel(
       @JsonProperty("price") BigDecimal price,

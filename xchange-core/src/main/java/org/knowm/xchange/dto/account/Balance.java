@@ -12,11 +12,13 @@ import org.slf4j.LoggerFactory;
 
 /**
  * DTO representing a balance in a currency
+ * * DTO 代表一种货币的余额
  *
- * <p>This is simply defined by an amount of money in a given currency, contained in the cash
- * object.
+ * <p>This is simply defined by an amount of money in a given currency, contained in the cash object.
+ * * <p>这只是由现金对象中包含的给定货币的金额定义。
  *
  * <p>This class is immutable.
+ * * <p>这个类是不可变的。
  */
 @JsonDeserialize(builder = Balance.Builder.class)
 public final class Balance implements Comparable<Balance>, Serializable {
@@ -27,7 +29,9 @@ public final class Balance implements Comparable<Balance>, Serializable {
   private final Currency currency;
 
   // Invariant:
+  //不变量：
   // total = available + frozen - borrowed + loaned + withdrawing + depositing;
+  // 总计 = 可用 + 冻结 - 借入 + 借出 + 取款 + 存款；
   private final BigDecimal total;
   private final BigDecimal available;
   private final BigDecimal frozen;
@@ -39,10 +43,13 @@ public final class Balance implements Comparable<Balance>, Serializable {
 
   /**
    * Constructs a balance, the {@link #available} will be the same as the <code>total</code>, and
-   * the {@link #frozen} is zero. The <code>borrowed</code> and <code>loaned</code> will be zero.
+   the {@link #frozen} is zero. The <code>borrowed</code> and <code>loaned</code> will be zero.
+   构造一个余额，{@link #available} 将与 <code>total</code> 相同，并且
+   {@link #frozen} 为零。 <code>borrowed</code> 和 <code>loaned</code> 将为零。
    *
    * @param currency The underlying currency
-   * @param total The total
+   *                 基础货币
+   * @param total The total 总数
    */
   public Balance(Currency currency, BigDecimal total) {
 
@@ -60,12 +67,18 @@ public final class Balance implements Comparable<Balance>, Serializable {
 
   /**
    * Constructs a balance, the {@link #frozen} will be assigned as <code>total</code> - <code>
-   * available</code>. The <code>borrowed</code> and <code>loaned</code> will be zero.
+   available</code>. The <code>borrowed</code> and <code>loaned</code> will be zero.
+   构造一个余额，{@link #frozen} 将被分配为 <code>total</code> - <code>
+   可用</code>。 <code>borrowed</code> 和 <code>loaned</code> 将为零。
    *
    * @param currency the underlying currency of this balance.
+   *                 该余额的基础货币。
+   *
    * @param total the total amount of the <code>currency</code> in this balance.
-   * @param available the amount of the <code>currency</code> in this balance that is available to
-   *     trade.
+   *              此余额中<code>currency</code> 的总金额。
+   *
+   * @param available the amount of the <code>currency</code> in this balance that is available to  trade.
+   *                  此余额中可供交易的 <code>currency</code> 的金额。
    */
   public Balance(Currency currency, BigDecimal total, BigDecimal available) {
 
@@ -82,14 +95,19 @@ public final class Balance implements Comparable<Balance>, Serializable {
 
   /**
    * Constructs a balance. The <code>borrowed</code> and <code>loaned</code> will be zero.
+   * * 构建平衡。 <code>borrowed</code> 和 <code>loaned</code> 将为零。
    *
    * @param currency the underlying currency of this balance.
-   * @param total the total amount of the <code>currency</code> in this balance, including the
-   *     <code>available</code> and <code>frozen</code>.
-   * @param available the amount of the <code>currency</code> in this balance that is available to
-   *     trade.
-   * @param frozen the frozen amount of the <code>currency</code> in this balance that is locked in
-   *     trading.
+   *                 该余额的基础货币。
+   *
+   * @param total the total amount of the <code>currency</code> in this balance, including the <code>available</code> and <code>frozen</code>.
+   *              * @param total 该余额中<code>currency</code>的总金额，包括<code>available</code>和<code>frozen</code>。
+   *
+   * @param available the amount of the <code>currency</code> in this balance that is available to   trade.
+   *                  此余额中可供交易的 <code>currency</code> 的金额。
+   *
+   * @param frozen the frozen amount of the <code>currency</code> in this balance that is locked in  trading.
+   *               此余额中被锁定在交易中的<code>currency</code>的冻结金额。
    */
   public Balance(Currency currency, BigDecimal total, BigDecimal available, BigDecimal frozen) {
 
@@ -107,23 +125,34 @@ public final class Balance implements Comparable<Balance>, Serializable {
 
   /**
    * Constructs a balance.
+   * 构建平衡。
    *
    * @param currency the underlying currency of this balance.
-   * @param total the total amount of the <code>currency</code> in this balance, equal to <code>
-   *     available + frozen - borrowed + loaned</code>.
-   * @param available the amount of the <code>currency</code> in this balance that is available to
-   *     trade, including the <code>borrowed</code>.
-   * @param frozen the frozen amount of the <code>currency</code> in this balance that is locked in
-   *     trading.
-   * @param borrowed the borrowed amount of the available <code>currency</code> in this balance that
-   *     must be repaid.
-   * @param loaned the loaned amount of the total <code>currency</code> in this balance that will be
-   *     returned.
-   * @param withdrawing the amount of the <code>currency</code> in this balance that is scheduled
-   *     for withdrawal.
-   * @param depositing the amount of the <code>currency</code> in this balance that is being
-   *     deposited but not available yet.
+   *                 该余额的基础货币。
+   *
+   * @param total the total amount of the <code>currency</code> in this balance, equal to <code>  available + frozen - borrowed + loaned</code>.
+   *              此余额中<code>货币</code>的总金额，等于<code>可用+冻结-借入+借出</code>。
+   *
+   * @param available the amount of the <code>currency</code> in this balance that is available to   trade, including the <code>borrowed</code>.
+   *                  此余额中可供交易的 <code>currency</code> 金额，包括 <code>借入</code>。
+   *
+   * @param frozen the frozen amount of the <code>currency</code> in this balance that is locked in  trading.
+   *               此余额中被锁定在交易中的<code>currency</code>的冻结金额。
+   *
+   * @param borrowed the borrowed amount of the available <code>currency</code> in this balance that   must be repaid.
+   *                 此余额中必须偿还的可用<code>货币</code>的借入金额。
+   *
+   * @param loaned the loaned amount of the total <code>currency</code> in this balance that will be  returned.
+   *               此余额中将归还的总 <code>currency</code> 的借出金额。
+   *
+   * @param withdrawing the amount of the <code>currency</code> in this balance that is scheduled  for withdrawal.
+   *                    此余额中计划提款的 <code>currency</code> 金额。
+   *
+   * @param depositing the amount of the <code>currency</code> in this balance that is being   deposited but not available yet.
+   *                   此余额中正在存入但尚不可用的 <code>currency</code> 金额。
+   *
    * @param timestamp Time the balance was valid on the exchange server
+   *                  余额在交换服务器上有效的时间
    */
   public Balance(
       Currency currency,
@@ -141,7 +170,7 @@ public final class Balance implements Comparable<Balance>, Serializable {
           available.add(frozen).subtract(borrowed).add(loaned).add(withdrawing).add(depositing);
       if (0 != total.compareTo(sum)) {
         log.warn(
-            "{} = total != available + frozen - borrowed + loaned + withdrawing + depositing = {}",
+            "{} = total != available + frozen - borrowed + loaned + withdrawing + depositing = 总计！= 可用 + 冻结 - 借入 + 借出 + 取款 + 存款 ={}",
             total,
             sum);
       }
@@ -159,22 +188,31 @@ public final class Balance implements Comparable<Balance>, Serializable {
 
   /**
    * Constructs a balance.
+   * 构建平衡。
    *
    * @param currency the underlying currency of this balance.
-   * @param total the total amount of the <code>currency</code> in this balance, equal to <code>
-   *     available + frozen - borrowed + loaned</code>.
-   * @param available the amount of the <code>currency</code> in this balance that is available to
-   *     trade, including the <code>borrowed</code>.
-   * @param frozen the frozen amount of the <code>currency</code> in this balance that is locked in
-   *     trading.
-   * @param borrowed the borrowed amount of the available <code>currency</code> in this balance that
-   *     must be repaid.
-   * @param loaned the loaned amount of the total <code>currency</code> in this balance that will be
-   *     returned.
-   * @param withdrawing the amount of the <code>currency</code> in this balance that is scheduled
-   *     for withdrawal.
-   * @param depositing the amount of the <code>currency</code> in this balance that is being
-   *     deposited but not available yet.
+   *                 该余额的基础货币。
+   *
+   * @param total the total amount of the <code>currency</code> in this balance, equal to <code>   available + frozen - borrowed + loaned</code>.
+   *              此余额中<code>货币</code>的总金额，等于<code>可用+冻结-借入+借出</code>。
+   *
+   * @param available the amount of the <code>currency</code> in this balance that is available to  trade, including the <code>borrowed</code>.
+   *                  此余额中可供交易的 <code>currency</code> 金额，包括 <code>借入</code>。
+   *
+   * @param frozen the frozen amount of the <code>currency</code> in this balance that is locked in  trading.
+   *               此余额中被锁定在交易中的<code>currency</code>的冻结金额。
+   *
+   * @param borrowed the borrowed amount of the available <code>currency</code> in this balance that    must be repaid.
+   *                 此余额中必须偿还的可用<code>货币</code>的借入金额。
+   *
+   * @param loaned the loaned amount of the total <code>currency</code> in this balance that will be returned.
+   *               此余额中将归还的总 <code>currency</code> 的借出金额。
+   *
+   * @param withdrawing the amount of the <code>currency</code> in this balance that is scheduled   for withdrawal.
+   *                    此余额中计划提款的 <code>currency</code> 金额。
+   *
+   * @param depositing the amount of the <code>currency</code> in this balance that is being  deposited but not available yet.
+   *                   此余额中正在存入但尚不可用的 <code>currency</code> 金额。
    */
   public Balance(
       Currency currency,
@@ -191,7 +229,7 @@ public final class Balance implements Comparable<Balance>, Serializable {
           available.add(frozen).subtract(borrowed).add(loaned).add(withdrawing).add(depositing);
       if (0 != total.compareTo(sum)) {
         log.warn(
-            "{} = total != available + frozen - borrowed + loaned + withdrawing + depositing = {}",
+            "{} = total != available + frozen - borrowed + loaned + withdrawing + depositing 总计 != 可用 + 冻结 - 借入 + 借出 + 取款 + 存款 = {}",
             total,
             sum);
       }
@@ -209,9 +247,13 @@ public final class Balance implements Comparable<Balance>, Serializable {
 
   /**
    * Returns a zero balance.
+   * 返回零余额。
    *
    * @param currency the balance currency.
+   *                 余额货币。
+   *
    * @return a zero balance.
+   * @return 零余额。
    */
   public static Balance zero(Currency currency) {
 
@@ -234,8 +276,10 @@ public final class Balance implements Comparable<Balance>, Serializable {
 
   /**
    * Returns the total amount of the <code>currency</code> in this balance.
+   * 返回此余额中<code>currency</code> 的总金额。
    *
    * @return the total amount.
+   * * @return 总金额。
    */
   public BigDecimal getTotal() {
 
@@ -248,8 +292,10 @@ public final class Balance implements Comparable<Balance>, Serializable {
 
   /**
    * Returns the amount of the <code>currency</code> in this balance that is available to trade.
+   * * 返回此余额中可供交易的 <code>currency</code> 的金额。
    *
    * @return the amount that is available to trade.
+   * @return 可交易的金额。
    */
   public BigDecimal getAvailable() {
 
@@ -266,10 +312,11 @@ public final class Balance implements Comparable<Balance>, Serializable {
   }
 
   /**
-   * Returns the amount of the <code>currency</code> in this balance that may be withdrawn. Equal to
-   * <code>available - borrowed</code>.
+   * Returns the amount of the <code>currency</code> in this balance that may be withdrawn. Equal to <code>available - borrowed</code>.
+   * * 返回此余额中<code>currency</code> 可以提取的金额。 等于 <code>available - borrowed</code>。
    *
    * @return the amount that is available to withdraw.
+   * * @return 可提取的金额。
    */
   @JsonIgnore
   public BigDecimal getAvailableForWithdrawal() {
@@ -278,10 +325,11 @@ public final class Balance implements Comparable<Balance>, Serializable {
   }
 
   /**
-   * Returns the frozen amount of the <code>currency</code> in this balance that is locked in
-   * trading.
+   * Returns the frozen amount of the <code>currency</code> in this balance that is locked in trading.
+   * 返回此余额中被锁定在交易中的 <code>currency</code> 的冻结金额。
    *
    * @return the amount that is locked in open orders.
+   * @return 锁定在未结订单中的金额。
    */
   public BigDecimal getFrozen() {
 
@@ -292,10 +340,11 @@ public final class Balance implements Comparable<Balance>, Serializable {
   }
 
   /**
-   * Returns the borrowed amount of the available <code>currency</code> in this balance that must be
-   * repaid.
+   * Returns the borrowed amount of the available <code>currency</code> in this balance that must be repaid.
+   * * 返回此余额中必须偿还的可用<code>currency</code>的借入金额。
    *
    * @return the amount that must be repaid.
+   * @return 必须偿还的金额。
    */
   public BigDecimal getBorrowed() {
 
@@ -303,10 +352,11 @@ public final class Balance implements Comparable<Balance>, Serializable {
   }
 
   /**
-   * Returns the loaned amount of the total <code>currency</code> in this balance that will be
-   * returned.
+   * Returns the loaned amount of the total <code>currency</code> in this balance that will be returned.
+   * * 返回此余额中将归还的总<code>currency</code>的借出金额。
    *
    * @return that amount that is loaned out.
+   * @return 借出的金额。
    */
   public BigDecimal getLoaned() {
 
@@ -315,8 +365,10 @@ public final class Balance implements Comparable<Balance>, Serializable {
 
   /**
    * Returns the amount of the <code>currency</code> in this balance that is locked in withdrawal
+   * 返回此余额中被锁定在提款中的 <code>currency</code> 的金额
    *
    * @return the amount in withdrawal.
+   * @return 取款金额。
    */
   public BigDecimal getWithdrawing() {
 
@@ -325,8 +377,10 @@ public final class Balance implements Comparable<Balance>, Serializable {
 
   /**
    * Returns the amount of the <code>currency</code> in this balance that is locked in deposit
+   * 返回此余额中锁定在存款中的 <code>currency</code> 金额
    *
    * @return the amount in deposit.
+   * * @return 存款金额。
    */
   public BigDecimal getDepositing() {
 
@@ -335,8 +389,10 @@ public final class Balance implements Comparable<Balance>, Serializable {
 
   /**
    * Returns the time the balance was valid on the exchange server
+   * * 返回余额在交易所服务器上的有效时间
    *
    * @return the timestamp.
+   * * @return 时间戳。
    */
   public Date getTimestamp() {
     return timestamp;

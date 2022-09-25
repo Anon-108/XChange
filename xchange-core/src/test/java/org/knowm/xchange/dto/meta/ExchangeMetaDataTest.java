@@ -14,21 +14,24 @@ import org.knowm.xchange.currency.CurrencyPair;
 
 public class ExchangeMetaDataTest {
 
-  /** 1 call per second => 1000ms delay */
+  /** 1 call per second => 1000ms delay
+   * 每秒 1 次调用 => 1000 毫秒延迟*/
   @Test
   public void testGetPollDelayMillis1000() {
     RateLimit limit = new RateLimit(1, 1, SECONDS);
     assertEquals(1000L, limit.getPollDelayMillis());
   }
 
-  /** 2 calls per second => 500ms delay */
+  /** 2 calls per second => 500ms delay
+   * 每秒 2 次调用 => 500 毫秒延迟 */
   @Test
   public void testGetPollDelayMillis500() {
     RateLimit limit = new RateLimit(2, 1, SECONDS);
     assertEquals(500L, limit.getPollDelayMillis());
   }
 
-  /** 1 cal per second or 2 calls per second => 1000ms delay (500ms for burst calls) */
+  /** 1 cal per second or 2 calls per second => 1000ms delay (500ms for burst calls)
+   * 每秒 1 次校准或每秒 2 次调用 => 1000 毫秒延迟（突发调用为 500 毫秒）*/
   @Test
   public void testGetPollDelayMillisMulti() {
     assertEquals(
@@ -38,13 +41,15 @@ public class ExchangeMetaDataTest {
                 new RateLimit[] {new RateLimit(2, 1, SECONDS), new RateLimit(1, 1, SECONDS)}));
   }
 
-  /** null for an unknown value */
+  /** null for an unknown value
+   * 未知值的 null */
   @Test
   public void testGetPollDelayMillisNull() {
     assertEquals(null, ExchangeMetaData.getPollDelayMillis(null));
   }
 
-  /** null for an unknown value */
+  /** null for an unknown value
+   * 未知值的 null */
   @Test
   public void testGetPollDelayMillisEmpty() {
     assertEquals(null, ExchangeMetaData.getPollDelayMillis(new RateLimit[0]));

@@ -28,9 +28,11 @@ import org.knowm.xchange.service.marketdata.params.Params;
 
 /**
  * Implementation of the market data service for Bitfinex
+ * 为 Bitfinex 实施市场数据服务
  *
  * <ul>
  *   <li>Provides access to various market data values
+ *      提供对各种市场数据值的访问
  * </ul>
  */
 public class BitfinexMarketDataService extends BitfinexMarketDataServiceRaw
@@ -48,6 +50,7 @@ public class BitfinexMarketDataService extends BitfinexMarketDataServiceRaw
 
   @Override
   public Ticker getTicker(CurrencyPair currencyPair, Object... args) throws IOException {
+    // return getTickerV1(currencyPair, args);
     // return getTickerV1(currencyPair, args);
     return getTickerV2(currencyPair, args);
   }
@@ -69,24 +72,26 @@ public class BitfinexMarketDataService extends BitfinexMarketDataServiceRaw
     }
   }
 
-  /** @param args If two integers are provided, then those count as limit bid and limit ask count */
+  /** @param args If two integers are provided, then those count as limit bid and limit ask count
+   * 如果提供了两个整数，则将它们计为限制出价和限制要价计数*/
   @Override
   public OrderBook getOrderBook(CurrencyPair currencyPair, Object... args) throws IOException {
     try {
       // null will cause fetching of full order book, the default behavior in XChange
+      // null 将导致获取完整的订单簿，XChange 中的默认行为
       Integer limitBids = null;
       Integer limitAsks = null;
 
       if (args != null && args.length == 2) {
         Object arg0 = args[0];
         if (!(arg0 instanceof Integer)) {
-          throw new ExchangeException("Argument 0 must be an Integer!");
+          throw new ExchangeException("Argument 0 must be an Integer! 参数 0 必须是整数！");
         } else {
           limitBids = (Integer) arg0;
         }
         Object arg1 = args[1];
         if (!(arg1 instanceof Integer)) {
-          throw new ExchangeException("Argument 1 must be an Integer!");
+          throw new ExchangeException("Argument 1 must be an Integer! 参数 1 必须是整数！");
         } else {
           limitAsks = (Integer) arg1;
         }
@@ -106,19 +111,20 @@ public class BitfinexMarketDataService extends BitfinexMarketDataServiceRaw
   public LoanOrderBook getLendOrderBook(String currency, Object... args) throws IOException {
     try {
       // According to API docs, default is 50
+      // 根据 API 文档，默认为 50
       int limitBids = 50;
       int limitAsks = 50;
 
       if (args != null && args.length == 2) {
         Object arg0 = args[0];
         if (!(arg0 instanceof Integer)) {
-          throw new ExchangeException("Argument 0 must be an Integer!");
+          throw new ExchangeException("Argument 0 must be an Integer! 参数 0 必须是整数！");
         } else {
           limitBids = (Integer) arg0;
         }
         Object arg1 = args[1];
         if (!(arg1 instanceof Integer)) {
-          throw new ExchangeException("Argument 1 must be an Integer!");
+          throw new ExchangeException("Argument 1 must be an Integer! 参数 1 必须是整数！");
         } else {
           limitAsks = (Integer) arg1;
         }
@@ -153,27 +159,27 @@ public class BitfinexMarketDataService extends BitfinexMarketDataServiceRaw
   }
 
   /**
-   * @param currencyPair The CurrencyPair for which to query trades.
-   * @param args One argument may be supplied which is the timestamp after which trades should be
-   *     collected. Trades before this time are not reported. The argument may be of type
-   *     java.util.Date or Number (milliseconds since Jan 1, 1970)
+   * @param currencyPair The CurrencyPair for which to query trades.  要查询交易的 CurrencyPair。
+   * @param args One argument may be supplied which is the timestamp after which trades should be  collected. Trades before this time are not reported. The argument may be of type java.util.Date or Number (milliseconds since Jan 1, 1970)
+   *             可以提供一个参数，即应收集交易的时间戳。 在此之前的交易不会被报告。 参数可以是 java.util.Date 或 Number 类型（自 1970 年 1 月 1 日以来的毫秒数）
    */
   private Trades getTradesV1(CurrencyPair currencyPair, Object... args) throws IOException {
     try {
       long lastTradeTime = 0;
       if (args != null && args.length == 1) {
         // parameter 1, if present, is the last trade timestamp
+        // 参数 1，如果存在，是最后的交易时间戳
         if (args[0] instanceof Number) {
           Number arg = (Number) args[0];
           lastTradeTime =
-              arg.longValue() / 1000; // divide by 1000 to convert to unix timestamp (seconds)
+              arg.longValue() / 1000; // divide by 1000 to convert to unix timestamp (seconds)  // 除以 1000 转换为 unix 时间戳（秒）
         } else if (args[0] instanceof Date) {
           Date arg = (Date) args[0];
           lastTradeTime =
-              arg.getTime() / 1000; // divide by 1000 to convert to unix timestamp (seconds)
+              arg.getTime() / 1000; // divide by 1000 to convert to unix timestamp (seconds)  // 除以 1000 转换为 unix 时间戳（秒）
         } else {
           throw new IllegalArgumentException(
-              "Extra argument #1, the last trade time, must be a Date or Long (millisecond timestamp) (was "
+              "Extra argument #1, the last trade time, must be a Date or Long (millisecond timestamp) (was  额外参数 #1，最后一次交易时间，必须是 Date 或 Long（毫秒时间戳）（原为"
                   + args[0].getClass()
                   + ")");
         }
@@ -189,9 +195,9 @@ public class BitfinexMarketDataService extends BitfinexMarketDataServiceRaw
 
   /**
    * @param currencyPair The CurrencyPair for which to query public trades.
-   * @param args Upto 4 numeric arguments may be supplied limitTrades, startTimestamp (Unix
-   *     millisecs), endTimestamp (Unix millisecs), sort -1 / 1 (if = 1 it sorts results returned
-   *     with old > new)
+   *                      要查询公共交易的 CurrencyPair。
+   * @param args Upto 4 numeric arguments may be supplied limitTrades, startTimestamp (Unix  millisecs), endTimestamp (Unix millisecs), sort -1 / 1 (if = 1 it sorts results returned    with old > new)
+   *             最多可以提供 4 个数字参数 limitTrades、startTimestamp（Unix 毫秒）、endTimestamp（Unix 毫秒）、sort -1 / 1（如果 = 1，它会按 old > new 返回的结果排序）
    */
   private Trades getTradesV2(CurrencyPair currencyPair, Object... args) throws IOException {
     try {
@@ -220,7 +226,7 @@ public class BitfinexMarketDataService extends BitfinexMarketDataServiceRaw
             }
           } else {
             throw new IllegalArgumentException(
-                "Extra argument #" + i + " must be an int/long was: " + args[i].getClass());
+                "Extra argument 额外的论点#" + i + " must be an int/long was 必须是 int/long 是: " + args[i].getClass());
           }
         }
       }

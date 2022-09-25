@@ -15,6 +15,9 @@ import org.knowm.xchange.service.trade.params.TradeHistoryParamCurrency;
 import org.knowm.xchange.service.trade.params.TradeHistoryParams;
 import org.knowm.xchange.service.trade.params.TradeHistoryParamsTimeSpan;
 
+/**
+ * Bitfinex 账户演示
+ */
 public class BitfinexAccountDemo {
 
   public static void main(String[] args) throws IOException {
@@ -28,6 +31,7 @@ public class BitfinexAccountDemo {
 
   private static void marginInfo(AccountService accountService) throws IOException {
     // Get the margin information
+    // 获取边距信息
     BitfinexAccountServiceRaw accountServiceRaw = (BitfinexAccountServiceRaw) accountService;
     BitfinexMarginInfosResponse[] marginInfos = accountServiceRaw.getBitfinexMarginInfos();
     System.out.println("Margin infos response: " + marginInfos[0]);
@@ -35,6 +39,7 @@ public class BitfinexAccountDemo {
 
   private static void fundingHistory(AccountService accountService) throws IOException {
     // Get the funds information
+    // 获取资金信息
     TradeHistoryParams params = accountService.createFundingHistoryParams();
     if (params instanceof TradeHistoryParamsTimeSpan) {
       final TradeHistoryParamsTimeSpan timeSpanParam = (TradeHistoryParamsTimeSpan) params;

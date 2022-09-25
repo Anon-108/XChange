@@ -12,21 +12,26 @@ import lombok.Value;
 @Value
 @NoArgsConstructor(force = true, access = AccessLevel.PRIVATE)
 public class TransferBetweenWalletsResponse {
-  /** Millisecond Time Stamp of the update */
+  /** Millisecond Time Stamp of the update
+   * 更新的毫秒时间戳*/
   private long timestamp;
   /** acc_tf */
   private String type;
-  /** unique ID of the message */
+  /** unique ID of the message
+   * 消息的唯一 ID*/
   private Long messageId;
 
   private Object placeHolder0;
   private Transfer transfer;
 
-  /** Work in progress */
+  /** Work in progress
+   * 工作正在进行中*/
   private Integer code;
-  /** Status of the notification; it may vary over time (SUCCESS, ERROR, FAILURE, ...) */
+  /** Status of the notification; it may vary over time (SUCCESS, ERROR, FAILURE, ...)
+   * 通知状态； 它可能会随着时间而变化（成功、错误、失败……）*/
   private String status;
-  /** Text of the notification */
+  /** Text of the notification
+   * 通知文本 */
   private String text;
 
   public Date getTimestamp() {
@@ -37,21 +42,26 @@ public class TransferBetweenWalletsResponse {
   @Value
   @NoArgsConstructor(force = true, access = AccessLevel.PRIVATE)
   public static class Transfer {
-    /** Millisecond Time Stamp when the transfer was created */
+    /** Millisecond Time Stamp when the transfer was created
+     * 创建传输时的毫秒时间戳 */
     private long timestamp;
-    /** Starting wallet */
+    /** Starting wallet
+     * 起始钱包 */
     private String walletFrom;
-    /** Destination wallet */
+    /** Destination wallet
+     * 目的地钱包*/
     private String walletTo;
 
     private Object placeHolder0;
-    /** Currency */
+    /** Currency 货币*/
     private String currency;
-    /** Currency converted to */
+    /** Currency converted to
+     * 货币转换为 */
     private String currencyTo;
 
     private Object placeHolder1;
-    /** Amount of Transfer */
+    /** Amount of Transfer
+     * 转账金额 */
     private BigDecimal amount;
 
     public Date getTimestamp() {

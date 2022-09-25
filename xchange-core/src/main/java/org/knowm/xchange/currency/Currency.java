@@ -13,16 +13,21 @@ import java.util.TreeSet;
 
 /**
  * A Currency class roughly modeled after {@link java.util.Currency}. Each object retains the code
- * it was acquired with -- so {@link #getInstance}("BTC").{@link #getCurrencyCode}() will always be
- * "BTC", even though the proposed ISO 4217 code is "XBT"
+  it was acquired with -- so {@link #getInstance}("BTC").{@link #getCurrencyCode}() will always be
+  "BTC", even though the proposed ISO 4217 code is "XBT"
+
+ 大致模仿 {@link java.util.Currency} 的 Currency 类。 每个对象都保留了代码
+ 它是用 -- 所以 {@link #getInstance}("BTC").{@link #getCurrencyCode}() 将永远是
+ “BTC”，即使提议的 ISO 4217 代码是“XBT”
  */
 public class Currency implements Comparable<Currency>, Serializable {
 
   private static final long serialVersionUID = -7340731832345284129L;
   private static final Map<String, Currency> currencies = new HashMap<>();
 
-  /** Global currency codes */
-  // TODO: Load from json resource
+  /** Global currency codes
+   * 全球货币代码 */
+  // TODO: Load from json resource 从 json 资源加载
   public static final Currency AED = createCurrency("AED", "United Arab Emirates Dirham", null);
 
   public static final Currency AFN = createCurrency("AFN", "Afghan Afghani", null);
@@ -280,6 +285,7 @@ public class Currency implements Comparable<Currency>, Serializable {
   public static final Currency FCT = createCurrency("FCT", "Factom", null);
 
   // Bitmex futures settlement dates
+  // Bitmex 期货结算日期
   public static final Currency H18 = createCurrency("H18", "March 30th", null);
   public static final Currency M18 = createCurrency("M18", "June 29th", null);
   public static final Currency U18 = createCurrency("U18", "September 28th", null);
@@ -287,7 +293,7 @@ public class Currency implements Comparable<Currency>, Serializable {
   public static final Currency H19 = createCurrency("H19", "March 29th", null);
   public static final Currency M19 = createCurrency("M19", "June 28th", null);
 
-  // Cryptos
+  // Cryptos 加密货币
   public static final Currency BNK = createCurrency("BNK", "Bankera Coin", null);
   public static final Currency BNB = createCurrency("BNB", "Binance Coin", null);
   public static final Currency QSP = createCurrency("QSP", "Quantstamp", null);
@@ -308,7 +314,7 @@ public class Currency implements Comparable<Currency>, Serializable {
   public static final Currency STORJ = createCurrency("STORJ", "Storj", null);
   public static final Currency MOD = createCurrency("MOD", "Modum", null);
 
-  // Ethereum ERC20 Tokens
+  // Ethereum ERC20 Tokens 以太坊 ERC20 代币
   public static final Currency DAI = createCurrency("DAI", "Dai", null);
   public static final Currency WETH = createCurrency("WETH", "Wrapped Ether", null);
   public static final Currency USDC = createCurrency("USDC", "USD Coin", null, "UDC");
@@ -317,7 +323,7 @@ public class Currency implements Comparable<Currency>, Serializable {
       createCurrency("PLINK", "dydx Link Perpetual (Linear)", null);
   public static final Currency PUSD = createCurrency("PUSD", "dydx USD Perpetual (Inverse)", null);
 
-  // Coinmarketcap top 200
+  // Coinmarketcap top 200 Coinmarketcap 前 200 名
   public static final Currency AE = createCurrency("AE", "Aeternity", null);
   public static final Currency FET = createCurrency("FET", "Fetch.ai", null);
   public static final Currency BHT = createCurrency("BHT", "BHEX Token", null);
@@ -477,7 +483,8 @@ public class Currency implements Comparable<Currency>, Serializable {
 
   private final CurrencyAttributes attributes;
 
-  /** Public constructor. Links to an existing currency. */
+  /** Public constructor. Links to an existing currency.
+   * 公共构造函数。 链接到现有货币。 */
   public Currency(String code) {
 
     this.code = code;
@@ -490,19 +497,22 @@ public class Currency implements Comparable<Currency>, Serializable {
     this.attributes = attributes;
   }
 
-  /** Gets the set of available currencies. */
+  /** Gets the set of available currencies.
+   * 获取可用货币的集合。 */
   public static SortedSet<Currency> getAvailableCurrencies() {
 
     return new TreeSet<>(currencies.values());
   }
 
-  /** Gets the set of available currency codes. */
+  /** Gets the set of available currency codes.
+   * 获取一组可用的货币代码。 */
   public static SortedSet<String> getAvailableCurrencyCodes() {
 
     return new TreeSet<>(currencies.keySet());
   }
 
-  /** Returns a Currency instance for the given currency code. */
+  /** Returns a Currency instance for the given currency code.
+   * 返回给定货币代码的 Currency 实例。*/
   @JsonCreator
   public static Currency getInstance(String currencyCode) {
 
@@ -515,7 +525,8 @@ public class Currency implements Comparable<Currency>, Serializable {
     }
   }
 
-  /** Returns the Currency instance for the given currency code only if one already exists. */
+  /** Returns the Currency instance for the given currency code only if one already exists.
+   * 仅当一个已经存在时，才返回给定货币代码的货币实例。*/
   public static Currency getInstanceNoCreate(String currencyCode) {
 
     return currencies.get(currencyCode.toUpperCase());
@@ -523,11 +534,19 @@ public class Currency implements Comparable<Currency>, Serializable {
 
   /**
    * Factory
+   * 工厂
    *
    * @param commonCode commonly used code for this currency: "BTC"
+   *                   该币种常用代码：“BTC”
+   *
    * @param name Name of the currency: "Bitcoin"
+   *             货币名称：“比特币”
+   *
    * @param unicode Unicode symbol for the currency: "\u20BF" or "฿"
+   *                货币的 Unicode 符号：“\u20BF”或“฿”
+   *
    * @param alternativeCodes Alternative codes for the currency: "XBT"
+   *                         货币的替代代码：“XBT”
    */
   private static Currency createCurrency(
       String commonCode, String name, String unicode, String... alternativeCodes) {
@@ -540,11 +559,13 @@ public class Currency implements Comparable<Currency>, Serializable {
     for (String code : attributes.codes) {
       if (commonCode.equals(code)) {
         // common code will always be part of the currencies map
+        // 公共代码将始终是货币映射的一部分
 
         currencies.put(code, currency);
 
       } else if (!currencies.containsKey(code)) {
         // alternative codes will never overwrite common codes
+        // 替代代码永远不会覆盖普通代码
 
         currencies.put(code, new Currency(code, attributes));
       }
@@ -553,7 +574,8 @@ public class Currency implements Comparable<Currency>, Serializable {
     return currency;
   }
 
-  /** Gets the currency code originally used to acquire this object. */
+  /** Gets the currency code originally used to acquire this object.
+   * 获取最初用于获取此对象的货币代码。*/
   @JsonValue
   public String getCurrencyCode() {
 
@@ -562,13 +584,19 @@ public class Currency implements Comparable<Currency>, Serializable {
 
   /**
    * Gets the equivalent object with the passed code.
+   * 使用传递的代码获取等效对象。
    *
-   * <p>This is useful in case some currencies share codes, such that {@link #getInstance(String)}
-   * may return the wrong currency.
+   * <p>This is useful in case some currencies share codes, such that {@link #getInstance(String)} may return the wrong currency.
+   * * <p>这在某些货币共享代码的情况下很有用，例如 {@link #getInstance(String)} 可能会返回错误的货币。
    *
    * @param code The code the returned object will evaluate to
+   *             返回的对象将评估为的代码
+   *
    * @return A Currency representing the same currency but having the passed currency code
+   * @return 表示相同货币但具有传递的货币代码的货币
+   *
    * @throws IllegalArgumentException if the passed code is not listed for this currency
+   * @throws IllegalArgumentException 如果传递的代码未针对该货币列出
    */
   public Currency getCodeCurrency(String code) {
 
@@ -578,43 +606,48 @@ public class Currency implements Comparable<Currency>, Serializable {
     if (currency.equals(this)) return currency;
 
     if (!attributes.codes.contains(code))
-      throw new IllegalArgumentException("Code not listed for this currency");
+      throw new IllegalArgumentException("Code not listed for this currency 此货币未列出代码");
 
     return new Currency(code, attributes);
   }
 
   /**
-   * Gets the equivalent object with an ISO 4217 code, or if none a code which looks ISO compatible
-   * (starts with an X), or the constructed currency code if neither exist.
+   * Gets the equivalent object with an ISO 4217 code, or if none a code which looks ISO compatible (starts with an X), or the constructed currency code if neither exist.
+   * 获取具有 ISO 4217 代码的等效对象，或者如果没有一个看起来与 ISO 兼容的代码（以 X 开头），或者如果两者都不存在，则获取构造的货币代码。
    */
   public Currency getIso4217Currency() {
 
     if (attributes.isoCode == null) return this;
 
     // The logic for setting isoCode is in CurrencyAttributes
+    //设置iso Code的逻辑在Currency Attributes中
 
     return getCodeCurrency(attributes.isoCode);
   }
 
-  /** Gets the equivalent object that was created with the "commonly used" code. */
+  /** Gets the equivalent object that was created with the "commonly used" code.
+   * 获取使用“常用”代码创建的等效对象。 */
   public Currency getCommonlyUsedCurrency() {
 
     return getCodeCurrency(attributes.commonCode);
   }
 
-  /** Gets the set of all currency codes associated with this currency. */
+  /** Gets the set of all currency codes associated with this currency.
+   * 获取与此货币关联的所有货币代码的集合。 */
   public Set<String> getCurrencyCodes() {
 
     return attributes.codes;
   }
 
-  /** Gets the unicode symbol of this currency. */
+  /** Gets the unicode symbol of this currency.
+   * 获取此货币的 unicode 符号。 */
   public String getSymbol() {
 
     return attributes.unicode;
   }
 
-  /** Gets the name that is suitable for displaying this currency. */
+  /** Gets the name that is suitable for displaying this currency.
+   * 获取适合显示此货币的名称。 */
   public String getDisplayName() {
 
     return attributes.name;

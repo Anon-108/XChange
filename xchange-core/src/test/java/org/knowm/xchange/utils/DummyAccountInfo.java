@@ -1,6 +1,7 @@
 package org.knowm.xchange.utils;
 
-/** A mutable AccountInfo class used for HttpTemplate testing. */
+/** A mutable AccountInfo class used for HttpTemplate testing.
+ * 用于 HttpTemplate 测试的可变 AccountInfo 类。 */
 public class DummyAccountInfo {
 
   String username;

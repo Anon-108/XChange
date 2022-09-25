@@ -32,11 +32,18 @@ public class BitfinexBalanceHistoryRequest {
    * Constructor
    *
    * @param nonce
+   *      随机数
    * @param currency
+   *        货币
    * @param wallet
+   *      钱包
    * @param since
+   *        从
+   *
    * @param until
+   *        直到
    * @param limit
+   *        限制
    */
   public BitfinexBalanceHistoryRequest(
       String nonce, String currency, Long since, Long until, int limit, String wallet) {

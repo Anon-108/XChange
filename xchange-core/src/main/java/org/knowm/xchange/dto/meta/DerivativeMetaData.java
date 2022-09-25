@@ -8,35 +8,43 @@ import java.util.Arrays;
 public class DerivativeMetaData implements Serializable {
   private static final long serialVersionUID = 1471672854252184985L;
 
-  /** Trading fee (fraction) */
+  /** Trading fee (fraction)
+   * 交易费（分数）*/
   @JsonProperty("trading_fee")
   private final BigDecimal tradingFee;
 
-  /** Trading fee tiers by volume (fraction). Sorted in ascending order by quantity */
+  /** Trading fee tiers by volume (fraction). Sorted in ascending order by quantity
+   * 按交易量（分数）计算的交易费用等级。 按数量升序排列*/
   @JsonProperty("fee_tiers")
   private final FeeTier[] feeTiers;
 
-  /** Minimum trade amount */
+  /** Minimum trade amount
+   * 最低交易金额*/
   @JsonProperty("min_amount")
   private final BigDecimal minimumAmount;
 
-  /** Maximum trade amount */
+  /** Maximum trade amount
+   * 最大交易金额 */
   @JsonProperty("max_amount")
   private final BigDecimal maximumAmount;
 
-  /** Decimal places for amount */
+  /** Decimal places for amount
+   * 金额的小数位*/
   @JsonProperty("amount_scale")
   private final Integer amountScale;
 
-  /** Decimal places for price */
+  /** Decimal places for price
+   * 价格的小数位 */
   @JsonProperty("price_scale")
   private final Integer priceScale;
 
-  /** Amount step size. If set, any amounts must be a multiple of this */
+  /** Amount step size. If set, any amounts must be a multiple of this
+   * 量步长。 如果设置，任何金额必须是这个的倍数 */
   @JsonProperty("amount_step_size")
   private final BigDecimal amountStepSize;
 
-  /** Price step size. If set, any price must be a multiple of this */
+  /** Price step size. If set, any price must be a multiple of this
+   * 价格步长。 如果设置，任何价格必须是这个的倍数 */
   @JsonProperty("price_step_size")
   private final BigDecimal priceStepSize;
 

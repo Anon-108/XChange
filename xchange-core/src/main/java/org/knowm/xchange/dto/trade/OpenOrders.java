@@ -10,9 +10,10 @@ import org.knowm.xchange.dto.Order;
 
 /**
  * DTO representing open orders
+ * DTO 代表未结订单
  *
- * <p>Open orders are orders that you have placed with the exchange that have not yet been matched
- * to a counter-party.
+ * <p>Open orders are orders that you have placed with the exchange that have not yet been matched to a counter-party.
+ * * <p>未结订单是您在交易所下达但尚未匹配到交易对手的订单。
  */
 public final class OpenOrders implements Serializable {
 
@@ -25,6 +26,7 @@ public final class OpenOrders implements Serializable {
    * Constructor
    *
    * @param openOrders The list of open orders
+   *                   未结订单列表
    */
   public OpenOrders(List<LimitOrder> openOrders) {
     this.openOrders = openOrders;
@@ -35,7 +37,10 @@ public final class OpenOrders implements Serializable {
    * Constructor
    *
    * @param openOrders The list of open orders
+   *                   未结订单列表
+   *
    * @param hiddenOrders The list of orders which are active but hidden from the order book.
+   *                     活跃但隐藏在订单簿中的订单列表。
    */
   @JsonCreator
   public OpenOrders(
@@ -45,19 +50,22 @@ public final class OpenOrders implements Serializable {
     this.hiddenOrders = hiddenOrders;
   }
 
-  /** @return LimitOrders which are shown on the order book. */
+  /** @return LimitOrders which are shown on the order book.
+   * 订单簿上显示的 LimitOrders。 */
   public List<LimitOrder> getOpenOrders() {
     return openOrders;
   }
 
-  /** @return All Orders which are shown on the order book. */
+  /** @return All Orders which are shown on the order book.
+   * 订单簿上显示的所有订单。*/
   public List<Order> getAllOpenOrders() {
     List<Order> allOpenOrders = new ArrayList<>(openOrders);
     allOpenOrders.addAll(hiddenOrders);
     return allOpenOrders;
   }
 
-  /** @return Orders which are not shown on the order book, such as untriggered stop orders. */
+  /** @return Orders which are not shown on the order book, such as untriggered stop orders.
+   * 未显示在订单簿上的订单，例如未触发的止损订单。*/
   public List<? extends Order> getHiddenOrders() {
     return hiddenOrders;
   }

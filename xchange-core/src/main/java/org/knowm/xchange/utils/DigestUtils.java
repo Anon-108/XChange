@@ -1,5 +1,8 @@
 package org.knowm.xchange.utils;
 
+/**
+ * 摘要实用程序
+ */
 public class DigestUtils {
 
   public static String bytesToHex(byte[] bytes) {
@@ -16,7 +19,7 @@ public class DigestUtils {
 
   public static byte[] hexToBytes(final String encoded) {
     if ((encoded.length() % 2) != 0)
-      throw new IllegalArgumentException("Input string must contain an even number of characters");
+      throw new IllegalArgumentException("Input string must contain an even number of characters 输入字符串必须包含偶数个字符");
 
     byte[] b = new byte[encoded.length() / 2];
     for (int i = 0; i < encoded.length(); i += 2) {

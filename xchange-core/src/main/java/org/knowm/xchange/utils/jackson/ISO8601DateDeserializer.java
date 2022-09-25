@@ -9,7 +9,9 @@ import org.knowm.xchange.utils.DateUtils;
 
 /**
  * Deserializes an ISO 8601 formatted Date String to a Java Date ISO 8601 format:
- * yyyy-MM-dd'T'HH:mm:ssX
+  yyyy-MM-dd'T'HH:mm:ssX
+ 将 ISO 8601 格式的日期字符串反序列化为 Java 日期 ISO 8601 格式：
+ yyyy-MM-dd'T'HH:mm:ssX
  *
  * @author jamespedwards42
  */

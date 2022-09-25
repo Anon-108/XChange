@@ -11,15 +11,18 @@ public class CurrencyMetaData implements Serializable {
   @JsonProperty("scale")
   private final Integer scale;
 
-  /** Withdrawal fee */
+  /** Withdrawal fee
+   * 提款费 */
   @JsonProperty("withdrawal_fee")
   private final BigDecimal withdrawalFee;
 
-  /** Minimum withdrawal amount */
+  /** Minimum withdrawal amount
+   * 最低提款金额 */
   @JsonProperty("min_withdrawal_amount")
   private final BigDecimal minWithdrawalAmount;
 
-  /** Wallet health */
+  /** Wallet health
+   * 钱包健康*/
   @JsonProperty("wallet_health")
   private WalletHealth walletHealth;
 

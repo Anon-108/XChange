@@ -13,38 +13,64 @@ import org.knowm.xchange.instrument.Instrument;
 import org.knowm.xchange.service.trade.TradeService;
 import org.knowm.xchange.service.trade.params.TradeHistoryParams;
 
-/** Data object representing a user trade */
+/** Data object representing a user trade
+ * 代表用户交易的数据对象*/
 @JsonDeserialize(builder = UserTrade.Builder.class)
 public class UserTrade extends Trade {
 
   private static final long serialVersionUID = -3021617981214969292L;
 
-  /** The id of the order responsible for execution of this trade */
+  /** The id of the order responsible for execution of this trade
+   * 负责执行此交易的订单的 ID */
   private final String orderId;
 
-  /** The fee that was charged by the exchange for this trade. */
+  /** The fee that was charged by the exchange for this trade.
+   * 交易所为此交易收取的费用。*/
   private final BigDecimal feeAmount;
 
-  /** The currency in which the fee was charged. */
+  /** The currency in which the fee was charged.
+   * 收取费用的货币。 */
   private final Currency feeCurrency;
 
-  /** The order reference id which has been added by the user on the order creation */
+  /** The order reference id which has been added by the user on the order creation
+   * 用户在创建订单时添加的订单参考 id */
   private final String orderUserReference;
 
   /**
    * This constructor is called to construct user's trade objects (in {@link
-   * TradeService#getTradeHistory(TradeHistoryParams)} implementations).
+    TradeService#getTradeHistory(TradeHistoryParams)} implementations).
+   调用此构造函数来构造用户的交易对象（在 {@link
+  TradeService#getTradeHistory(TradeHistoryParams)} 实现）。
    *
    * @param type The trade type (BID side or ASK side)
+   *             交易类型（BID 方或 ASK 方）
+   *
    * @param originalAmount The depth of this trade
+   *                       这笔交易的深度
+   *
    * @param instrument The exchange identifier (e.g. "BTC/USD")
+   *                   交易所标识符（例如“BTC/USD”）
+   *
    * @param price The price (either the bid or the ask)
+   *              价格（出价或要价）
+   *
    * @param timestamp The timestamp of the trade
+   *                  交易的时间戳
+   *
    * @param id The id of the trade
+   *           交易ID
+   *
    * @param orderId The id of the order responsible for execution of this trade
+   *                负责执行此交易的订单的 ID
+   *
    * @param feeAmount The fee that was charged by the exchange for this trade
+   *                  交易所为此交易收取的费用
+   *
    * @param feeCurrency The symbol of the currency in which the fee was charged
+   *                    收取费用的货币符号
+   *
    * @param orderUserReference The id that the user has insert to the trade
+   *                           用户已插入交易的 id
    */
   public UserTrade(
       OrderType type,

@@ -13,29 +13,42 @@ import org.knowm.xchange.instrument.Instrument;
 
 /**
  * DTO representing a limit order
+ * DTO 代表限价单
  *
  * <p>A limit order lets you set a minimum or maximum price before your trade will be treated by the
- * exchange as a {@link MarketOrder}. There is no guarantee that your conditions will be met on the
- * exchange, so your order may not be executed. However, until you become very experienced, almost
- * all orders should be limit orders to protect yourself.
+  exchange as a {@link MarketOrder}. There is no guarantee that your conditions will be met on the
+  exchange, so your order may not be executed. However, until you become very experienced, almost all orders should be limit orders to protect yourself.
+ <p>限价单可让您在交易被交易者处理之前设置最低或最高价格
+ 交换为 {@link MarketOrder}。 无法保证您的条件将在
+ 交换，因此您的订单可能无法执行。 但是，在您变得非常有经验之前，几乎所有的订单都应该是限价单以保护自己。
  */
 @JsonDeserialize(builder = LimitOrder.Builder.class)
 public class LimitOrder extends Order implements Comparable<LimitOrder> {
 
   private static final long serialVersionUID = -5166848178471347540L;
 
-  /** The limit price */
+  /** The limit price
+   * 限价 */
   protected final BigDecimal limitPrice;
 
   /**
    * @param type Either BID (buying) or ASK (selling)
+   *             BID（买入）或 ASK（卖出）
+   *
    * @param originalAmount The amount to trade
+   *                       交易金额
+   *
    * @param instrument The identifier (e.g. BTC/USD)
+   *                   标识符（例如 BTC/USD）
+   *
    * @param id An id (usually provided by the exchange)
-   * @param timestamp a Date object representing the order's timestamp according to the exchange's
-   *     server, null if not provided
-   * @param limitPrice In a BID this is the highest acceptable price, in an ASK this is the lowest
-   *     acceptable price
+   *           一个 id（通常由交易所提供）
+   *
+   * @param timestamp a Date object representing the order's timestamp according to the exchange's  server, null if not provided
+   *                  一个 Date 对象，表示根据交易所服务器的订单时间戳，如果未提供，则为 null
+   *
+   * @param limitPrice In a BID this is the highest acceptable price, in an ASK this is the lowest   acceptable price
+   *                   在 BID 中，这是可接受的最高价格，在 ASK 中，这是可接受的最低价格
    */
   public LimitOrder(
       OrderType type,
@@ -51,14 +64,26 @@ public class LimitOrder extends Order implements Comparable<LimitOrder> {
 
   /**
    * @param type Either BID (buying) or ASK (selling)
+   *             BID（买入）或 ASK（卖出）
+   *
    * @param originalAmount The amount to trade
+   *                       交易金额
+   *
    * @param cumulativeAmount The cumulative amount
+   *                         累计金额
+   *
    * @param instrument The identifier (e.g. BTC/USD)
+   *                   标识符（例如 BTC/USD）
+   *
    * @param id An id (usually provided by the exchange)
-   * @param timestamp a Date object representing the order's timestamp according to the exchange's
-   *     server, null if not provided
-   * @param limitPrice In a BID this is the highest acceptable price, in an ASK this is the lowest
-   *     acceptable price
+   *           一个 id（通常由交易所提供）
+   *
+   * @param timestamp a Date object representing the order's timestamp according to the exchange's  server, null if not provided
+   *                  一个 Date 对象，表示根据交易所服务器的订单时间戳，如果未提供，则为 null
+   *
+   * @param limitPrice In a BID this is the highest acceptable price, in an ASK this is the lowest acceptable price
+   *                   在 BID 中，这是可接受的最高价格，在 ASK 中，这是可接受的最低价格
+   *
    */
   public LimitOrder(
       OrderType type,
@@ -84,17 +109,34 @@ public class LimitOrder extends Order implements Comparable<LimitOrder> {
 
   /**
    * @param type Either BID (buying) or ASK (selling)
+   *             BID（买入）或 ASK（卖出）
+   *
    * @param originalAmount The amount to trade
+   *                       交易金额
+   *
    * @param instrument The identifier (e.g. BTC/USD)
+   *                   标识符（例如 BTC/USD）
+   *
    * @param id An id (usually provided by the exchange)
-   * @param timestamp a Date object representing the order's timestamp according to the exchange's
-   *     server, null if not provided
-   * @param limitPrice In a BID this is the highest acceptable price, in an ASK this is the lowest
-   *     acceptable price
+   *           一个 id（通常由交易所提供）
+   *
+   * @param timestamp a Date object representing the order's timestamp according to the exchange's  server, null if not provided
+   *                  一个 Date 对象，表示根据交易所服务器的订单时间戳，如果未提供，则为 null
+   *
+   * @param limitPrice In a BID this is the highest acceptable price, in an ASK this is the lowest   acceptable price
+   *                   在 BID 中，这是可接受的最高价格，在 ASK 中，这是可接受的最低价格
+   *
    * @param averagePrice the weighted average price of any fills belonging to the order
+   *                     属于订单的任何成交的加权平均价格
+   *
    * @param cumulativeAmount the amount that has been filled
+   *                         已填写的金额
+   *
    * @param fee the fee associated with this order
+   *            与此订单相关的费用
+   *
    * @param status the status of the order at the exchange or broker
+   *               交易所或经纪人的订单状态
    */
   public LimitOrder(
       OrderType type,
@@ -123,17 +165,34 @@ public class LimitOrder extends Order implements Comparable<LimitOrder> {
 
   /**
    * @param type Either BID (buying) or ASK (selling)
+   *             BID（买入）或 ASK（卖出）
+   *
    * @param originalAmount The amount to trade
+   *                       交易金额
+   *
    * @param instrument The identifier (e.g. BTC/USD)
+   *                   标识符（例如 BTC/USD）
+   *
    * @param id An id (usually provided by the exchange)
-   * @param timestamp a Date object representing the order's timestamp according to the exchange's
-   *     server, null if not provided
-   * @param limitPrice In a BID this is the highest acceptable price, in an ASK this is the lowest
-   *     acceptable price
+   *           一个 id（通常由交易所提供）
+   *
+   * @param timestamp a Date object representing the order's timestamp according to the exchange's  server, null if not provided
+   *                  一个 Date 对象，表示根据交易所服务器的订单时间戳，如果未提供，则为 null
+   *
+   * @param limitPrice In a BID this is the highest acceptable price, in an ASK this is the lowest   acceptable price
+   *                   在 BID 中，这是可接受的最高价格，在 ASK 中，这是可接受的最低价格
+   *
    * @param averagePrice the weighted average price of any fills belonging to the order
+   *                     属于订单的任何成交的加权平均价格
+   *
    * @param cumulativeAmount the amount that has been filled
+   *                         已填写的金额
+   *
    * @param status the status of the order at the exchange or broker
+   *               交易所或经纪人的订单状态
+   *
    * @param userReference An id provided by the user
+   *                      用户提供的 id
    */
   public LimitOrder(
       OrderType type,
@@ -162,7 +221,8 @@ public class LimitOrder extends Order implements Comparable<LimitOrder> {
     this.limitPrice = limitPrice;
   }
 
-  /** @return The limit price */
+  /** @return The limit price
+   * 限价*/
   public BigDecimal getLimitPrice() {
 
     return limitPrice;
@@ -185,11 +245,13 @@ public class LimitOrder extends Order implements Comparable<LimitOrder> {
 
     if (this.getType() == limitOrder.getType()) {
       // Same side
+      // 同一边
       ret =
           this.getLimitPrice().compareTo(limitOrder.getLimitPrice())
               * (getType() == OrderType.BID ? -1 : 1);
     } else {
       // Keep bid side be less than ask side
+      // 保持买方小于卖方
       ret = this.getType() == OrderType.BID ? -1 : 1;
     }
 

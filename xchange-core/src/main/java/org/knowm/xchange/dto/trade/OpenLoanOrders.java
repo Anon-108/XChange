@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * DTO representing open loan orders Open loan orders are loan order that have placed with the
- * exchange that have not yet been matched to a counterparty.
+ * DTO representing open loan orders Open loan orders are loan order that have placed with the exchange that have not yet been matched to a counterparty.
+ * * DTO 代表未结贷款订单 未结贷款订单是在交易所下达但尚未匹配交易对手的贷款订单。
  */
 public final class OpenLoanOrders implements Serializable {
 

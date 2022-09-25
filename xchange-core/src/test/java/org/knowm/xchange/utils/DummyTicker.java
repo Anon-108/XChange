@@ -1,6 +1,7 @@
 package org.knowm.xchange.utils;
 
-/** A mutable Ticker class used for HttpTemplate testing. */
+/** A mutable Ticker class used for HttpTemplate testing.
+ * 用于 HttpTemplate 测试的可变 Ticker 类。 */
 public class DummyTicker {
 
   long last;

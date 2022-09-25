@@ -14,27 +14,36 @@ import lombok.ToString;
 @ToString
 public class Trade {
 
-  /** Trade database id */
+  /** Trade database id
+   * 贸易数据库编号*/
   private String id;
-  /** Pair (BTCUSD, …) */
+  /** Pair (BTCUSD, …)
+   * 对 (BTCUSD, ...) */
   private String symbol;
-  /** Execution timestamp millis */
+  /** Execution timestamp millis
+   * 执行时间戳毫秒 */
   private long timestamp;
-  /** Order id */
+  /** Order id
+   * 订单编号 */
   private String orderId;
-  /** Positive means buy, negative means sell */
+  /** Positive means buy, negative means sell
+   * 正表示买入，负表示卖出*/
   private BigDecimal execAmount;
-  /** Execution price */
+  /** Execution price
+   * 执行价格*/
   private BigDecimal execPrice;
-  /** Order type */
+  /** Order type
+   * 订单类型*/
   private String orderType;
-  /** Order price */
+  /** Order price
+   * 订购价格*/
   private BigDecimal orderPrice;
-  /** 1 if true, -1 if false */
+  /** 1 if true, -1 if false
+   * 1 为真，-1 为假*/
   private int maker;
-  /** Fee */
+  /** Fee 费用*/
   private BigDecimal fee;
-  /** Fee currency */
+  /** Fee currency 费用币种*/
   private String feeCurrency;
 
   public Date getTimestamp() {

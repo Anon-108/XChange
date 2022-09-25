@@ -10,7 +10,9 @@ import org.knowm.xchange.utils.DateUtils;
 
 /**
  * Deserializes an rfc1123 formatted Date String to a Java Date rfc1123 format: 'EEE, dd MMM yyyy
- * HH:mm:ss zzz'
+  HH:mm:ss zzz'
+ 将 rfc1123 格式的日期字符串反序列化为 Java 日期 rfc1123 格式：'EEE, dd MMM yyyy
+ HH:mm:ss zzz'
  *
  * @author jamespedwards42
  */

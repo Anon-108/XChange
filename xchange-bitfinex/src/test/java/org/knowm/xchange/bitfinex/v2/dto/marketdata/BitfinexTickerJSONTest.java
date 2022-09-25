@@ -16,11 +16,13 @@ public class BitfinexTickerJSONTest {
   public void testUnmarshal() throws IOException {
 
     // Read in the JSON from the example resources
+    // 从示例资源中读取 JSON
     InputStream is =
         BitfinexTickerJSONTest.class.getResourceAsStream(
             "/org/knowm/xchange/bitfinex/v2/dto/marketdata/example-ticker-data.json");
 
     // Use Jackson to parse it
+    // 使用 Jackson 解析
     ObjectMapper mapper = new ObjectMapper();
     CollectionType constructCollectionType =
         mapper.getTypeFactory().constructCollectionType(List.class, ArrayNode.class);
@@ -28,8 +30,8 @@ public class BitfinexTickerJSONTest {
     List<ArrayNode> tickers0 = mapper.readValue(is, constructCollectionType);
     BitfinexTicker[] tickers = BitfinexAdapters.adoptBitfinexTickers(tickers0);
 
-    // Verify that the example data was unmarshalled correctly
-    // funding currency:
+    // Verify that the example data was unmarshalled correctly funding currency:
+    // 验证示例数据是否被正确解组为资金货币：
     BitfinexTickerFundingCurrency bitfinexTicker = (BitfinexTickerFundingCurrency) tickers[0];
     assertThat(bitfinexTicker.getSymbol()).isEqualTo("fLEO");
     assertThat(bitfinexTicker.getFrr()).isEqualTo("1.0958904109589042e-08");
@@ -50,6 +52,7 @@ public class BitfinexTickerJSONTest {
     assertThat(bitfinexTicker.getFrrAmountAvailable()).isEqualTo("2594257.74114297");
 
     // traiding pair:
+    // 交易对：
     BitfinexTickerTraidingPair bitfinexTicker2 = (BitfinexTickerTraidingPair) tickers[1];
     assertThat(bitfinexTicker2.getSymbol()).isEqualTo("tBTCUSD");
     assertThat(bitfinexTicker2.getBid()).isEqualTo("7381.6");

@@ -23,20 +23,20 @@ public class OrderValuesHelperTest {
 
   @Test
   public void shouldAdjustAmountToStepSize() {
-    // given
+    // given 假设
     given(pairMetaData.getAmountStepSize()).willReturn(new BigDecimal("0.001"));
     given(pairMetaData.getBaseScale()).willReturn(null);
 
-    // when
+    // when 什么时候
     BigDecimal result = adjuster.adjustAmount(new BigDecimal("0.93851732"));
 
-    // then
+    // then 然后
     assertThat(result).isEqualByComparingTo("0.938");
   }
 
   @Test
   public void shouldAdjustAmountToScale() {
-    // given
+    // given 假设
     given(pairMetaData.getAmountStepSize()).willReturn(null);
     given(pairMetaData.getBaseScale()).willReturn(5);
 
@@ -49,7 +49,7 @@ public class OrderValuesHelperTest {
 
   @Test
   public void shouldAdjustAmountToMaximal() {
-    // given
+    // given 假设
     BigDecimal minimal = new BigDecimal("100");
     given(pairMetaData.getMaximumAmount()).willReturn(minimal);
     given(pairMetaData.getBaseScale()).willReturn(null);
@@ -63,7 +63,7 @@ public class OrderValuesHelperTest {
 
   @Test
   public void shouldAdjustPriceToScale() {
-    // given
+    // given 假设
     given(pairMetaData.getPriceScale()).willReturn(2);
 
     // when

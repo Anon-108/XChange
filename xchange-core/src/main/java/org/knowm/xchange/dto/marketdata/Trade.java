@@ -12,28 +12,35 @@ import org.knowm.xchange.dto.Order.OrderType;
 import org.knowm.xchange.instrument.Instrument;
 import org.knowm.xchange.service.marketdata.MarketDataService;
 
-/** Data object representing a Trade */
+/** Data object representing a Trade
+ * 代表交易的数据对象*/
 @JsonDeserialize(builder = Trade.Builder.class)
 public class Trade implements Serializable {
 
   private static final long serialVersionUID = -4078893146776655648L;
 
-  /** Did this trade result from the execution of a bid or a ask? */
+  /** Did this trade result from the execution of a bid or a ask?
+   * 这种交易是由执行买价还是卖价产生的？ */
   protected final OrderType type;
 
-  /** Amount that was traded */
+  /** Amount that was traded
+   * 交易金额 */
   protected final BigDecimal originalAmount;
 
-  /** The instrument */
+  /** The instrument
+   * 这个仪器 */
   protected final Instrument instrument;
 
-  /** The price */
+  /** The price
+   * 价格 */
   protected final BigDecimal price;
 
-  /** The timestamp of the trade according to the exchange's server, null if not provided */
+  /** The timestamp of the trade according to the exchange's server, null if not provided
+   * 根据交易所服务器的交易时间戳，如果没有提供则为空*/
   protected final Date timestamp;
 
-  /** The trade id */
+  /** The trade id
+   * 贸易编号*/
   protected final String id;
 
   protected final String makerOrderId;
@@ -42,17 +49,32 @@ public class Trade implements Serializable {
 
   /**
    * This constructor is called to create a public Trade object in {@link
-   * MarketDataService#getTrades(org.knowm.xchange.currency.CurrencyPair, Object...)}
-   * implementations) since it's missing the orderId and fee parameters.
+   MarketDataService#getTrades(org.knowm.xchange.currency.CurrencyPair, Object...)}
+    implementations) since it's missing the orderId and fee parameters.
+   调用此构造函数以在 {@link 中创建公共 Trade 对象
+  MarketDataService#getTrades(org.knowm.xchange.currency.CurrencyPair, Object...)}
+   实现），因为它缺少 orderId 和 fee 参数。
    *
    * @param type The trade type (BID side or ASK side)
+   *             交易类型（BID 方或 ASK 方）
+   *
    * @param originalAmount The depth of this trade
+   *                       这笔交易的深度
+   *
    * @param price The price (either the bid or the ask)
-   * @param timestamp The timestamp of the trade according to the exchange's server, null if not
-   *     provided
+   *              价格（出价或要价）
+   *
+   * @param timestamp The timestamp of the trade according to the exchange's server, null if not provided
+   *                  根据交易所服务器的交易时间戳，如果没有提供则为空
+   *
    * @param id The id of the trade
+   *           交易ID
+   *
    * @param makerOrderId The orderId of the maker in the trade
+   *                     交易中maker的orderId
+   *
    * @param takerOrderId The orderId of the taker in the trade
+   *                     交易中taker的orderId
    */
   public Trade(
       OrderType type,
@@ -91,8 +113,9 @@ public class Trade implements Serializable {
 
   /**
    * @deprecated CurrencyPair is a subtype of Instrument - this method will throw an exception if
-   *     the order was for a derivative
-   *     <p>use {@link #getInstrument()} instead
+        the order was for a derivative     <p>use {@link #getInstrument()} instead
+  CurrencyPair 是 Instrument 的子类型 - 如果出现以下情况，此方法将抛出异常
+  订单是为了衍生<p>使用 {@link #getInstrument()} 代替
    */
   @Deprecated
   @JsonIgnore
@@ -102,7 +125,7 @@ public class Trade implements Serializable {
     }
     if (!(instrument instanceof CurrencyPair)) {
       throw new IllegalStateException(
-          "The instrument of this order is not a currency pair: " + instrument);
+          "The instrument of this order is not a currency pair 此订单的工具不是货币对: " + instrument);
     }
     return (CurrencyPair) instrument;
   }
@@ -214,9 +237,10 @@ public class Trade implements Serializable {
     }
 
     /**
-     * @deprecated CurrencyPair is a subtype of Instrument - this method will throw an exception if
-     *     the order was for a derivative
+     * @deprecated CurrencyPair is a subtype of Instrument - this method will throw an exception if  the order was for a derivative
+     * CurrencyPair 是 Instrument 的子类型 - 如果订单是衍生品，此方法将引发异常
      *     <p>use {@link #instrument(Instrument)} instead
+     *     <p>改用 {@link #instrument(Instrument)}
      */
     @Deprecated
     public Builder currencyPair(CurrencyPair currencyPair) {

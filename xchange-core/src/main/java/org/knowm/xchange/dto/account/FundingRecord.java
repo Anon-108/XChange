@@ -9,70 +9,104 @@ import org.knowm.xchange.currency.Currency;
 
 /**
  * DTO representing funding information
+ * * DTO 代表资金信息
  *
- * <p>Funding information contains the detail of deposit/withdrawal transaction for a specific
- * currency
+ * <p>Funding information contains the detail of deposit/withdrawal transaction for a specific currency
+ * * <p>资金信息包含特定货币的存款/取款交易的详细信息
  */
 public final class FundingRecord implements Serializable {
 
   private static final long serialVersionUID = 3788398035845873448L;
 
-  /** Crypto currency address for deposit/withdrawal */
+  /** Crypto currency address for deposit/withdrawal
+   * 用于存款/取款的加密货币地址 */
   private final String address;
 
-  /** Crypto currency destination tag for deposit/withdrawal */
+  /** Crypto currency destination tag for deposit/withdrawal
+   * 用于存款/取款的加密货币目的地标签 */
   private final String addressTag;
 
-  /** Date/Time of transaction */
+  /** Date/Time of transaction
+   * 交易日期/时间*/
   private final Date date;
 
-  /** The transaction currency */
+  /** The transaction currency
+   * 交易币种*/
   private final Currency currency;
 
-  /** Amount deposited/withdrawn in given transaction currency (always positive) */
+  /** Amount deposited/withdrawn in given transaction currency (always positive)
+   * 以给定交易货币存入/提取的金额（始终为正） */
   private final BigDecimal amount;
 
-  /** Internal transaction identifier, specific to the Exchange. */
+  /** Internal transaction identifier, specific to the Exchange.
+   * 内部交易标识符，特定于交易所。*/
   private final String internalId;
 
   /**
-   * External Transaction id that identifies the transaction within the public ledger, eg.
-   * blockchain transaction hash.
+   * External Transaction id that identifies the transaction within the public ledger, eg. blockchain transaction hash.
+   * 标识公共分类帐中的交易的外部交易 id，例如。 区块链交易哈希。
    */
   private final String blockchainTransactionHash;
-  /** Transaction Type */
+  /** Transaction Type
+   * 交易类型*/
   private final Type type;
   /**
-   * Status of the transaction whenever available (e.g. Open, Completed or any descriptive status of
-   * transaction)
+   * Status of the transaction whenever available (e.g. Open, Completed or any descriptive status of transaction)
+   * * 可用的交易状态（例如打开、完成或任何描述性交易状态）
    */
   private final Status status;
-  /** Balance of the associated account after the transaction is performed */
+  /** Balance of the associated account after the transaction is performed
+   * 交易完成后关联账户的余额 */
   private final BigDecimal balance;
-  /** Transaction Fee Amount in given transaction currency (always positive) */
+  /** Transaction Fee Amount in given transaction currency (always positive)
+   * 给定交易货币的交易费用金额（始终为正） */
   private final BigDecimal fee;
-  /** Description of the transaction */
+  /** Description of the transaction
+   * 交易说明*/
   private String description;
 
   /**
    * Constructs a {@link FundingRecord}.
    *
    * @param address Crypto currency address for deposit/withdrawal
+   *                用于存款/取款的加密货币地址
+   *
    * @param date Date/Time of transaction
+   *             交易日期/时间
+   *
    * @param currency The transaction currency
+   *                 交易币种
+   *
    * @param amount Amount deposited/withdrawn (always positive)
+   *               存款/取款金额（始终为正）
+   *
    * @param internalId Internal transaction identifier, specific to the Exchange
-   * @param blockchainTransactionHash Transaction hash/id that identifies the transaction within the
-   *     public ledger
+   *                   内部交易标识符，特定于交易所
+   *
+   * @param blockchainTransactionHash Transaction hash/id that identifies the transaction within the  public ledger
+   *                                  交易哈希/ID，用于标识公共分类账中的交易
+   *
    * @param type Transaction Type {@link Type}
+   *             交易类型 {@link 类型}
+   *
    * @param status Status of the transaction whenever available (e.g. Pending, Completed or any
-   *     descriptive status of transaction). Will be naively converted to Status enum if possible,
-   *     or else be prefixed to description.
+        descriptive status of transaction). Will be naively converted to Status enum if possible, or else be prefixed to description.
+  可用的交易状态（例如待处理、已完成或任何
+  交易的描述状态）。 如果可能，将天真地转换为状态枚举，或者作为描述的前缀。
+
    * @param balance Balance of the associated account after the transaction is performed
+   *                交易完成后关联账户的余额
+   *
    * @param fee Transaction Fee Amount (always positive)
+   *            交易费用金额（始终为正）
+   *
    * @param description Description of the transaction. It is a good idea to put here any extra info
-   *     sent back from the exchange that doesn't fit elsewhere so users can still access it.
+       sent back from the exchange that doesn't fit elsewhere so users can still access it.
+        交易的描述。 将任何额外信息放在这里是个好主意
+        从不适合其他地方的交易所发回，因此用户仍然可以访问它。
+
    * @deprecated Use the constructor with enum status parameter.
+   * * @deprecated 使用带有枚举状态参数的构造函数。
    */
   @Deprecated
   public FundingRecord(
@@ -111,19 +145,40 @@ public final class FundingRecord implements Serializable {
    * Constructs a {@link FundingRecord}.
    *
    * @param address Crypto currency address for deposit/withdrawal
+   *                用于存款/取款的加密货币地址
+   *
    * @param addressTag Crypto address destination tag for deposit/withdrawal
+   *                   用于存款/取款的加密地址目的地标签
+   *
    * @param date Date/Time of transaction
+   *             交易日期/时间
+   *
    * @param currency The transaction currency
+   *                 交易币种
+   *
    * @param amount Amount deposited/withdrawn (always positive)
+   *               存款/取款金额（始终为正）
+   *
    * @param internalId Internal transaction identifier, specific to the Exchange
-   * @param blockchainTransactionHash Transaction hash/id that identifies the transaction within the
-   *     public ledger
+   *                   内部交易标识符，特定于交易所
+   *
+   * @param blockchainTransactionHash Transaction hash/id that identifies the transaction within the  public ledger
+   *                                  交易哈希/ID，用于标识公共分类账中的交易
+   *
    * @param type Transaction Type {@link Type}
+   *             交易类型 {@link 类型}
+   *
    * @param status Status of the transaction whenever available
+   *               可用时的交易状态
+   *
    * @param balance Balance of the associated account after the transaction is performed
+   *                交易完成后关联账户的余额
+   *
    * @param fee Transaction Fee Amount (always positive)
-   * @param description Description of the transaction. It is a good idea to put here any extra info
-   *     sent back from the exchange that doesn't fit elsewhere so users can still access it.
+   *            交易费用金额（始终为正）
+   *
+   * @param description Description of the transaction. It is a good idea to put here any extra info sent back from the exchange that doesn't fit elsewhere so users can still access it.
+   *                    * @param description 交易的描述。 最好将交易所发回的任何其他不适合其他地方的额外信息放在这里，以便用户仍然可以访问它。
    */
   public FundingRecord(
       final String address,
@@ -156,18 +211,37 @@ public final class FundingRecord implements Serializable {
    * Constructs a {@link FundingRecord}.
    *
    * @param address Crypto currency address for deposit/withdrawal
+   *                用于存款/取款的加密货币地址
+   *
    * @param date Date/Time of transaction
+   *             交易日期/时间
+   *
    * @param currency The transaction currency
+   *                 交易币种
+   *
    * @param amount Amount deposited/withdrawn (always positive)
+   *               存款/取款金额（始终为正）
+   *
    * @param internalId Internal transaction identifier, specific to the Exchange
-   * @param blockchainTransactionHash Transaction hash/id that identifies the transaction within the
-   *     public ledger
+   *                   内部交易标识符，特定于交易所
+   *
+   * @param blockchainTransactionHash Transaction hash/id that identifies the transaction within the  public ledger
+   *                                  交易哈希/ID，用于标识公共分类账中的交易
+   *
    * @param type Transaction Type {@link Type}
+   *             交易类型 {@link 类型}
+   *
    * @param status Status of the transaction whenever available
+   *               可用时的交易状态
+   *
    * @param balance Balance of the associated account after the transaction is performed
+   *                交易完成后关联账户的余额
+   *
    * @param fee Transaction Fee Amount (always positive)
-   * @param description Description of the transaction. It is a good idea to put here any extra info
-   *     sent back from the exchange that doesn't fit elsewhere so users can still access it.
+   *            交易费用金额（始终为正）
+   *
+   * @param description Description of the transaction. It is a good idea to put here any extra info sent back from the exchange that doesn't fit elsewhere so users can still access it.
+   *                    * @param description 交易的描述。 最好将交易所发回的任何其他不适合其他地方的额外信息放在这里，以便用户仍然可以访问它。
    */
   public FundingRecord(
       final String address,
@@ -196,7 +270,8 @@ public final class FundingRecord implements Serializable {
         description);
   }
 
-  /** @return Crypto currency address */
+  /** @return Crypto currency address
+   * 加密货币地址 */
   public String getAddress() {
     return address;
   }
@@ -205,63 +280,71 @@ public final class FundingRecord implements Serializable {
     return addressTag;
   }
 
-  /** @return Date/Time of transaction */
+  /** @return Date/Time of transaction
+   * 交易日期/时间 */
   public Date getDate() {
     return date;
   }
 
-  /** @return The transaction currency */
+  /** @return The transaction currency
+   * 交易币种 */
   public Currency getCurrency() {
     return currency;
   }
 
-  /** @return Amount deposited/withdrawn in given transaction currency (always positive) */
+  /** @return Amount deposited/withdrawn in given transaction currency (always positive)
+   * 以给定交易货币存入/提取的金额（始终为正） */
   public BigDecimal getAmount() {
     return amount;
   }
 
-  /** @return Internal transaction identifier, specific to the Exchange. */
+  /** @return Internal transaction identifier, specific to the Exchange.
+   * 内部交易标识符，特定于交易所。 */
   public String getInternalId() {
     return internalId;
   }
 
-  @Deprecated // for backward compatibility.  Will be removed
+  @Deprecated // for backward compatibility.  Will be removed // 为了向后兼容。 将被移除
   public String getExternalId() {
     return blockchainTransactionHash;
   }
 
   /**
-   * @return External Transaction id that identifies the transaction within the public ledger, eg.
-   *     blockchain transaction hash.
+   * @return External Transaction id that identifies the transaction within the public ledger, eg.   blockchain transaction hash.
+   * @return 标识公共分类帐中的交易的外部交易ID，例如。 区块链交易哈希。
    */
   public String getBlockchainTransactionHash() {
     return blockchainTransactionHash;
   }
 
-  /** @return Transaction Type {@link Type} */
+  /** @return Transaction Type {@link Type}
+   * 交易类型 {@link 类型} */
   public Type getType() {
     return type;
   }
 
   /**
-   * @return Status of the transaction whenever available (e.g. Open, Completed or any descriptive
-   *     status of transaction)
+   * @return Status of the transaction whenever available (e.g. Open, Completed or any descriptive  status of transaction)
+   * @return 交易状态（例如，打开、完成或任何描述性交易状态）
    */
   public Status getStatus() {
     return status;
   }
 
-  /** @return Balance of the associated account after the transaction is performed */
+  /** @return Balance of the associated account after the transaction is performed
+   * 交易完成后关联账户的余额*/
   public BigDecimal getBalance() {
     return balance;
   }
 
-  /** @return Transaction Fee Amount in given transaction currency (always positive) */
+  /** @return Transaction Fee Amount in given transaction currency (always positive)
+   * 给定交易货币的交易费用金额（始终为正） */
   public BigDecimal getFee() {
     return fee;
   }
 
-  /** @return Description of the transaction */
+  /** @return Description of the transaction
+   * 交易说明*/
   public String getDescription() {
     return description;
   }
@@ -283,33 +366,41 @@ public final class FundingRecord implements Serializable {
         fee);
   }
 
-  /** Enum representing funding transaction type */
+  /** Enum representing funding transaction type
+   * 代表资金交易类型的枚举 */
   public enum Type {
     WITHDRAWAL(false),
     DEPOSIT(true),
     AIRDROP(true),
     /**
      * Used for inflows that are not a regular users deposit and are either different the inflows
-     * defined above or their nature could not have been deduced from the exchanges response
+     defined above or their nature could not have been deduced from the exchanges response
+     用于非普通用户存款且与流入不同的流入
+     上述定义或它们的性质无法从交易所的回复中推断出来
      */
     OTHER_INFLOW(true),
     /**
      * Used for outflows that are not a regular users withdrawal and are either different the
-     * outflows defined above or their nature could not have been deduced from the exchanges
-     * response
+      outflows defined above or their nature could not have been deduced from the exchanges response
+     用于非普通用户提款的流出，并且要么不同
+     上述定义的流出或其性质无法从交易所的回应中推断出来
      */
     OTHER_OUTFLOW(false),
 
-    /** Used for transfers between exchanges accounts */
+    /** Used for transfers between exchanges accounts
+     * 用于交易所账户之间的转账 */
     INTERNAL_WITHDRAWAL(false),
 
-    /** Used for transfers between exchanges accounts */
+    /** Used for transfers between exchanges accounts
+     * 用于交易所账户之间的转账 */
     INTERNAL_DEPOSIT(true),
 
-    /** Used for realised losses from derivatives */
+    /** Used for realised losses from derivatives
+     * 用于衍生品的已实现损失*/
     REALISED_LOSS(false),
 
-    /** Used for realised profits from derivatives */
+    /** Used for realised profits from derivatives
+     * 用于衍生品的已实现利润 */
     REALISED_PROFIT(true);
 
     private static final Map<String, Type> fromString = new HashMap<>();
@@ -340,8 +431,11 @@ public final class FundingRecord implements Serializable {
   public enum Status {
     /**
      * The user has requested the withdrawal or deposit, or the exchange has detected an initiated
-     * deposit, but the exchange still has to fully process the funding. The funds are not available
-     * to the user. The funding request may possibly still be cancelled though.
+     deposit, but the exchange still has to fully process the funding. The funds are not available
+     to the user. The funding request may possibly still be cancelled though.
+     用户已请求提款或充值，或交易所检测到发起
+     存款，但交易所仍然必须完全处理资金。 资金不可用
+     给用户。 不过，资金请求可能仍会被取消。
      */
     PROCESSING(
         "WAIT CONFIRMATION",
@@ -354,18 +448,23 @@ public final class FundingRecord implements Serializable {
 
     /**
      * The exchange has processed the transfer fully and successfully. The funding typically cannot
-     * be cancelled any more. For withdrawals, the funds are gone from the exchange, though they may
-     * have not reached their destination yet. For deposits, the funds are available to the user.
+      be cancelled any more. For withdrawals, the funds are gone from the exchange, though they may
+      have not reached their destination yet. For deposits, the funds are available to the user.
+     交易所已完全成功地处理了转移。 资金通常不能
+     被取消了。 对于提款，资金会从交易所消失，尽管它们可能
+     还没有到达目的地。 对于存款，资金可供用户使用。
      */
     COMPLETE("COMPLETED"),
 
-    /** The transfer was cancelled either by the user or by the exchange. */
+    /** The transfer was cancelled either by the user or by the exchange.
+     * 转移被用户或交易所取消。*/
     CANCELLED("REVOKED", "CANCEL", "REFUND"),
 
     /**
      * The transfer has failed for any reason other than user cancellation after it was initiated
-     * and before it was successfully processed. For withdrawals, the funds are available to the
-     * user again.
+     and before it was successfully processed. For withdrawals, the funds are available to the user again.
+     转移在启动后因用户取消以外的任何原因而失败
+     在它被成功处理之前。 对于提款，资金再次可供用户使用。
      */
     FAILED("FAILURE"),
     ;
