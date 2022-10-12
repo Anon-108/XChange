@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Value;
 
 /**
+ *
+ * Bitfinex 交易原始订单
  * @see https://docs.bitfinex.com/reference#rest-public-book trading order on raw books (precision
  *     of R0)
  */

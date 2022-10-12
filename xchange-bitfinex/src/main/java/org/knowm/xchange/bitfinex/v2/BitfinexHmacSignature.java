@@ -9,6 +9,9 @@ import org.knowm.xchange.service.BaseParamsDigest;
 import org.knowm.xchange.utils.DigestUtils;
 import si.mazi.rescu.RestInvocation;
 
+/**
+ * Bitfinex Hmac 签名
+ */
 @Slf4j
 public class BitfinexHmacSignature extends BaseParamsDigest {
   private static final String UTF_8 = "UTF-8";

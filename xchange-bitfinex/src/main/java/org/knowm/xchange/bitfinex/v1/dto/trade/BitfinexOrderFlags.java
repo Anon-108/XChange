@@ -2,6 +2,9 @@ package org.knowm.xchange.bitfinex.v1.dto.trade;
 
 import org.knowm.xchange.dto.Order.IOrderFlags;
 
+/**
+ * Bitfinex 订单标志
+ */
 public enum BitfinexOrderFlags implements IOrderFlags {
 
   /**

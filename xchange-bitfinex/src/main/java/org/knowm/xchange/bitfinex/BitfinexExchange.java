@@ -33,6 +33,9 @@ public class BitfinexExchange extends BaseExchange implements Exchange {
   private SynchronizedValueFactory<Long> nonceFactory =
       new AtomicLongIncrementalTime2013NonceFactory();
 
+  /**
+   * 初始化服务
+   */
   @Override
   protected void initServices() {
     this.marketDataService = new BitfinexMarketDataService(this, getResilienceRegistries());
@@ -40,6 +43,10 @@ public class BitfinexExchange extends BaseExchange implements Exchange {
     this.tradeService = new BitfinexTradeService(this, getResilienceRegistries());
   }
 
+  /**
+   * 获取恢复注册表
+   * @return
+   */
   @Override
   public ResilienceRegistries getResilienceRegistries() {
     if (RESILIENCE_REGISTRIES == null) {
@@ -48,6 +55,10 @@ public class BitfinexExchange extends BaseExchange implements Exchange {
     return RESILIENCE_REGISTRIES;
   }
 
+  /**
+   * 获取默认交换规范
+   * @return
+   */
   @Override
   public ExchangeSpecification getDefaultExchangeSpecification() {
     // 请求代理接口  仅在本地测试开启
@@ -64,21 +75,30 @@ public class BitfinexExchange extends BaseExchange implements Exchange {
     exchangeSpecification.getResilience().setRateLimiterEnabled(true);
     exchangeSpecification.getResilience().setRetryEnabled(true);
     // TODO 请求代理接口  仅在本地测试开启
-//    exchangeSpecification.setProxyHost("127.0.0.1");
-//    exchangeSpecification.setProxyPort(10809);
-//    log.info("当前代理地址为:"+exchangeSpecification.getProxyHost());
-//    log.info("当前代理端口为:"+exchangeSpecification.getProxyPort());
+    exchangeSpecification.setProxyHost("127.0.0.1");
+    exchangeSpecification.setProxyPort(10809);
+    log.info("当前代理地址为:"+exchangeSpecification.getProxyHost());
+    log.info("当前代理端口为:"+exchangeSpecification.getProxyPort());
 
 
     return exchangeSpecification;
   }
 
+  /**
+   * 获得临时/随机数的工厂
+   * @return
+   */
   @Override
   public SynchronizedValueFactory<Long> getNonceFactory() {
 
     return nonceFactory;
   }
 
+  /**
+   * 远程初始化
+   * @throws IOException
+   * @throws ExchangeException
+   */
   @Override
   public void remoteInit() throws IOException, ExchangeException {
 

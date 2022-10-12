@@ -13,7 +13,9 @@ import lombok.Value;
 @Value
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-/** see https://docs.bitfinex.com/reference#rest-auth-deriv-pos-collateral-set */
+/**
+ * 更新抵押衍生品头寸请求
+ * see https://docs.bitfinex.com/reference#rest-auth-deriv-pos-collateral-set */
 @JsonInclude(Include.NON_NULL)
 public class UpdateCollateralDerivativePositionRequest {
   /** The derivative symbol, e.g. tBTCF0:USTF0

@@ -49,11 +49,23 @@ import org.knowm.xchange.bitfinex.v1.dto.trade.BitfinexReplaceOrderRequest;
 import org.knowm.xchange.bitfinex.v1.dto.trade.BitfinexTradeResponse;
 import si.mazi.rescu.ParamsDigest;
 
+/**
+ * Bitfinex 认证
+ */
 @Path("v1")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public interface BitfinexAuthenticated extends Bitfinex {
-
+  /**
+   * 账户信息
+   * @param apiKey
+   * @param payload
+   * @param signature
+   * @param accountInfosRequest
+   * @return
+   * @throws IOException
+   * @throws BitfinexExceptionV1
+   */
   @POST
   @Path("account_infos")
   BitfinexAccountInfosResponse[] accountInfos(
@@ -63,6 +75,15 @@ public interface BitfinexAuthenticated extends Bitfinex {
       BitfinexNonceOnlyRequest accountInfosRequest)
       throws IOException, BitfinexExceptionV1;
 
+  /**
+   * 账户费用
+   * @param apiKey
+   * @param payload
+   * @param signature
+   * @param accountInfosRequest
+   * @return
+   * @throws IOException
+   */
   @POST
   @Path("account_fees")
   BitfinexAccountFeesResponse accountFees(
@@ -72,6 +93,16 @@ public interface BitfinexAuthenticated extends Bitfinex {
       BitfinexNonceOnlyRequest accountInfosRequest)
       throws IOException;
 
+  /**
+   * 新订单
+   * @param apiKey
+   * @param payload
+   * @param signature
+   * @param newOrderRequest
+   * @return
+   * @throws IOException
+   * @throws BitfinexExceptionV1
+   */
   @POST
   @Path("order/new")
   BitfinexOrderStatusResponse newOrder(
@@ -81,6 +112,16 @@ public interface BitfinexAuthenticated extends Bitfinex {
       BitfinexNewOrderRequest newOrderRequest)
       throws IOException, BitfinexExceptionV1;
 
+  /**
+   * 新订单多
+   * @param apiKey
+   * @param payload
+   * @param signature
+   * @param newOrderMultiRequest
+   * @return
+   * @throws IOException
+   * @throws BitfinexExceptionV1
+   */
   @POST
   @Path("order/new/multi")
   BitfinexNewOrderMultiResponse newOrderMulti(
@@ -90,6 +131,16 @@ public interface BitfinexAuthenticated extends Bitfinex {
       BitfinexNewOrderMultiRequest newOrderMultiRequest)
       throws IOException, BitfinexExceptionV1;
 
+  /**
+   * 新出价
+   * @param apiKey
+   * @param payload
+   * @param signature
+   * @param newOfferRequest
+   * @return
+   * @throws IOException
+   * @throws BitfinexExceptionV1
+   */
   @POST
   @Path("offer/new")
   BitfinexOfferStatusResponse newOffer(
@@ -99,6 +150,16 @@ public interface BitfinexAuthenticated extends Bitfinex {
       BitfinexNewOfferRequest newOfferRequest)
       throws IOException, BitfinexExceptionV1;
 
+  /**
+   * 余额
+   * @param apiKey
+   * @param payload
+   * @param signature
+   * @param balancesRequest
+   * @return
+   * @throws IOException
+   * @throws BitfinexExceptionV1
+   */
   @POST
   @Path("balances")
   BitfinexBalancesResponse[] balances(
@@ -108,6 +169,16 @@ public interface BitfinexAuthenticated extends Bitfinex {
       BitfinexBalancesRequest balancesRequest)
       throws IOException, BitfinexExceptionV1;
 
+  /**
+   * 交易费用
+   * @param apiKey
+   * @param payload
+   * @param signature
+   * @param tradingFeeRequest
+   * @return
+   * @throws IOException
+   * @throws BitfinexExceptionV1
+   */
   @POST
   @Path("account_infos")
   BitfinexTradingFeeResponse[] tradingFees(
@@ -117,6 +188,16 @@ public interface BitfinexAuthenticated extends Bitfinex {
       BitfinexTradingFeesRequest tradingFeeRequest)
       throws IOException, BitfinexExceptionV1;
 
+  /**
+   * 取消订单
+   * @param apiKey
+   * @param payload
+   * @param signature
+   * @param cancelOrderRequest
+   * @return
+   * @throws IOException
+   * @throws BitfinexExceptionV1
+   */
   @POST
   @Path("order/cancel")
   BitfinexOrderStatusResponse cancelOrders(
@@ -126,6 +207,16 @@ public interface BitfinexAuthenticated extends Bitfinex {
       BitfinexCancelOrderRequest cancelOrderRequest)
       throws IOException, BitfinexExceptionV1;
 
+  /**
+   * 取消所有订单
+   * @param apiKey
+   * @param payload
+   * @param signature
+   * @param cancelAllOrdersRequest
+   * @return
+   * @throws IOException
+   * @throws BitfinexExceptionV1
+   */
   @POST
   @Path("order/cancel/all")
   BitfinexOrderStatusResponse cancelAllOrders(
@@ -135,6 +226,16 @@ public interface BitfinexAuthenticated extends Bitfinex {
       BitfinexCancelAllOrdersRequest cancelAllOrdersRequest)
       throws IOException, BitfinexExceptionV1;
 
+  /**
+   * 取消多个订单
+   * @param apiKey
+   * @param payload
+   * @param signature
+   * @param cancelOrderRequest
+   * @return
+   * @throws IOException
+   * @throws BitfinexExceptionV1
+   */
   @POST
   @Path("order/cancel/multi")
   BitfinexCancelOrderMultiResponse cancelOrderMulti(
@@ -144,6 +245,16 @@ public interface BitfinexAuthenticated extends Bitfinex {
       BitfinexCancelOrderMultiRequest cancelOrderRequest)
       throws IOException, BitfinexExceptionV1;
 
+  /**
+   * 取代；（用……）替换订单
+   * @param apiKey
+   * @param payload
+   * @param signature
+   * @param newOrderRequest
+   * @return
+   * @throws IOException
+   * @throws BitfinexExceptionV1
+   */
   @POST
   @Path("order/cancel/replace")
   BitfinexOrderStatusResponse replaceOrder(
@@ -153,6 +264,16 @@ public interface BitfinexAuthenticated extends Bitfinex {
       BitfinexReplaceOrderRequest newOrderRequest)
       throws IOException, BitfinexExceptionV1;
 
+  /**
+   * 取消出价，报价
+   * @param apiKey
+   * @param payload
+   * @param signature
+   * @param cancelOfferRequest
+   * @return
+   * @throws IOException
+   * @throws BitfinexExceptionV1
+   */
   @POST
   @Path("offer/cancel")
   BitfinexOfferStatusResponse cancelOffer(
@@ -162,6 +283,16 @@ public interface BitfinexAuthenticated extends Bitfinex {
       BitfinexCancelOfferRequest cancelOfferRequest)
       throws IOException, BitfinexExceptionV1;
 
+  /**
+   * 活跃订单
+   * @param apiKey
+   * @param payload
+   * @param signature
+   * @param nonceOnlyRequest
+   * @return
+   * @throws IOException
+   * @throws BitfinexExceptionV1
+   */
   @POST
   @Path("orders")
   BitfinexOrderStatusResponse[] activeOrders(
@@ -171,6 +302,16 @@ public interface BitfinexAuthenticated extends Bitfinex {
       BitfinexNonceOnlyRequest nonceOnlyRequest)
       throws IOException, BitfinexExceptionV1;
 
+  /**
+   * 订单列表
+   * @param apiKey
+   * @param payload
+   * @param signature
+   * @param ordersHistoryRequest
+   * @return
+   * @throws IOException
+   * @throws BitfinexExceptionV1
+   */
   @POST
   @Path("orders/hist")
   BitfinexOrderStatusResponse[] ordersHist(
@@ -180,6 +321,16 @@ public interface BitfinexAuthenticated extends Bitfinex {
       BitfinexOrdersHistoryRequest ordersHistoryRequest)
       throws IOException, BitfinexExceptionV1;
 
+  /**
+   * 有效出价，报价
+   * @param apiKey
+   * @param payload
+   * @param signature
+   * @param nonceOnlyRequest
+   * @return
+   * @throws IOException
+   * @throws BitfinexExceptionV1
+   */
   @POST
   @Path("offers")
   BitfinexOfferStatusResponse[] activeOffers(
@@ -189,6 +340,16 @@ public interface BitfinexAuthenticated extends Bitfinex {
       BitfinexNonceOnlyRequest nonceOnlyRequest)
       throws IOException, BitfinexExceptionV1;
 
+  /**
+   * 有效持仓 /仓位
+   * @param apiKey
+   * @param payload
+   * @param signature
+   * @param nonceOnlyRequest
+   * @return
+   * @throws IOException
+   * @throws BitfinexExceptionV1
+   */
   @POST
   @Path("positions")
   BitfinexActivePositionsResponse[] activePositions(
@@ -198,6 +359,16 @@ public interface BitfinexAuthenticated extends Bitfinex {
       BitfinexNonceOnlyRequest nonceOnlyRequest)
       throws IOException, BitfinexExceptionV1;
 
+  /**
+   * 订单状态
+   * @param apiKey
+   * @param payload
+   * @param signature
+   * @param orderStatusRequest
+   * @return
+   * @throws IOException
+   * @throws BitfinexExceptionV1
+   */
   @POST
   @Path("order/status")
   @Consumes(MediaType.APPLICATION_JSON)
@@ -209,6 +380,16 @@ public interface BitfinexAuthenticated extends Bitfinex {
       BitfinexOrderStatusRequest orderStatusRequest)
       throws IOException, BitfinexExceptionV1;
 
+  /**
+   * 出价状态
+   * @param apiKey
+   * @param payload
+   * @param signature
+   * @param offerStatusRequest
+   * @return
+   * @throws IOException
+   * @throws BitfinexExceptionV1
+   */
   @POST
   @Path("offer/status")
   @Consumes(MediaType.APPLICATION_JSON)
@@ -220,6 +401,16 @@ public interface BitfinexAuthenticated extends Bitfinex {
       BitfinexOfferStatusRequest offerStatusRequest)
       throws IOException, BitfinexExceptionV1;
 
+  /**
+   *  过去的，昔日的 交易
+   * @param apiKey
+   * @param payload
+   * @param signature
+   * @param pastTradesRequest
+   * @return
+   * @throws IOException
+   * @throws BitfinexExceptionV1
+   */
   @POST
   @Path("mytrades")
   BitfinexTradeResponse[] pastTrades(
@@ -229,6 +420,16 @@ public interface BitfinexAuthenticated extends Bitfinex {
       BitfinexPastTradesRequest pastTradesRequest)
       throws IOException, BitfinexExceptionV1;
 
+  /**
+   * 过去的出资 /经费 交易
+   * @param apiKey
+   * @param payload
+   * @param signature
+   * @param bitfinexPastFundingTradesRequest
+   * @return
+   * @throws IOException
+   * @throws BitfinexExceptionV1
+   */
   @POST
   @Path("mytrades_funding")
   BitfinexFundingTradeResponse[] pastFundingTrades(
@@ -238,6 +439,16 @@ public interface BitfinexAuthenticated extends Bitfinex {
       BitfinexPastFundingTradesRequest bitfinexPastFundingTradesRequest)
       throws IOException, BitfinexExceptionV1;
 
+  /**
+   * 有效的 信用 /贷方 /学分 /信誉
+   * @param apiKey
+   * @param payload
+   * @param signature
+   * @param activeCreditsRequest
+   * @return
+   * @throws IOException
+   * @throws BitfinexExceptionV1
+   */
   @POST
   @Path("credits")
   BitfinexCreditResponse[] activeCredits(
@@ -247,6 +458,16 @@ public interface BitfinexAuthenticated extends Bitfinex {
       BitfinexActiveCreditsRequest activeCreditsRequest)
       throws IOException, BitfinexExceptionV1;
 
+  /**
+   * 保证金信息
+   * @param apiKey
+   * @param payload
+   * @param signature
+   * @param marginInfosRequest
+   * @return
+   * @throws IOException
+   * @throws BitfinexExceptionV1
+   */
   @POST
   @Path("margin_infos")
   BitfinexMarginInfosResponse[] marginInfos(
@@ -256,6 +477,16 @@ public interface BitfinexAuthenticated extends Bitfinex {
       BitfinexMarginInfosRequest marginInfosRequest)
       throws IOException, BitfinexExceptionV1;
 
+  /**
+   * 提，取（银行账户中的钱款）
+   * @param apiKey
+   * @param payload
+   * @param signature
+   * @param withdrawalRequest
+   * @return
+   * @throws IOException
+   * @throws BitfinexExceptionV1
+   */
   @POST
   @Path("withdraw")
   BitfinexWithdrawalResponse[] withdraw(
@@ -265,6 +496,16 @@ public interface BitfinexAuthenticated extends Bitfinex {
       BitfinexWithdrawalRequest withdrawalRequest)
       throws IOException, BitfinexExceptionV1;
 
+  /**
+   * 请求存款
+   * @param apiKey
+   * @param payload
+   * @param signature
+   * @param depositRequest
+   * @return
+   * @throws IOException
+   * @throws BitfinexExceptionV1
+   */
   @POST
   @Path("deposit/new")
   BitfinexDepositAddressResponse requestDeposit(
@@ -274,6 +515,16 @@ public interface BitfinexAuthenticated extends Bitfinex {
       BitfinexDepositAddressRequest depositRequest)
       throws IOException, BitfinexExceptionV1;
 
+  /**
+   * 存款取款记录
+   * @param apiKey
+   * @param payload
+   * @param signature
+   * @param request
+   * @return
+   * @throws IOException
+   * @throws BitfinexExceptionV1
+   */
   @POST
   @Path("history/movements")
   BitfinexDepositWithdrawalHistoryResponse[] depositWithdrawalHistory(
@@ -283,6 +534,16 @@ public interface BitfinexAuthenticated extends Bitfinex {
       BitfinexDepositWithdrawalHistoryRequest request)
       throws IOException, BitfinexExceptionV1;
 
+  /**
+   *  余额历史记录
+   * @param apiKey
+   * @param payload
+   * @param signature
+   * @param balanceHistoryRequest
+   * @return
+   * @throws IOException
+   * @throws BitfinexExceptionV1
+   */
   @POST
   @Path("history")
   BitfinexBalanceHistoryResponse[] balanceHistory(

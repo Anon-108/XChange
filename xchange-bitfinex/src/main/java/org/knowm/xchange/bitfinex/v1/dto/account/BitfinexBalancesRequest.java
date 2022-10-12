@@ -1,5 +1,8 @@
 package org.knowm.xchange.bitfinex.v1.dto.account;
 
+/**
+ * bitfinex余额请求
+ */
 public class BitfinexBalancesRequest extends BitfinexEmptyRequest {
 
   /**

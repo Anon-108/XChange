@@ -2,6 +2,9 @@ package org.knowm.xchange.bitfinex.v1.dto.trade;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Bitfinex 活跃积分请求
+ */
 public class BitfinexActiveCreditsRequest {
 
   @JsonProperty("request")

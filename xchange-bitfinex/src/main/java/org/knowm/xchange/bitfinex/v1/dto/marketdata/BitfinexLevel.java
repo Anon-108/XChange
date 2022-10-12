@@ -3,10 +3,21 @@ package org.knowm.xchange.bitfinex.v1.dto.marketdata;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
 
+/**
+ * Bitfinex 级别
+ */
 public class BitfinexLevel {
-
+  /**
+   * 价格
+   */
   private final BigDecimal price;
+  /**
+   * 数量
+   */
   private final BigDecimal amount;
+  /**
+   * 时间戳
+   */
   private final BigDecimal timestamp;
 
   /**

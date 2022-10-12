@@ -5,6 +5,9 @@ import java.math.BigDecimal;
 import java.util.Date;
 import org.knowm.xchange.dto.account.FundingRecord;
 
+/**
+ * Bitfinex 充值提现历史响应
+ */
 public class BitfinexDepositWithdrawalHistoryResponse {
 
   @JsonProperty("id")

@@ -36,6 +36,9 @@ import org.knowm.xchange.bitfinex.v2.dto.account.Wallet;
 import org.knowm.xchange.client.ResilienceRegistries;
 import org.knowm.xchange.exceptions.ExchangeException;
 
+/**
+ * Bitfinex账户服务Raw
+ */
 public class BitfinexAccountServiceRaw extends BitfinexBaseService {
 
   /**
@@ -49,6 +52,11 @@ public class BitfinexAccountServiceRaw extends BitfinexBaseService {
     super(exchange, resilienceRegistries);
   }
 
+  /**
+   * 获取 Bitfinex 动态交易费用
+   * @return
+   * @throws IOException
+   */
   public BitfinexTradingFeeResponse[] getBitfinexDynamicTradingFees() throws IOException {
     try {
       return decorateApiCall(
@@ -67,6 +75,11 @@ public class BitfinexAccountServiceRaw extends BitfinexBaseService {
     }
   }
 
+  /**
+   * 获取 Bitfinex 账户信息
+   * @return
+   * @throws IOException
+   */
   public BitfinexBalancesResponse[] getBitfinexAccountInfo() throws IOException {
     return decorateApiCall(
             () ->
@@ -81,6 +94,11 @@ public class BitfinexAccountServiceRaw extends BitfinexBaseService {
         .call();
   }
 
+  /**
+   * 获取Bitfinex保证金信息
+   * @return
+   * @throws IOException
+   */
   public BitfinexMarginInfosResponse[] getBitfinexMarginInfos() throws IOException {
     return decorateApiCall(
             () ->
@@ -95,6 +113,16 @@ public class BitfinexAccountServiceRaw extends BitfinexBaseService {
         .call();
   }
 
+  /**
+   * 获取存款取款记录
+   * @param currency
+   * @param method
+   * @param since
+   * @param until
+   * @param limit
+   * @return
+   * @throws IOException
+   */
   public BitfinexDepositWithdrawalHistoryResponse[] getDepositWithdrawalHistory(
       String currency, String method, Date since, Date until, Integer limit) throws IOException {
     BitfinexDepositWithdrawalHistoryRequest request =
@@ -114,12 +142,31 @@ public class BitfinexAccountServiceRaw extends BitfinexBaseService {
         .call();
   }
 
+  /**
+   * 提取
+   * @param withdrawType 提取类型
+   * @param walletSelected 钱包选择
+   * @param amount 数量
+   * @param address 地址
+   * @return
+   * @throws IOException
+   */
   public String withdraw(
       String withdrawType, String walletSelected, BigDecimal amount, String address)
       throws IOException {
     return withdraw(withdrawType, walletSelected, amount, address, null);
   }
 
+  /**
+   * 提取
+   * @param withdrawType 提取类型
+   * @param walletSelected 钱包选择
+   * @param amount 数量
+   * @param address 地址
+   * @param tagOrPaymentId 标签或付款 ID
+   * @return
+   * @throws IOException
+   */
   public String withdraw(
       String withdrawType,
       String walletSelected,
@@ -130,6 +177,17 @@ public class BitfinexAccountServiceRaw extends BitfinexBaseService {
     return withdraw(withdrawType, walletSelected, amount, address, tagOrPaymentId, null);
   }
 
+  /**
+   * 提取
+   * @param withdrawType 提取类型
+   * @param walletSelected 选择钱包
+   * @param amount 数量
+   * @param address 地址
+   * @param tagOrPaymentId 标签或付款 ID
+   * @param currency 货币
+   * @return
+   * @throws IOException
+   */
   public String withdraw(
       String withdrawType,
       String walletSelected,
@@ -158,6 +216,12 @@ public class BitfinexAccountServiceRaw extends BitfinexBaseService {
     return withdrawResponse[0].getWithdrawalId();
   }
 
+  /**
+   *请求存款地址原始
+   * @param currency 货币
+   * @return
+   * @throws IOException
+   */
   public BitfinexDepositAddressResponse requestDepositAddressRaw(String currency)
       throws IOException {
     String type = "unknown";
@@ -210,6 +274,11 @@ public class BitfinexAccountServiceRaw extends BitfinexBaseService {
         .call();
   }
 
+  /**
+   * 获取账户费用
+   * @return
+   * @throws IOException
+   */
   public BitfinexAccountFeesResponse getAccountFees() throws IOException {
     return decorateApiCall(
             () ->
@@ -279,6 +348,15 @@ public class BitfinexAccountServiceRaw extends BitfinexBaseService {
         .call();
   }
 
+  /**
+   * 获取移动历史
+   * @param currency 货币
+   * @param startTimeMillis 开始时间毫秒
+   * @param endTimeMillis 结束时间毫秒
+   * @param limit 额度/限制
+   * @return
+   * @throws IOException
+   */
   public List<Movement> getMovementHistory(
       String currency, Long startTimeMillis, Long endTimeMillis, Integer limit) throws IOException {
     if (StringUtils.isBlank(currency)) {

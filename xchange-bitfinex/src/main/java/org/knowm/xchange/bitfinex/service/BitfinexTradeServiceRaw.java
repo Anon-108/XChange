@@ -53,6 +53,9 @@ import org.knowm.xchange.dto.trade.LimitOrder;
 import org.knowm.xchange.dto.trade.MarketOrder;
 import org.knowm.xchange.exceptions.ExchangeException;
 
+/**
+ * Bitfinex 交易服务原生
+ */
 public class BitfinexTradeServiceRaw extends BitfinexBaseService {
 
   /**
@@ -66,6 +69,11 @@ public class BitfinexTradeServiceRaw extends BitfinexBaseService {
     super(exchange, resilienceRegistries);
   }
 
+  /**
+   * 获取bitfinex账户信息
+   * @return
+   * @throws IOException
+   */
   public BitfinexAccountInfosResponse[] getBitfinexAccountInfos() throws IOException {
     return decorateApiCall(
             () ->
@@ -80,6 +88,11 @@ public class BitfinexTradeServiceRaw extends BitfinexBaseService {
         .call();
   }
 
+  /**
+   * 获取 Bitfinex 打开的订单
+   * @return
+   * @throws IOException
+   */
   public BitfinexOrderStatusResponse[] getBitfinexOpenOrders() throws IOException {
     return decorateApiCall(
             () ->
@@ -106,6 +119,11 @@ public class BitfinexTradeServiceRaw extends BitfinexBaseService {
         .call();
   }
 
+  /**
+   * 获取 Bitfinex 公开报价
+   * @return
+   * @throws IOException
+   */
   public BitfinexOfferStatusResponse[] getBitfinexOpenOffers() throws IOException {
     return decorateApiCall(
             () ->
@@ -119,6 +137,13 @@ public class BitfinexTradeServiceRaw extends BitfinexBaseService {
         .call();
   }
 
+  /**
+   * 下 Bitfinex 市价单
+   * @param marketOrder 市价单
+   * @param bitfinexOrderType bitfinex订单类型
+   * @return
+   * @throws IOException
+   */
   public BitfinexOrderStatusResponse placeBitfinexMarketOrder(
       MarketOrder marketOrder, BitfinexOrderType bitfinexOrderType) throws IOException {
 
@@ -149,6 +174,13 @@ public class BitfinexTradeServiceRaw extends BitfinexBaseService {
         .call();
   }
 
+  /**
+   * 下限价单
+   * @param limitOrder 限价单
+   * @param orderType 订单类型
+   * @return
+   * @throws IOException
+   */
   public BitfinexOrderStatusResponse placeBitfinexLimitOrder(
       LimitOrder limitOrder, BitfinexOrderType orderType) throws IOException {
 
@@ -164,6 +196,14 @@ public class BitfinexTradeServiceRaw extends BitfinexBaseService {
     return sendLimitOrder(limitOrder, orderType, replaceOrderId);
   }
 
+  /**
+   * 发送限价单
+   * @param limitOrder 限价单
+   * @param bitfinexOrderType 订单类型
+   * @param replaceOrderId 替换订单id
+   * @return
+   * @throws IOException
+   */
   private BitfinexOrderStatusResponse sendLimitOrder(
       LimitOrder limitOrder, BitfinexOrderType bitfinexOrderType, long replaceOrderId)
       throws IOException {
@@ -291,6 +331,13 @@ public class BitfinexTradeServiceRaw extends BitfinexBaseService {
         .call();
   }
 
+  /**
+   * 下Bitfinex固定利率贷款订单
+   * @param loanOrder 贷款订单
+   * @param orderType 订单类型
+   * @return
+   * @throws IOException
+   */
   public BitfinexOfferStatusResponse placeBitfinexFixedRateLoanOrder(
       FixedRateLoanOrder loanOrder, BitfinexOrderType orderType) throws IOException {
     String direction = loanOrder.getType() == OrderType.BID ? "loan" : "lend";
@@ -311,6 +358,13 @@ public class BitfinexTradeServiceRaw extends BitfinexBaseService {
         .call();
   }
 
+  /**
+   * 下Bitfinex浮动利率贷款订单
+   * @param loanOrder 贷款订单
+   * @param orderType 订单类型
+   * @return
+   * @throws IOException
+   */
   public BitfinexOfferStatusResponse placeBitfinexFloatingRateLoanOrder(
       FloatingRateLoanOrder loanOrder, BitfinexOrderType orderType) throws IOException {
 
@@ -333,6 +387,12 @@ public class BitfinexTradeServiceRaw extends BitfinexBaseService {
         .call();
   }
 
+  /**
+   * 取消Bitfinex订单
+   * @param orderId 订单id
+   * @return
+   * @throws IOException
+   */
   public boolean cancelBitfinexOrder(String orderId) throws IOException {
 
     try {
@@ -357,6 +417,11 @@ public class BitfinexTradeServiceRaw extends BitfinexBaseService {
     }
   }
 
+  /**
+   * 取消所有Bitfinex订单
+   * @return
+   * @throws IOException
+   */
   public boolean cancelAllBitfinexOrders() throws IOException {
 
     try {
@@ -401,6 +466,12 @@ public class BitfinexTradeServiceRaw extends BitfinexBaseService {
     return true;
   }
 
+  /**
+   * 取消Bitfinex 出价
+   * @param offerId 出价id
+   * @return
+   * @throws IOException
+   */
   public BitfinexOfferStatusResponse cancelBitfinexOffer(String offerId) throws IOException {
     return decorateApiCall(
             () ->
@@ -415,6 +486,12 @@ public class BitfinexTradeServiceRaw extends BitfinexBaseService {
         .call();
   }
 
+  /**
+   * 获取bitfinex订单状态
+   * @param orderId 订单id
+   * @return
+   * @throws IOException
+   */
   public BitfinexOrderStatusResponse getBitfinexOrderStatus(String orderId) throws IOException {
     return decorateApiCall(
             () ->
@@ -444,6 +521,14 @@ public class BitfinexTradeServiceRaw extends BitfinexBaseService {
         .call();
   }
 
+  /**
+   *获取 Bitfinex 资金历史
+   * @param symbol 符号
+   * @param until 直到/为止
+   * @param limit_trades 交易额度
+   * @return
+   * @throws IOException
+   */
   public BitfinexFundingTradeResponse[] getBitfinexFundingHistory(
       String symbol, Date until, int limit_trades) throws IOException {
     return decorateApiCall(
@@ -481,6 +566,11 @@ public class BitfinexTradeServiceRaw extends BitfinexBaseService {
         .call();
   }
 
+  /**
+   * 获得 Bitfinex 活跃积分
+   * @return
+   * @throws IOException
+   */
   public BitfinexCreditResponse[] getBitfinexActiveCredits() throws IOException {
     return decorateApiCall(
             () ->
@@ -494,12 +584,31 @@ public class BitfinexTradeServiceRaw extends BitfinexBaseService {
         .call();
   }
 
+  /**
+   * 提取
+   * @param withdrawType 提取类型
+   * @param walletSelected 选择钱包
+   * @param amount 数量
+   * @param address 地址
+   * @return
+   * @throws IOException
+   */
   public String withdraw(
       String withdrawType, String walletSelected, BigDecimal amount, String address)
       throws IOException {
     return withdraw(withdrawType, walletSelected, amount, address, null);
   }
 
+  /**
+   * 提取
+   * @param withdrawType 提取类型
+   * @param walletSelected 选择钱包
+   * @param amount 数量
+   * @param address 地址
+   * @param paymentId 支付id
+   * @return
+   * @throws IOException
+   */
   public String withdraw(
       String withdrawType,
       String walletSelected,
@@ -549,6 +658,16 @@ public class BitfinexTradeServiceRaw extends BitfinexBaseService {
         .call();
   }
 
+  /**
+   * 获取bitfinex交易V2
+   * @param symbol 符号
+   * @param startTimeMillis 开始时间 毫秒
+   * @param endTimeMillis 结束时间
+   * @param limit 额度
+   * @param sort 种类/排序
+   * @return
+   * @throws IOException
+   */
   public List<Trade> getBitfinexTradesV2(
       String symbol, Long startTimeMillis, Long endTimeMillis, Long limit, Long sort)
       throws IOException {

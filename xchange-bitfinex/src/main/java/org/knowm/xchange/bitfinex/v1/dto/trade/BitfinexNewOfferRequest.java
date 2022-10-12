@@ -3,6 +3,9 @@ package org.knowm.xchange.bitfinex.v1.dto.trade;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
 
+/**
+ * Bitfinex 新报价请求
+ */
 public class BitfinexNewOfferRequest {
 
   @JsonProperty("request")

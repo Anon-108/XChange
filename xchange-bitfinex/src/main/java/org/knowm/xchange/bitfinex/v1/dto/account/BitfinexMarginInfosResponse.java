@@ -13,6 +13,9 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Generated;
 
+/**
+ * Bitfinex 保证金信息响应
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
 @JsonPropertyOrder({
@@ -28,39 +31,63 @@ import javax.annotation.Generated;
   "message"
 })
 public class BitfinexMarginInfosResponse {
-
+  /**
+   * 保证金余额
+   */
   @JsonProperty("margin_balance")
   private BigDecimal marginBalance;
-
+  /**
+   * 可交易余额
+   */
   @JsonProperty("tradable_balance")
   private BigDecimal tradableBalance;
-
+  /**
+   * 未实现的PL
+   */
   @JsonProperty("unrealized_pl")
   private BigDecimal unrealizedPl;
-
+  /**
+   * 未实现的交换
+   */
   @JsonProperty("unrealized_swap")
   private BigDecimal unrealizedSwap;
-
+  /**
+   * 净值
+   */
   @JsonProperty("net_value")
   private BigDecimal netValue;
-
+  /**
+   * 所需保证金
+   */
   @JsonProperty("required_margin")
   private BigDecimal requiredMargin;
-
+  /**
+   * 杠杆作用
+   */
   @JsonProperty("leverage")
   private BigDecimal leverage;
-
+  /**
+   * 保证金要求
+   */
   @JsonProperty("margin_requirement")
   private BigDecimal marginRequirement;
-
+  /**
+   * 保证金限制
+   */
   @JsonProperty("margin_limits")
   private List<BitfinexMarginLimit> marginLimits = new ArrayList<BitfinexMarginLimit>();
 
   @JsonProperty("message")
   private String message;
-
+  /**
+   * 附加属性
+   */
   @JsonIgnore private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
+  /**
+   * getMarginBalance
+   * @return
+   */
   @JsonProperty("margin_balance")
   public BigDecimal getMarginBalance() {
 

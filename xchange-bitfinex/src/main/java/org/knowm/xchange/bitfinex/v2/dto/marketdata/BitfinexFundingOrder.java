@@ -6,7 +6,9 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.Value;
 
-/** @see https://docs.bitfinex.com/reference#rest-public-book */
+/**
+ * Bitfinex 资金订单
+ * @see https://docs.bitfinex.com/reference#rest-public-book */
 @JsonFormat(shape = JsonFormat.Shape.ARRAY)
 @Value
 @NoArgsConstructor(force = true, access = AccessLevel.PRIVATE)

@@ -2,6 +2,9 @@ package org.knowm.xchange.bitfinex.v1.dto.trade;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Bitfinex 取消订单多响应
+ */
 public class BitfinexCancelOrderMultiResponse {
 
   private final String result;

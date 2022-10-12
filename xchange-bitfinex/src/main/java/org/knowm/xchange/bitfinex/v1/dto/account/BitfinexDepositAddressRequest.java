@@ -2,6 +2,9 @@ package org.knowm.xchange.bitfinex.v1.dto.account;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Bitfinex 充值地址请求
+ */
 public class BitfinexDepositAddressRequest {
   @JsonProperty("request")
   protected String request;

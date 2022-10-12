@@ -3,6 +3,9 @@ package org.knowm.xchange.bitfinex.v1.dto.account;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
 
+/**
+ * Bitfinex 余额历史响应
+ */
 public class BitfinexBalanceHistoryResponse {
 
   @JsonProperty("currency")

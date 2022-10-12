@@ -1,5 +1,8 @@
 package org.knowm.xchange.bitfinex.v1;
 
+/**
+ * 订单类型
+ */
 public enum BitfinexOrderType {
   MARKET("exchange market"),
   LIMIT("exchange limit"),

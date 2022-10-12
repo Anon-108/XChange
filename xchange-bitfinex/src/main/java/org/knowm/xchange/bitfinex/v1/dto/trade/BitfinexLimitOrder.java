@@ -6,6 +6,7 @@ import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.trade.LimitOrder;
 
 /**
+ * Bitfinex 限价单
  * Bitfinex new order entry returns details of order status. If a LimitOrder object of this type is supplied to the trade service orderEntry method it will be populated with this information.
  * * Bitfinex 新订单条目返回订单状态的详细信息。 如果将此类型的 LimitOrder 对象提供给交易服务 orderEntry 方法，它将填充此信息。
  */

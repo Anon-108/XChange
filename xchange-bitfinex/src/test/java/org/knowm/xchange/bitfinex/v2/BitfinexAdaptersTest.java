@@ -17,7 +17,9 @@ import org.knowm.xchange.dto.account.FundingRecord;
 import org.knowm.xchange.utils.DateUtils;
 
 public class BitfinexAdaptersTest {
-
+  /**
+   * 使货币对适应 Tickers 参数
+   */
   @Test
   public void adaptCurrencyPairsToTickersParam() {
     List<CurrencyPair> currencyPairs =

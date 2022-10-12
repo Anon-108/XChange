@@ -2,6 +2,9 @@ package org.knowm.xchange.bitfinex.v1.dto.account;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Bitfinex 保证金信息请求
+ */
 public class BitfinexMarginInfosRequest {
 
   @JsonProperty("request")

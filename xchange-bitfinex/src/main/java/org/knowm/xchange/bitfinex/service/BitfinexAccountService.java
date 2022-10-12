@@ -29,11 +29,14 @@ import org.knowm.xchange.service.trade.params.TradeHistoryParamsTimeSpan;
 import org.knowm.xchange.service.trade.params.WithdrawFundsParams;
 import org.knowm.xchange.utils.DateUtils;
 
+/**
+ * Bitfinex 账户服务
+ */
 public class BitfinexAccountService extends BitfinexAccountServiceRaw implements AccountService {
 
   /**
    * Constructor 构造器
-   *
+   * Bitfinex 账户服务
    * @param exchange
    */
   public BitfinexAccountService(
@@ -42,6 +45,11 @@ public class BitfinexAccountService extends BitfinexAccountServiceRaw implements
     super(exchange, resilienceRegistries);
   }
 
+  /**
+   * 获取账户信息
+   * @return
+   * @throws IOException
+   */
   @Override
   public AccountInfo getAccountInfo() throws IOException {
 
@@ -49,6 +57,7 @@ public class BitfinexAccountService extends BitfinexAccountServiceRaw implements
   }
 
   /**
+   * 提款
    * Withdrawal support
    * 提款支持
    *
@@ -113,6 +122,14 @@ public class BitfinexAccountService extends BitfinexAccountServiceRaw implements
     }
   }
 
+  /**
+   * 提款
+   * @param params The withdrawl details
+   *               提款详情
+   *
+   * @return
+   * @throws IOException
+   */
   @Override
   public String withdrawFunds(WithdrawFundsParams params) throws IOException {
     try {
@@ -142,6 +159,15 @@ public class BitfinexAccountService extends BitfinexAccountServiceRaw implements
     }
   }
 
+  /**
+   * 请求存款地址
+   * @param currency The digital currency that corresponds to the desired deposit address.
+   *                 所需存款地址对应的数字货币。
+   *
+   * @param arguments
+   * @return
+   * @throws IOException
+   */
   @Override
   public String requestDepositAddress(Currency currency, String... arguments) throws IOException {
     try {
@@ -153,11 +179,21 @@ public class BitfinexAccountService extends BitfinexAccountServiceRaw implements
     }
   }
 
+  /**
+   * 创建资金历史参数
+   * @return
+   */
   @Override
   public TradeHistoryParams createFundingHistoryParams() {
     return new BitfinexFundingHistoryParams(null, null, null, null);
   }
 
+  /**
+   * 获取资金历史
+   * @param params
+   * @return
+   * @throws IOException
+   */
   @Override
   public List<FundingRecord> getFundingHistory(TradeHistoryParams params) throws IOException {
     try {
@@ -193,6 +229,11 @@ public class BitfinexAccountService extends BitfinexAccountServiceRaw implements
     }
   }
 
+  /**
+   * 获取动态交易费用
+   * @return
+   * @throws IOException
+   */
   @Override
   public Map<CurrencyPair, Fee> getDynamicTradingFees() throws IOException {
     try {
@@ -204,6 +245,9 @@ public class BitfinexAccountService extends BitfinexAccountServiceRaw implements
     }
   }
 
+  /**
+   * BitfinexFundingHistoryParams
+   */
   public static class BitfinexFundingHistoryParams extends DefaultTradeHistoryParamsTimeSpan
       implements TradeHistoryParamCurrency, TradeHistoryParamLimit {
 
@@ -219,21 +263,37 @@ public class BitfinexAccountService extends BitfinexAccountServiceRaw implements
       this.currency = currency;
     }
 
+    /**
+     * 获取货币
+     * @return
+     */
     @Override
     public Currency getCurrency() {
       return this.currency;
     }
 
+    /**
+     * 设置货币
+     * @param currency
+     */
     @Override
     public void setCurrency(Currency currency) {
       this.currency = currency;
     }
 
+    /**
+     * 获取额度/限制
+     * @return
+     */
     @Override
     public Integer getLimit() {
       return this.limit;
     }
 
+    /**
+     * 设置额度/限制
+     * @param limit
+     */
     @Override
     public void setLimit(Integer limit) {
       this.limit = limit;

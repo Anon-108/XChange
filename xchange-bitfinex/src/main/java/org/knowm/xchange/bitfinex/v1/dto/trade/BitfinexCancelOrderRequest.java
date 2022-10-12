@@ -3,6 +3,9 @@ package org.knowm.xchange.bitfinex.v1.dto.trade;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRawValue;
 
+/**
+ * Bitfinex 取消订单请求
+ */
 public class BitfinexCancelOrderRequest {
 
   @JsonProperty("request")

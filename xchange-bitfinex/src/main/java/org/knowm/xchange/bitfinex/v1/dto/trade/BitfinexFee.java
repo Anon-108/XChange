@@ -3,7 +3,13 @@ package org.knowm.xchange.bitfinex.v1.dto.trade;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
 
+/**
+ * bitfinex费用
+ */
 public class BitfinexFee {
+  /**
+   * 配对
+   */
   private final String pairs;
   private final BigDecimal makerFees;
   private final BigDecimal takerFees;

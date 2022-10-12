@@ -2,6 +2,9 @@ package org.knowm.xchange.bitfinex.v1.dto.trade;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Bitfinex 新订单多请求
+ */
 public class BitfinexNewOrderMultiRequest {
 
   @JsonProperty("request")

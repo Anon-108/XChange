@@ -8,7 +8,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.extern.jackson.Jacksonized;
 
-/** @author cyrus13 * */
+/**
+ * Bitfinex 蜡烛
+ * @author cyrus13 * */
 @JsonFormat(shape = JsonFormat.Shape.ARRAY)
 @Jacksonized
 @Data
@@ -21,6 +23,10 @@ public class BitfinexCandle {
   private final double low;
   private final double volume;
 
+  /**
+   * 得到蜡烛日期时间
+   * @return
+   */
   public ZonedDateTime getCandleDateTime() {
     final Instant instant = Instant.ofEpochMilli(millisecondTimestamp);
     return ZonedDateTime.ofInstant(instant, ZoneOffset.UTC);

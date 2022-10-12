@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-/** https://docs.bitfinex.com/v2/reference#rest-auth-positions */
+/**
+ *  仓位/位置 /职位 /定位 /部位
+ * https://docs.bitfinex.com/v2/reference#rest-auth-positions */
 @JsonFormat(shape = JsonFormat.Shape.ARRAY)
 @Setter
 @Getter

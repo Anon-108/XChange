@@ -71,11 +71,16 @@ import org.knowm.xchange.utils.jackson.CurrencyPairDeserializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Bitfinex适配器
+ */
 public final class BitfinexAdapters {
 
   public static final Logger log = LoggerFactory.getLogger(BitfinexAdapters.class);
   private static final ObjectMapper mapper = new ObjectMapper();
-
+  /**
+   * 警告停止限制
+   */
   private static final AtomicBoolean warnedStopLimit = new AtomicBoolean();
   private static final String USDT_SYMBOL_BITFINEX = "UST";
   private static final String USDT_SYMBOL_XCHANGE = "USDT";
@@ -85,6 +90,8 @@ public final class BitfinexAdapters {
   private BitfinexAdapters() {}
 
   /**
+   * 适应/适配/调整动态交易费用
+   *
    * Each element in the response array contains a set of currencies that are at a given fee tier.
    * 响应数组中的每个元素都包含一组处于给定费用等级的货币。
    * The API returns the fee per currency in each tier and does not make any promises that they are all the same, so this adapter will use the fee per currency instead of the fee per tier.
@@ -120,6 +127,11 @@ public final class BitfinexAdapters {
     return result;
   }
 
+  /**
+   * 适应/适配/调整Bitfinex货币
+   * @param bitfinexSymbol
+   * @return
+   */
   public static String adaptBitfinexCurrency(String bitfinexSymbol) {
     String result = bitfinexSymbol.toUpperCase();
     if (USDT_SYMBOL_BITFINEX.equals(result)) {
@@ -128,6 +140,11 @@ public final class BitfinexAdapters {
     return result;
   }
 
+  /**
+   * 适应/适配/调整订单类型
+   * @param type
+   * @return
+   */
   public static String adaptOrderType(OrderType type) {
     switch (type) {
       case BID:
@@ -141,6 +158,11 @@ public final class BitfinexAdapters {
     throw new IllegalArgumentException(String.format("Unexpected type of order 意外的订单类型: %s", type));
   }
 
+  /**
+   * 调整/适应/适配订单标志的类型
+   * @param flags 标志
+   * @return
+   */
   public static BitfinexOrderType adaptOrderFlagsToType(Set<Order.IOrderFlags> flags) {
     if (flags.contains(BitfinexOrderFlags.MARGIN)) {
       if (flags.contains(BitfinexOrderFlags.FILL_OR_KILL)) {
@@ -165,6 +187,11 @@ public final class BitfinexAdapters {
     }
   }
 
+  /**
+   * 调整/适应/适配货币对
+   * @param bitfinexSymbol bitfinex 符号
+   * @return
+   */
   public static CurrencyPair adaptCurrencyPair(String bitfinexSymbol) {
     String tradableIdentifier;
     String transactionCurrency;
@@ -185,6 +212,11 @@ public final class BitfinexAdapters {
         adaptBitfinexCurrency(tradableIdentifier), adaptBitfinexCurrency(transactionCurrency));
   }
 
+  /**
+   * 适应/适配/调整 订单状态
+   * @param order
+   * @return
+   */
   public static OrderStatus adaptOrderStatus(BitfinexOrderStatusResponse order) {
 
     if (order.isCancelled()) return OrderStatus.CANCELED;
@@ -196,10 +228,21 @@ public final class BitfinexAdapters {
     else return null;
   }
 
+  /**
+   * 适应/适配/调整 货币对
+   * @param pair 对
+   * @return
+   */
   public static String adaptCurrencyPair(CurrencyPair pair) {
     return BitfinexUtils.toPairString(pair);
   }
 
+  /**
+   * 适应/适配/调整 订单簿
+   * @param btceDepth 比特币深度
+   * @param currencyPair 货币对
+   * @return
+   */
   public static OrderBook adaptOrderBook(BitfinexDepth btceDepth, CurrencyPair currencyPair) {
 
     OrdersContainer asksOrdersContainer =
@@ -213,6 +256,13 @@ public final class BitfinexAdapters {
         bidsOrdersContainer.getLimitOrders());
   }
 
+  /**
+   * 适应/适配/调整订单
+   * @param bitfinexLevels bitfinex 级别
+   * @param currencyPair 货币对
+   * @param orderType 订单类型
+   * @return
+   */
   public static OrdersContainer adaptOrders(
       BitfinexLevel[] bitfinexLevels, CurrencyPair currencyPair, OrderType orderType) {
 
@@ -238,6 +288,15 @@ public final class BitfinexAdapters {
     return new OrdersContainer(maxTimestampInMillis, limitOrders);
   }
 
+  /**
+   * 适应/适配/调整订单
+   * @param originalAmount 原始数量
+   * @param price 价格
+   * @param currencyPair 货币对
+   * @param orderType 订单类型
+   * @param timestamp 时间戳
+   * @return
+   */
   public static LimitOrder adaptOrder(
       BigDecimal originalAmount,
       BigDecimal price,
@@ -248,6 +307,14 @@ public final class BitfinexAdapters {
     return new LimitOrder(orderType, originalAmount, currencyPair, "", timestamp, price);
   }
 
+  /**
+   * 调整固定利率贷款订单
+   * @param orders 订单
+   * @param currency 货币
+   * @param orderType 订单类型
+   * @param id
+   * @return
+   */
   public static List<FixedRateLoanOrder> adaptFixedRateLoanOrders(
       BitfinexLendLevel[] orders, String currency, String orderType, String id) {
 
@@ -275,6 +342,16 @@ public final class BitfinexAdapters {
     return loanOrders;
   }
 
+  /**
+   * 调整固定利率贷款订单
+   * @param currency 货币
+   * @param amount 数量
+   * @param dayPeriod 天 期间
+   * @param direction 方向
+   * @param id
+   * @param rate 比例
+   * @return
+   */
   public static FixedRateLoanOrder adaptFixedRateLoanOrder(
       String currency,
       BigDecimal amount,
@@ -288,6 +365,14 @@ public final class BitfinexAdapters {
     return new FixedRateLoanOrder(orderType, currency, amount, dayPeriod, id, null, rate);
   }
 
+  /**
+   * 调整浮动利率贷款订单
+   * @param orders 订单
+   * @param currency 货币
+   * @param orderType 订单类型
+   * @param id
+   * @return
+   */
   public static List<FloatingRateLoanOrder> adaptFloatingRateLoanOrders(
       BitfinexLendLevel[] orders, String currency, String orderType, String id) {
 
@@ -315,6 +400,16 @@ public final class BitfinexAdapters {
     return loanOrders;
   }
 
+  /**
+   * 适应/适配浮动利率贷款订单
+   * @param currency 货币
+   * @param amount 数量
+   * @param dayPeriod 天 期间/阶段
+   * @param direction 方向
+   * @param id
+   * @param rate 比例
+   * @return
+   */
   public static FloatingRateLoanOrder adaptFloatingRateLoanOrder(
       String currency,
       BigDecimal amount,
@@ -346,6 +441,12 @@ public final class BitfinexAdapters {
         .build();
   }
 
+  /**
+   *  适应/适配/调整 交易
+   * @param trades 交易
+   * @param currencyPair 货币对
+   * @return
+   */
   public static Trades adaptTrades(BitfinexTrade[] trades, CurrencyPair currencyPair) {
 
     List<Trade> tradesList = new ArrayList<>(trades.length);
@@ -360,6 +461,12 @@ public final class BitfinexAdapters {
     return new Trades(tradesList, lastTradeId, TradeSortType.SortByID);
   }
 
+  /**
+   * 调整/适应/适配 股票代码
+   * @param bitfinexTicker bitfinex 股票代码
+   * @param currencyPair 货币对
+   * @return
+   */
   public static Ticker adaptTicker(BitfinexTicker bitfinexTicker, CurrencyPair currencyPair) {
 
     BigDecimal last = bitfinexTicker.getLast_price();
@@ -387,6 +494,11 @@ public final class BitfinexAdapters {
         .build();
   }
 
+  /**
+   * 适配钱包
+   * @param response 响应
+   * @return
+   */
   public static List<Wallet> adaptWallets(BitfinexBalancesResponse[] response) {
 
     Map<String, Map<String, BigDecimal[]>> walletsBalancesMap = new HashMap<>();
@@ -435,6 +547,11 @@ public final class BitfinexAdapters {
     return wallets;
   }
 
+  /**
+   * 适应/适配订单
+   * @param activeOrders 活跃订单
+   * @return
+   */
   public static OpenOrders adaptOrders(BitfinexOrderStatusResponse[] activeOrders) {
 
     List<LimitOrder> limitOrders = new ArrayList<>();
@@ -571,6 +688,9 @@ public final class BitfinexAdapters {
     return new OpenOrders(limitOrders, hiddenOrders);
   }
 
+  /**
+   * 停止限制警告
+   */
   private static void stopLimitWarning() {
     if (warnedStopLimit.compareAndSet(false, true)) {
       log.warn(
@@ -581,6 +701,12 @@ public final class BitfinexAdapters {
     }
   }
 
+  /**
+   * 适应/适配交易历史
+   * @param trades
+   * @param symbol
+   * @return
+   */
   public static UserTrades adaptTradeHistory(BitfinexTradeResponse[] trades, String symbol) {
 
     List<UserTrade> pastTrades = new ArrayList<>(trades.length);
@@ -607,6 +733,11 @@ public final class BitfinexAdapters {
     return new UserTrades(pastTrades, TradeSortType.SortByTimestamp);
   }
 
+  /**
+   * 适应/适配交易历史V2
+   * @param trades
+   * @return
+   */
   public static UserTrades adaptTradeHistoryV2(
       List<org.knowm.xchange.bitfinex.v2.dto.trade.Trade> trades) {
 
@@ -636,12 +767,23 @@ public final class BitfinexAdapters {
     return new UserTrades(pastTrades, TradeSortType.SortByTimestamp);
   }
 
+  /**
+   * 将大十进制时间戳转换为日期
+   * @param timestamp 时间戳
+   * @return
+   */
   private static Date convertBigDecimalTimestampToDate(BigDecimal timestamp) {
 
     BigDecimal timestampInMillis = timestamp.multiply(new BigDecimal("1000"));
     return new Date(timestampInMillis.longValue());
   }
 
+  /**
+   * 适配元数据
+   * @param currencyPairs  货币对
+   * @param metaData 元数据
+   * @return
+   */
   public static ExchangeMetaData adaptMetaData(
       List<CurrencyPair> currencyPairs, ExchangeMetaData metaData) {
 
@@ -683,6 +825,8 @@ public final class BitfinexAdapters {
   }
 
   /**
+   * 适配元数据
+   *
    * Flipped order of arguments to avoid type-erasure clash with {@link #adaptMetaData(List, ExchangeMetaData)}
    * * 翻转参数顺序以避免与 {@link #adaptMetaData(List, ExchangeMetaData)} 发生类型擦除冲突
    *
@@ -729,6 +873,14 @@ public final class BitfinexAdapters {
     return exchangeMetaData;
   }
 
+  /**
+   * 适配元数据
+   * @param accountFeesResponse 账户费用回应
+   * @param platformStatus 平台状态
+   * @param platformStatusPresent 平台状态存在
+   * @param metaData 元数据
+   * @return
+   */
   public static ExchangeMetaData adaptMetaData(
       BitfinexAccountFeesResponse accountFeesResponse,
       int platformStatus,
@@ -766,6 +918,12 @@ public final class BitfinexAdapters {
     return metaData;
   }
 
+  /**
+   * 适配元数据
+   * @param bitfinexAccountInfos bitfinex 账户信息
+   * @param exchangeMetaData 交换/交易所元数据
+   * @return
+   */
   public static ExchangeMetaData adaptMetaData(
       BitfinexAccountInfosResponse[] bitfinexAccountInfos, ExchangeMetaData exchangeMetaData) {
     final Map<CurrencyPair, CurrencyPairMetaData> currencyPairs =
@@ -795,6 +953,11 @@ public final class BitfinexAdapters {
     return exchangeMetaData;
   }
 
+  /**
+   * 适配资金历史
+   * @param movementHistorys 运动/移动的历史
+   * @return
+   */
   public static List<FundingRecord> adaptFundingHistory(List<Movement> movementHistorys) {
     final List<FundingRecord> fundingRecords = new ArrayList<>();
     for (Movement movement : movementHistorys) {
@@ -840,6 +1003,11 @@ public final class BitfinexAdapters {
     return fundingRecords;
   }
 
+  /**
+   * 适配资金历史
+   * @param bitfinexDepositWithdrawalHistoryResponses bitfinex 存款取款历史响应
+   * @return
+   */
   public static List<FundingRecord> adaptFundingHistory(
       BitfinexDepositWithdrawalHistoryResponse[] bitfinexDepositWithdrawalHistoryResponses) {
     final List<FundingRecord> fundingRecords = new ArrayList<>();
@@ -908,6 +1076,9 @@ public final class BitfinexAdapters {
     return fundingRecords;
   }
 
+  /**
+   * 订单容器
+   */
   public static class OrdersContainer {
 
     private final long timestamp;
@@ -915,6 +1086,7 @@ public final class BitfinexAdapters {
 
     /**
      * Constructor
+     * 订单容器
      *
      * @param timestamp The timestamp for the data fetched.
      *                  获取数据的时间戳。
@@ -939,6 +1111,11 @@ public final class BitfinexAdapters {
 
   ////// v2
 
+  /**
+   * 根据Tickers参数调整货币对
+   * @param currencyPairs 货币对
+   * @return
+   */
   public static String adaptCurrencyPairsToTickersParam(Collection<CurrencyPair> currencyPairs) {
     return currencyPairs == null || currencyPairs.isEmpty()
         ? "ALL"
@@ -947,6 +1124,11 @@ public final class BitfinexAdapters {
             .collect(Collectors.joining(","));
   }
 
+  /**
+   * 适应/适配股票
+   * @param bitfinexTicker bitfinex 代码
+   * @return
+   */
   public static Ticker adaptTicker(
       org.knowm.xchange.bitfinex.v2.dto.marketdata.BitfinexTicker bitfinexTicker) {
 
@@ -978,6 +1160,12 @@ public final class BitfinexAdapters {
         .build();
   }
 
+  /**
+   * 适应/适配公共贸易
+   * @param trade 交易
+   * @param currencyPair 货币对
+   * @return
+   */
   public static Trade adaptPublicTrade(BitfinexPublicTrade trade, CurrencyPair currencyPair) {
 
     OrderType orderType = trade.getType();
@@ -995,6 +1183,12 @@ public final class BitfinexAdapters {
         .build();
   }
 
+  /**
+   * 适配公共贸易
+   * @param trades 交易
+   * @param currencyPair 货币对
+   * @return
+   */
   public static Trades adaptPublicTrades(BitfinexPublicTrade[] trades, CurrencyPair currencyPair) {
 
     List<Trade> tradesList = new ArrayList<>(trades.length);
@@ -1009,6 +1203,12 @@ public final class BitfinexAdapters {
     return new Trades(tradesList, lastTradeId, TradeSortType.SortByID);
   }
 
+  /**
+   * 采用/适配? Bitfinex Tickers
+   * @param tickers 股票代码
+   * @return
+   * @throws IOException
+   */
   public static org.knowm.xchange.bitfinex.v2.dto.marketdata.BitfinexTicker[] adoptBitfinexTickers(
       List<ArrayNode> tickers) throws IOException {
 

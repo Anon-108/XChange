@@ -3,12 +3,18 @@ package org.knowm.xchange.bitfinex.v1.dto.trade;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
 
+/**
+ * Bitfinex 信用响应
+ */
 public class BitfinexCreditResponse {
 
   private final long id;
   private final String currency;
   private final String status;
   private final BigDecimal rate;
+  /**
+   * 期间/阶段 一段时间，时期；
+   */
   private final int period;
   private final BigDecimal amount;
   private final BigDecimal timestamp;

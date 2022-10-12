@@ -8,7 +8,9 @@ import java.math.BigDecimal;
 import java.util.Date;
 import lombok.Value;
 
-/** https://docs.bitfinex.com/reference#rest-auth-movements */
+/**
+ * 移动，转移
+ * https://docs.bitfinex.com/reference#rest-auth-movements */
 @JsonFormat(shape = JsonFormat.Shape.ARRAY)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Value

@@ -6,7 +6,9 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.Value;
 
-/** https://docs.bitfinex.com/reference#rest-auth-wallets */
+/**
+ * 钱包
+ * https://docs.bitfinex.com/reference#rest-auth-wallets */
 @JsonFormat(shape = JsonFormat.Shape.ARRAY)
 @Value
 @NoArgsConstructor(force = true, access = AccessLevel.PRIVATE)

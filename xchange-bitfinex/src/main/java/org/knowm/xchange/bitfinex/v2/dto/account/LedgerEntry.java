@@ -5,7 +5,9 @@ import java.math.BigDecimal;
 import java.util.Date;
 import lombok.Data;
 
-/** https://docs.bitfinex.com/reference#rest-auth-ledgers */
+/**
+ * 分类帐输入
+ * https://docs.bitfinex.com/reference#rest-auth-ledgers */
 @JsonFormat(shape = JsonFormat.Shape.ARRAY)
 @Data
 public class LedgerEntry {

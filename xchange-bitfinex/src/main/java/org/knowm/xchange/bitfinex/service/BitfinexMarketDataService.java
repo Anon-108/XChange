@@ -27,6 +27,8 @@ import org.knowm.xchange.service.marketdata.params.CurrencyPairsParam;
 import org.knowm.xchange.service.marketdata.params.Params;
 
 /**
+ * Bitfinex市场数据服务
+ *
  * Implementation of the market data service for Bitfinex
  * 为 Bitfinex 实施市场数据服务
  *
@@ -40,6 +42,7 @@ public class BitfinexMarketDataService extends BitfinexMarketDataServiceRaw
 
   /**
    * Constructor
+   * Bitfinex市场数据服务
    *
    * @param exchange
    */
@@ -64,6 +67,13 @@ public class BitfinexMarketDataService extends BitfinexMarketDataServiceRaw
     }
   }
 
+  /**
+   * 获取TickerV2
+   * @param currencyPair 货币对
+   * @param args  参数...
+   * @return
+   * @throws IOException
+   */
   private Ticker getTickerV2(CurrencyPair currencyPair, Object... args) throws IOException {
     try {
       return BitfinexAdapters.adaptTicker(getBitfinexTickerV2(currencyPair));
@@ -152,6 +162,15 @@ public class BitfinexMarketDataService extends BitfinexMarketDataServiceRaw
     }
   }
 
+  /**
+   * 获取交易
+   * @param currencyPair
+   * @param args Optional arguments. Exchange-specific
+   *             * @param args 可选参数。 特定于交易所
+   *
+   * @return
+   * @throws IOException
+   */
   @Override
   public Trades getTrades(CurrencyPair currencyPair, Object... args) throws IOException {
     // return getTradesV1(currencyPair, args);
@@ -194,7 +213,8 @@ public class BitfinexMarketDataService extends BitfinexMarketDataServiceRaw
   }
 
   /**
-   * @param currencyPair The CurrencyPair for which to query public trades.
+   * 获取交易V2
+   * @param currencyPair The Currenpayload CreatorcyPair for which to query public trades.
    *                      要查询公共交易的 CurrencyPair。
    * @param args Upto 4 numeric arguments may be supplied limitTrades, startTimestamp (Unix  millisecs), endTimestamp (Unix millisecs), sort -1 / 1 (if = 1 it sorts results returned    with old > new)
    *             最多可以提供 4 个数字参数 limitTrades、startTimestamp（Unix 毫秒）、endTimestamp（Unix 毫秒）、sort -1 / 1（如果 = 1，它会按 old > new 返回的结果排序）
@@ -239,6 +259,12 @@ public class BitfinexMarketDataService extends BitfinexMarketDataServiceRaw
     }
   }
 
+  /**
+   * 获取代码
+   * @param params
+   * @return
+   * @throws IOException
+   */
   @Override
   public List<Ticker> getTickers(Params params) throws IOException {
     try {

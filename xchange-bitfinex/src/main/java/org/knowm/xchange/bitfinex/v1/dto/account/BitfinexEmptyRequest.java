@@ -3,6 +3,9 @@ package org.knowm.xchange.bitfinex.v1.dto.account;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRawValue;
 
+/**
+ * Bitfinex 空请求
+ */
 public class BitfinexEmptyRequest {
 
   @JsonProperty("request")

@@ -6,6 +6,9 @@ import javax.crypto.Mac;
 import org.knowm.xchange.service.BaseParamsDigest;
 import si.mazi.rescu.RestInvocation;
 
+/**
+ * 摘要 /文摘
+ */
 public class BitfinexDigest extends BaseParamsDigest {
 
   /**

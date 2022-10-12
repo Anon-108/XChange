@@ -23,7 +23,7 @@ public class Status {
 
   private Object placeHolder0;
   /** Derivative book mid price.
-   * 衍生书中间价。*/
+   * 派生物，衍生物 账簿 中间价。*/
   private BigDecimal derivPrice;
   /** Book mid price of the underlying Bitfinex spot trading pair
    * 标的 Bitfinex 现货交易对的中间价 */

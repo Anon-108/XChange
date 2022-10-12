@@ -3,6 +3,9 @@ package org.knowm.xchange.bitfinex.v1.dto.marketdata;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
 
+/**
+ * bitfinex代码
+ */
 public class BitfinexTicker {
 
   private final BigDecimal mid;

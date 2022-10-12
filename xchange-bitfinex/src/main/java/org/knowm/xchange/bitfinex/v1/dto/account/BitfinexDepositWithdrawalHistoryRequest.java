@@ -5,7 +5,10 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Date;
 
-/** http://docs.bitfinex.com/#deposit-withdrawal-history */
+/**
+ * Bitfinex 存款取款历史请求
+ * http://docs.bitfinex.com/#deposit-withdrawal-history
+ * */
 public class BitfinexDepositWithdrawalHistoryRequest {
   @JsonProperty("request")
   private final String request;

@@ -3,6 +3,9 @@ package org.knowm.xchange.bitfinex.v1.dto.trade;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Bitfinex 过去交易请求
+ */
 public class BitfinexPastTradesRequest {
 
   @JsonProperty("request")

@@ -4,6 +4,9 @@ import java.util.Base64;
 import si.mazi.rescu.ParamsDigest;
 import si.mazi.rescu.RestInvocation;
 
+/**
+ * Bitfinex 有效负载摘要
+ */
 public class BitfinexPayloadDigest implements ParamsDigest {
 
   @Override

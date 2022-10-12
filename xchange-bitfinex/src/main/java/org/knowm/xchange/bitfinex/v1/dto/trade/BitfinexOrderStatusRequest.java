@@ -3,6 +3,9 @@ package org.knowm.xchange.bitfinex.v1.dto.trade;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRawValue;
 
+/**
+ * Bitfinex 订单状态请求
+ */
 public class BitfinexOrderStatusRequest {
 
   @JsonProperty("request")

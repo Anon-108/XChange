@@ -37,21 +37,42 @@ import org.knowm.xchange.service.trade.params.orders.OpenOrdersParams;
 import org.knowm.xchange.service.trade.params.orders.OrderQueryParams;
 import org.knowm.xchange.utils.DateUtils;
 
+/**
+ * bitfinex交易服务
+ */
 public class BitfinexTradeService extends BitfinexTradeServiceRaw implements TradeService {
 
   private static final OpenOrders noOpenOrders = new OpenOrders(new ArrayList<LimitOrder>());
 
+  /**
+   * bitfinex交易服务
+   * @param exchange
+   * @param resilienceRegistries
+   */
   public BitfinexTradeService(
       BitfinexExchange exchange, ResilienceRegistries resilienceRegistries) {
 
     super(exchange, resilienceRegistries);
   }
 
+  /**
+   * 得到开放订单
+   * @return
+   * @throws IOException
+   */
   @Override
   public OpenOrders getOpenOrders() throws IOException {
     return getOpenOrders(createOpenOrdersParams());
   }
 
+  /**
+   * 得到开放订单
+   * @param params The parameters describing the filter. Note that {@link OpenOrdersParams} is an empty interface. Exchanges should implement its own params object. Params should be create with {@link #createOpenOrdersParams()}.
+   *               * @param params 描述过滤器的参数。 请注意，{@link OpenOrdersParams} 是一个空接口。 交易所应该实现自己的 params 对象。 应使用 {@link #createOpenOrdersParams()} 创建参数。
+   *
+   * @return
+   * @throws IOException
+   */
   @Override
   public OpenOrders getOpenOrders(OpenOrdersParams params) throws IOException {
     try {
@@ -67,7 +88,9 @@ public class BitfinexTradeService extends BitfinexTradeServiceRaw implements Tra
     }
   }
 
-  /** Bitfinex API does not provide filtering option. So we should filter orders ourselves
+  /**
+   * 过滤订单
+   * Bitfinex API does not provide filtering option. So we should filter orders ourselves
    * Bitfinex API 不提供过滤选项。 所以我们应该自己过滤订单 */
   @SuppressWarnings("unchecked")
   private OpenOrders filterOrders(OpenOrders rawOpenOrders, OpenOrdersParams params) {
@@ -81,6 +104,12 @@ public class BitfinexTradeService extends BitfinexTradeServiceRaw implements Tra
     return new OpenOrders(openOrdersList, (List<Order>) rawOpenOrders.getHiddenOrders());
   }
 
+  /**
+   * 下市价单
+   * @param marketOrder 市价单
+   * @return
+   * @throws IOException
+   */
   @Override
   public String placeMarketOrder(MarketOrder marketOrder) throws IOException {
     try {
@@ -95,6 +124,12 @@ public class BitfinexTradeService extends BitfinexTradeServiceRaw implements Tra
     }
   }
 
+  /**
+   * 下限价单
+   * @param limitOrder 限价单
+   * @return
+   * @throws IOException
+   */
   @Override
   public String placeLimitOrder(LimitOrder limitOrder) throws IOException {
     try {
@@ -106,6 +141,12 @@ public class BitfinexTradeService extends BitfinexTradeServiceRaw implements Tra
     }
   }
 
+  /**
+   * 修改或取消/替换现有限价单
+   * @param order 订单
+   * @return
+   * @throws IOException
+   */
   @Override
   public String changeOrder(LimitOrder order) throws IOException {
 
@@ -134,6 +175,12 @@ public class BitfinexTradeService extends BitfinexTradeServiceRaw implements Tra
     }
   }
 
+  /**
+   * 下止损单
+   * @param stopOrder 停止订单
+   * @return
+   * @throws IOException
+   */
   @Override
   public String placeStopOrder(StopOrder stopOrder) throws IOException {
     if (stopOrder.getLimitPrice() != null) {
@@ -154,6 +201,12 @@ public class BitfinexTradeService extends BitfinexTradeServiceRaw implements Tra
     return placeLimitOrder(limitOrder);
   }
 
+  /**
+   * 取消订单
+   * @param orderId 订单id
+   * @return
+   * @throws IOException
+   */
   @Override
   public boolean cancelOrder(String orderId) throws IOException {
     try {
@@ -268,6 +321,9 @@ public class BitfinexTradeService extends BitfinexTradeServiceRaw implements Tra
     return getBitfinexAccountInfos()[0].getTakerFees();
   }
 
+  /**
+   * Bitfinex 交易历史参数
+   */
   public static class BitfinexTradeHistoryParams extends DefaultTradeHistoryParamsTimeSpan
       implements TradeHistoryParamCurrencyPair, TradeHistoryParamLimit, TradeHistoryParamsSorted {
 
@@ -277,12 +333,20 @@ public class BitfinexTradeService extends BitfinexTradeServiceRaw implements Tra
 
     public BitfinexTradeHistoryParams() {}
 
+    /**
+     * 获取交易对
+     * @return
+     */
     @Override
     public CurrencyPair getCurrencyPair() {
 
       return pair;
     }
 
+    /**
+     * 设置交易对
+     * @param pair 对
+     */
     @Override
     public void setCurrencyPair(CurrencyPair pair) {
 

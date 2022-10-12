@@ -24,21 +24,52 @@ import org.knowm.xchange.bitfinex.v2.dto.marketdata.Status;
 @Path("v2")
 @Produces(MediaType.APPLICATION_JSON)
 public interface Bitfinex {
-
+  /**
+   * 获取平台状态
+   * @return
+   * @throws IOException
+   * @throws BitfinexExceptionV2
+   */
   @GET
   @Path("platform/status")
   Integer[] getPlatformStatus() throws IOException, BitfinexExceptionV2;
 
+  /**
+   * 获取代码
+   * @param symbols
+   * @return
+   * @throws IOException
+   * @throws BitfinexExceptionV2
+   */
   @GET
   @Path("tickers")
   List<ArrayNode> getTickers(@QueryParam("symbols") String symbols)
       throws IOException, BitfinexExceptionV2;
 
+  /**
+   * 获取状态
+   * @param type
+   * @param symbols
+   * @return
+   * @throws IOException
+   * @throws BitfinexExceptionV2
+   */
   @GET
   @Path("status/{type}")
   List<Status> getStatus(@PathParam("type") String type, @QueryParam("keys") String symbols)
       throws IOException, BitfinexExceptionV2;
 
+  /**
+   * 获取公共资金交易
+   * @param fundingSymbol
+   * @param limit
+   * @param startTimestamp
+   * @param endTimestamp
+   * @param sort
+   * @return
+   * @throws IOException
+   * @throws BitfinexExceptionV2
+   */
   @GET
   @Path("/trades/{symbol}/hist")
   BitfinexPublicFundingTrade[] getPublicFundingTrades(
@@ -49,6 +80,17 @@ public interface Bitfinex {
       @QueryParam("sort") int sort)
       throws IOException, BitfinexExceptionV2;
 
+  /**
+   * 获取公共交易
+   * @param fundingSymbol
+   * @param limit
+   * @param startTimestamp
+   * @param endTimestamp
+   * @param sort
+   * @return
+   * @throws IOException
+   * @throws BitfinexExceptionV2
+   */
   @GET
   @Path("/trades/{symbol}/hist")
   BitfinexPublicTrade[] getPublicTrades(
@@ -59,6 +101,16 @@ public interface Bitfinex {
       @QueryParam("sort") int sort)
       throws IOException, BitfinexExceptionV2;
 
+  /**
+   * 获得历史资金蜡烛
+   * @param candlePeriod
+   * @param currency
+   * @param fundingPeriod
+   * @param limit
+   * @return
+   * @throws IOException
+   * @throws BitfinexExceptionV2
+   */
   @GET
   @Path("candles/trade:{candlePeriod}:{symbol}:{fundingPeriod}/hist")
   List<BitfinexCandle> getHistoricFundingCandles(
@@ -68,6 +120,18 @@ public interface Bitfinex {
       @QueryParam("limit") int limit)
       throws IOException, BitfinexExceptionV2;
 
+  /**
+   * 获取历史蜡烛
+   * @param candlePeriod
+   * @param currency
+   * @param limit
+   * @param startTimestamp
+   * @param endTimestamp
+   * @param sort
+   * @return
+   * @throws IOException
+   * @throws BitfinexExceptionV2
+   */
   @GET
   @Path("/candles/trade:{candlePeriod}:{symbol}/hist")
   List<BitfinexCandle> getHistoricCandles(
@@ -79,6 +143,20 @@ public interface Bitfinex {
       @QueryParam("sort") Integer sort)
       throws IOException, BitfinexExceptionV2;
 
+  /**
+   * 获取状态
+   * @param key
+   * @param size
+   * @param symbol
+   * @param side
+   * @param sort
+   * @param startTimestamp
+   * @param endTimestamp
+   * @param limit
+   * @return
+   * @throws IOException
+   * @throws BitfinexExceptionV2
+   */
   @GET
   @Path("stats1/{key}:{size}:{symbol}:{side}/hist")
   List<BitfinexStats> getStats(
@@ -92,6 +170,15 @@ public interface Bitfinex {
       @QueryParam("limit") Integer limit)
       throws IOException, BitfinexExceptionV2;
 
+  /**
+   * 买卖账册
+   * @param symbol
+   * @param precision
+   * @param len
+   * @return
+   * @throws IOException
+   * @throws BitfinexExceptionV2
+   */
   @GET
   @Path("book/{symbol}/{precision}")
   List<BitfinexTradingOrder> tradingBook(
@@ -100,12 +187,29 @@ public interface Bitfinex {
       @QueryParam("len") Integer len)
       throws IOException, BitfinexExceptionV2;
 
+  /**
+   *交易帐薄 原生
+   * @param symbol
+   * @param len
+   * @return
+   * @throws IOException
+   * @throws BitfinexExceptionV2
+   */
   @GET
   @Path("book/{symbol}/R0")
   List<BitfinexTradingRawOrder> tradingBookRaw(
       @PathParam("symbol") String symbol, @QueryParam("len") Integer len)
       throws IOException, BitfinexExceptionV2;
 
+  /**
+   * 资金账簿
+   * @param symbol
+   * @param precision
+   * @param len
+   * @return
+   * @throws IOException
+   * @throws BitfinexExceptionV2
+   */
   @GET
   @Path("book/{symbol}/{precision}")
   List<BitfinexFundingOrder> fundingBook(
@@ -114,6 +218,14 @@ public interface Bitfinex {
       @QueryParam("len") Integer len)
       throws IOException, BitfinexExceptionV2;
 
+  /**
+   * 资金账簿 原生
+   * @param symbol
+   * @param len
+   * @return
+   * @throws IOException
+   * @throws BitfinexExceptionV2
+   */
   @GET
   @Path("book/{symbol}/R0")
   List<BitfinexFundingRawOrder> fundingBookRaw(

@@ -7,7 +7,9 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.Value;
 
-/** see https://docs.bitfinex.com/reference#rest-auth-transfer */
+/**
+ * 钱包间转账响应
+ * see https://docs.bitfinex.com/reference#rest-auth-transfer */
 @JsonFormat(shape = JsonFormat.Shape.ARRAY)
 @Value
 @NoArgsConstructor(force = true, access = AccessLevel.PRIVATE)

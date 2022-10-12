@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Date;
 
+/**
+ * Bitfinex 过去的资金交易请求
+ */
 public class BitfinexPastFundingTradesRequest {
 
   @JsonProperty("request")
@@ -20,7 +23,9 @@ public class BitfinexPastFundingTradesRequest {
   @JsonProperty("until")
   @JsonInclude(JsonInclude.Include.NON_NULL)
   protected Date until;
-
+  /**
+   * 限制交易/交易额度?
+   */
   @JsonProperty("limit_trades")
   @JsonInclude(JsonInclude.Include.NON_NULL)
   protected Integer limitTrades;

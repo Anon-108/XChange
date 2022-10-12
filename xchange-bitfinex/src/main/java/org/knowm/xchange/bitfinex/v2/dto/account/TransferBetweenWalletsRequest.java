@@ -14,7 +14,9 @@ import lombok.Value;
 @Value
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-/** see https://docs.bitfinex.com/reference#rest-auth-transfer */
+/**
+ * 钱包间转账请求
+ * see https://docs.bitfinex.com/reference#rest-auth-transfer */
 @JsonInclude(Include.NON_NULL)
 public class TransferBetweenWalletsRequest {
   /**

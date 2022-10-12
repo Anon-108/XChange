@@ -35,7 +35,9 @@ public interface BitfinexAuthenticated extends Bitfinex {
   public static final String BFX_SIGNATURE = "bfx-signature";
   public static final String BFX_NONCE = "bfx-nonce";
 
-  /** https://docs.bitfinex.com/v2/reference#rest-auth-positions */
+  /**
+   * 活跃的 /活动的 持仓 /仓位
+   * https://docs.bitfinex.com/v2/reference#rest-auth-positions */
   @POST
   @Path("auth/r/positions")
   List<Position> activePositions(
@@ -45,7 +47,9 @@ public interface BitfinexAuthenticated extends Bitfinex {
       EmptyRequest empty)
       throws IOException, BitfinexExceptionV2;
 
-  /** https://docs.bitfinex.com/reference#rest-auth-wallets */
+  /**
+   * 获取钱包
+   * https://docs.bitfinex.com/reference#rest-auth-wallets */
   @POST
   @Path("auth/r/wallets")
   List<Wallet> getWallets(
@@ -56,12 +60,15 @@ public interface BitfinexAuthenticated extends Bitfinex {
       throws IOException, BitfinexExceptionV2;
 
   /**
+   *
+   * 获取交易
    * https://docs.bitfinex.com/v2/reference#rest-auth-trades-hist
    *
-   * <p>Two implementations: 1. returns trades of all symboles 2. returns trades of a specific
-   * symbol
+   * <p>Two implementations: 1. returns trades of all symboles 2. returns trades of a specific symbol
+   * * <p>两种实现方式： 1. 返回所有交易品种的交易 2. 返回特定交易品种的交易
    *
    * <p>This is necessary because @Path doesn't seems to support optional parameters
+   * * <p>这是必要的，因为@Path 似乎不支持可选参数
    */
   @POST
   @Path("auth/r/trades/hist")
@@ -76,6 +83,21 @@ public interface BitfinexAuthenticated extends Bitfinex {
       EmptyRequest empty)
       throws IOException, BitfinexExceptionV2;
 
+  /**
+   * 获取交易
+   * @param nonce
+   * @param apiKey
+   * @param signature
+   * @param symbol
+   * @param startTimeMillis
+   * @param endTimeMillis
+   * @param limit
+   * @param sort
+   * @param empty
+   * @return
+   * @throws IOException
+   * @throws BitfinexExceptionV2
+   */
   @POST
   @Path("auth/r/trades/{symbol}/hist")
   List<Trade> getTrades(
@@ -90,7 +112,9 @@ public interface BitfinexAuthenticated extends Bitfinex {
       EmptyRequest empty)
       throws IOException, BitfinexExceptionV2;
 
-  /** https://docs.bitfinex.com/v2/reference#rest-auth-orders */
+  /**
+   * 获取活跃的 /活动的订单
+   * https://docs.bitfinex.com/v2/reference#rest-auth-orders */
   @POST
   @Path("auth/r/orders/{symbol}")
   List<ActiveOrder> getActiveOrders(
@@ -101,7 +125,9 @@ public interface BitfinexAuthenticated extends Bitfinex {
       EmptyRequest empty)
       throws IOException, BitfinexExceptionV2;
 
-  /** https://docs.bitfinex.com/reference#rest-auth-ledgers */
+  /**
+   * 获取分类帐条目
+   * https://docs.bitfinex.com/reference#rest-auth-ledgers */
   @POST
   @Path("auth/r/ledgers/hist")
   List<LedgerEntry> getLedgerEntries(
@@ -114,6 +140,20 @@ public interface BitfinexAuthenticated extends Bitfinex {
       LedgerRequest req)
       throws IOException, BitfinexExceptionV2;
 
+  /**
+   * 获取分类帐条目
+   * @param nonce
+   * @param apiKey
+   * @param signature
+   * @param currency
+   * @param startTimeMillis
+   * @param endTimeMillis
+   * @param limit
+   * @param req
+   * @return
+   * @throws IOException
+   * @throws BitfinexExceptionV2
+   */
   @POST
   @Path("auth/r/ledgers/{currency}/hist")
   List<LedgerEntry> getLedgerEntries(
@@ -127,7 +167,9 @@ public interface BitfinexAuthenticated extends Bitfinex {
       LedgerRequest req)
       throws IOException, BitfinexExceptionV2;
 
-  /** https://docs.bitfinex.com/reference#rest-auth-order-trades * */
+  /**
+   * 获取订单交易
+   * https://docs.bitfinex.com/reference#rest-auth-order-trades * */
   @POST
   @Path("auth/r/order/{symbol}:{orderId}/trades")
   List<OrderTrade> getOrderTrades(
@@ -139,6 +181,20 @@ public interface BitfinexAuthenticated extends Bitfinex {
       EmptyRequest empty)
       throws IOException, BitfinexExceptionV2;
 
+  /**
+   * 获取运动，运转历史
+   * @param nonce
+   * @param apiKey
+   * @param signature
+   * @param symbol
+   * @param startTimeMillis
+   * @param endTimeMillis
+   * @param limit
+   * @param empty
+   * @return
+   * @throws IOException
+   * @throws BitfinexExceptionV2
+   */
   @POST
   @Path("/auth/r/movements/{symbol}/hist")
   List<Movement> getMovementsHistory(
@@ -152,6 +208,19 @@ public interface BitfinexAuthenticated extends Bitfinex {
       EmptyRequest empty)
       throws IOException, BitfinexExceptionV2;
 
+  /**
+   * 获取运动，运转历史
+   * @param nonce
+   * @param apiKey
+   * @param signature
+   * @param startTimeMillis
+   * @param endTimeMillis
+   * @param limit
+   * @param empty
+   * @return
+   * @throws IOException
+   * @throws BitfinexExceptionV2
+   */
   @POST
   @Path("/auth/r/movements/hist")
   List<Movement> getMovementsHistory(
@@ -164,6 +233,16 @@ public interface BitfinexAuthenticated extends Bitfinex {
       EmptyRequest empty)
       throws IOException, BitfinexExceptionV2;
 
+  /**
+   * 钱包间转账
+   * @param nonce
+   * @param apiKey
+   * @param signature
+   * @param req
+   * @return
+   * @throws IOException
+   * @throws BitfinexExceptionV2
+   */
   @POST
   @Path("/auth/w/transfer")
   TransferBetweenWalletsResponse transferBetweenWallets(
@@ -173,6 +252,16 @@ public interface BitfinexAuthenticated extends Bitfinex {
       TransferBetweenWalletsRequest req)
       throws IOException, BitfinexExceptionV2;
 
+  /**
+   * 更新抵押衍生品头寸
+   * @param nonce
+   * @param apiKey
+   * @param signature
+   * @param req
+   * @return
+   * @throws IOException
+   * @throws BitfinexExceptionV2
+   */
   @POST
   @Path("/auth/w/deriv/collateral/set")
   List<List<Integer>> updateCollateralDerivativePosition(

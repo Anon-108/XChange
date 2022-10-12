@@ -3,6 +3,9 @@ package org.knowm.xchange.bitfinex.v1.dto.trade;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
 
+/**
+ * Bitfinex 账户信息响应
+ */
 public class BitfinexAccountInfosResponse {
 
   private final BigDecimal makerFees;

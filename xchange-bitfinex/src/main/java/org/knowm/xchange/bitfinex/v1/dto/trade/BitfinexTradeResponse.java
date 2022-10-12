@@ -3,6 +3,9 @@ package org.knowm.xchange.bitfinex.v1.dto.trade;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
 
+/**
+ * 交易响应
+ */
 public class BitfinexTradeResponse {
 
   private final BigDecimal price;
@@ -12,7 +15,13 @@ public class BitfinexTradeResponse {
   private final String type;
   private final String tradeId;
   private final String orderId;
+  /**
+   * 费用数量
+   */
   private final BigDecimal feeAmount;
+  /**
+   *费用 /手续费 货币
+   */
   private final String feeCurrency;
 
   /**

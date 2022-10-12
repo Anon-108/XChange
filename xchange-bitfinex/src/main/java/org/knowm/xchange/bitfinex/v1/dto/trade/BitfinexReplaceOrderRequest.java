@@ -3,11 +3,18 @@ package org.knowm.xchange.bitfinex.v1.dto.trade;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
 
+/**
+ * Bitfinex 更换订单请求
+ */
 public class BitfinexReplaceOrderRequest extends BitfinexNewOrderRequest {
-
+  /**
+   * 取代；（用……）替换，订单id
+   */
   @JsonProperty("order_id")
   protected long replaceOrderId;
-
+  /**
+   * 使用 剩下的，遗留的
+   */
   @JsonProperty("use_remaining")
   protected boolean useRemaining = false;
 

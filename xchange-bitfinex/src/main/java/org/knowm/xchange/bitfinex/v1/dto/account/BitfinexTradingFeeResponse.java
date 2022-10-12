@@ -4,8 +4,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
 
+/**
+ * Bitfinex 交易费用回应
+ */
 @JsonIgnoreProperties({"maker_fees", "taker_fees"})
 public class BitfinexTradingFeeResponse {
+  /**
+   * Bitfinex 交易费用响应行
+   */
   public static class BitfinexTradingFeeResponseRow {
     private final String currency;
     private final BigDecimal makerFee;

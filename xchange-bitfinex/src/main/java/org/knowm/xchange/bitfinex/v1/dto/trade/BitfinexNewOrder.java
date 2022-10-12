@@ -3,6 +3,9 @@ package org.knowm.xchange.bitfinex.v1.dto.trade;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
 
+/**
+ * 新订单
+ */
 public class BitfinexNewOrder {
 
   @JsonProperty("symbol")
@@ -10,7 +13,9 @@ public class BitfinexNewOrder {
 
   @JsonProperty("exchange")
   protected String exchange;
-
+  /**
+   * 某人左方或右方的）一边
+   */
   @JsonProperty("side")
   protected String side;
 
@@ -19,7 +24,9 @@ public class BitfinexNewOrder {
 
   @JsonProperty("amount")
   protected BigDecimal amount;
-
+  /**
+   * 价格
+   */
   @JsonProperty("price")
   protected BigDecimal price;
 

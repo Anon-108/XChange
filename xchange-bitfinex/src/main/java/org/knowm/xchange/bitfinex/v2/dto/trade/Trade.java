@@ -7,7 +7,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-/** https://docs.bitfinex.com/v2/reference#rest-auth-trades-hist */
+/**
+ * 交易
+ * https://docs.bitfinex.com/v2/reference#rest-auth-trades-hist */
 @JsonFormat(shape = JsonFormat.Shape.ARRAY)
 @Setter
 @Getter

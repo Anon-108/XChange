@@ -10,15 +10,27 @@ import org.knowm.xchange.service.BaseResilientExchangeService;
 import org.knowm.xchange.service.BaseService;
 import si.mazi.rescu.ParamsDigest;
 
+/**
+ * Bitfinex基础服务
+ */
 public class BitfinexBaseService extends BaseResilientExchangeService<BitfinexExchange>
     implements BaseService {
 
   protected final String apiKey;
   protected final BitfinexAuthenticated bitfinex;
+  /**
+   * 签名创作者
+   */
   protected final ParamsDigest signatureCreator;
+  /**
+   * 有效载荷创建者
+   */
   protected final ParamsDigest payloadCreator;
 
   protected final org.knowm.xchange.bitfinex.v2.BitfinexAuthenticated bitfinexV2;
+  /**
+   * 签名V2
+   */
   protected final BitfinexHmacSignature signatureV2;
 
   /**

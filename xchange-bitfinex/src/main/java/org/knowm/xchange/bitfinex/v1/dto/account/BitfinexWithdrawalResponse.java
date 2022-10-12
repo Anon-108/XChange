@@ -11,6 +11,7 @@ import java.util.Map;
 import javax.annotation.Generated;
 
 /**
+ * Bitfinex 提款响应
  * Bitfinex withdrawal response mapping class
  * Bitfinex 提现响应映射类
  *
@@ -27,10 +28,14 @@ public class BitfinexWithdrawalResponse {
 
   @JsonProperty("message")
   private String message;
-
+  /**
+   * 提款id
+   */
   @JsonProperty("withdrawal_id")
   private String withdrawalId;
-
+  /**
+   * 附加属性
+   */
   @JsonIgnore private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
   /** @return The status

@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
 
 /**
+ *
+ * Bitfinex 符号详细信息
  * <code>[
  * {
  * "pair": "btcusd",
@@ -31,13 +33,37 @@ import java.math.BigDecimal;
  * @author ujjwal on 23/02/18.
  */
 public class BitfinexSymbolDetail {
+  /**
+   * 对
+   */
   private final String pair;
+  /**
+   * 价格精度
+   */
   private final int price_precision;
+  /**
+   * 初始保证金
+   */
   private final BigDecimal initial_margin;
+  /**
+   * 最低保证金
+   */
   private final BigDecimal minimum_margin;
+  /**
+   * 最大订单大小
+   */
   private final BigDecimal maximum_order_size;
+  /**
+   * 最小订单大小
+   */
   private final BigDecimal minimum_order_size;
+  /**
+   * `到期/结束
+   */
   private final String expiration;
+  /**
+   * 保证金
+   */
   private final boolean margin;
 
   public BitfinexSymbolDetail(

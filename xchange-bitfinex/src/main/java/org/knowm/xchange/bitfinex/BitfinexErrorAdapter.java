@@ -8,6 +8,9 @@ import org.knowm.xchange.exceptions.FundsExceededException;
 import org.knowm.xchange.exceptions.NonceException;
 import org.knowm.xchange.exceptions.RateLimitExceededException;
 
+/**
+ * Bitfinex错误适配器
+ */
 public class BitfinexErrorAdapter {
 
   private BitfinexErrorAdapter() {}

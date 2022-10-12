@@ -3,6 +3,9 @@ package org.knowm.xchange.bitfinex.v1.dto.account;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
 
+/**
+ * bitfinex余额响应
+ */
 public class BitfinexBalancesResponse {
 
   private final String type;
@@ -13,10 +16,10 @@ public class BitfinexBalancesResponse {
   /**
    * Constructor
    *
-   * @param type
-   * @param currency
-   * @param amount
-   * @param available
+   * @param type 类型
+   * @param currency 货币
+   * @param amount 数量
+   * @param available 可用的
    */
   public BitfinexBalancesResponse(
       @JsonProperty("type") String type,

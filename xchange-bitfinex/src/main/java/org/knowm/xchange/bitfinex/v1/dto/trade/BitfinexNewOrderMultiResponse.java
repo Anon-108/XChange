@@ -3,6 +3,9 @@ package org.knowm.xchange.bitfinex.v1.dto.trade;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Arrays;
 
+/**
+ * Bitfinex 新订单多响应
+ */
 public class BitfinexNewOrderMultiResponse {
 
   private final BitfinexOrderStatusResponse[] orderStatuses;

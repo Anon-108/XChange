@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Date;
 
+/**
+ * Bitfinex 余额历史请求
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class BitfinexBalanceHistoryRequest {
 

@@ -4,12 +4,18 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.math.BigDecimal;
 import org.knowm.xchange.dto.Order.OrderType;
 
+/**
+ * Bitfinex 公共贸易
+ */
 @JsonFormat(shape = JsonFormat.Shape.ARRAY)
 public class BitfinexPublicTrade {
 
   private long tradeId;
   private long timestamp;
   private BigDecimal amount;
+  /**
+   * 价格
+   */
   private BigDecimal price;
 
   public BitfinexPublicTrade() {}

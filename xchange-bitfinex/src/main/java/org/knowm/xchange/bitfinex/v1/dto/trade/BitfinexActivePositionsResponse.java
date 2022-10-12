@@ -4,16 +4,31 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
 import org.knowm.xchange.dto.Order.OrderType;
 
+/**
+ * Bitfinex 活跃仓位响应
+ */
 public class BitfinexActivePositionsResponse {
 
   private final long id;
+  /**
+   * 符号
+   */
   private final String symbol;
   private final String status;
+  /**
+   * 基础
+   */
   private final BigDecimal base;
   private final BigDecimal amount;
   private final BigDecimal timestamp;
+  /**
+   * 交换，交易； 用……替换
+   */
   private final BigDecimal swap;
   private final BigDecimal pnl;
+  /**
+   * 订单类型
+   */
   private final OrderType orderType;
 
   public BitfinexActivePositionsResponse(

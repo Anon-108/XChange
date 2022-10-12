@@ -3,13 +3,33 @@ package org.knowm.xchange.bitfinex.v1.dto.marketdata;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
 
+/**
+ * bitfinex交易
+ */
 public class BitfinexTrade {
-
+  /**
+   * 价格
+   */
   private final BigDecimal price;
+  /**
+   * 数量
+   */
   private final BigDecimal amount;
+  /**
+   * 时间戳
+   */
   private final long timestamp;
+  /**
+   * 交易所
+   */
   private final String exchange;
+  /**
+   * 交易id
+   */
   private final long tradeId;
+  /**
+   * 类型
+   */
   private final String type;
 
   /**

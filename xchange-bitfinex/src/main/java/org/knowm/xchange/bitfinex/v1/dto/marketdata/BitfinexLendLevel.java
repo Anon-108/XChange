@@ -3,11 +3,25 @@ package org.knowm.xchange.bitfinex.v1.dto.marketdata;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
 
+/**
+ * 借贷等级
+ */
 public class BitfinexLendLevel {
-
+  /**
+   * 比例/费率
+   */
   private final BigDecimal rate;
+  /**
+   * 数量
+   */
   private final BigDecimal amount;
+  /**
+   *时期/期间
+   */
   private final int period;
+  /**
+   * 时间搓
+   */
   private final float timestamp;
   private final String frr;
 

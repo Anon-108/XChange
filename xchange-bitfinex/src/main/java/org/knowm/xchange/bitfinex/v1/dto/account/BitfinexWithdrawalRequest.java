@@ -5,28 +5,49 @@ import com.fasterxml.jackson.annotation.JsonRawValue;
 import java.math.BigDecimal;
 import lombok.Data;
 
+/**
+ * Bitfinex 提款请求
+ */
 @Data
 public class BitfinexWithdrawalRequest {
-
+  /**
+   * 提款类型
+   */
   @JsonProperty("withdraw_type")
   private final String withdrawType;
-
+  /**
+   * 选择钱包
+   */
   @JsonProperty("walletselected")
   private final String walletSelected;
-
+  /**
+   * 数量
+   */
   private final String amount;
-
+  /**
+   * 地址
+   */
   private final String address;
-
+  /**
+   * 支付id
+   */
   @JsonProperty("payment_id")
   private final String paymentId;
-
+  /**
+   * 请求
+   */
   protected String request;
-
+  /**
+   * 随机数
+   */
   protected String nonce;
-
+  /**
+   * 选项
+   */
   @JsonRawValue protected String options;
-
+  /**
+   * 货币
+   */
   private String currency;
 
   /**
@@ -35,9 +56,9 @@ public class BitfinexWithdrawalRequest {
    * @param nonce
    *        随机数
    * @param withdrawType
-   *      撤回类型
+   *      提取类型
    * @param walletSelected
-   *      钱包Selected
+   *      选择钱包
    * @param amount
    *        数量
    * @param address

@@ -32,6 +32,8 @@ import org.knowm.xchange.currency.CurrencyPair;
 import si.mazi.rescu.HttpStatusIOException;
 
 /**
+ * Bitfinex 市场数据服务原始
+ *
  * Implementation of the market data service for Bitfinex
  * 为 Bitfinex 实施市场数据服务
  *
@@ -52,6 +54,12 @@ public class BitfinexMarketDataServiceRaw extends BitfinexBaseService {
     super(exchange, resilienceRegistries);
   }
 
+  /**
+   * 获取BitfinexTicker
+   * @param pair 对
+   * @return
+   * @throws IOException
+   */
   public BitfinexTicker getBitfinexTicker(String pair) throws IOException {
     BitfinexTicker bitfinexTicker =
         decorateApiCall(() -> bitfinex.getTicker(pair))
@@ -61,6 +69,14 @@ public class BitfinexMarketDataServiceRaw extends BitfinexBaseService {
     return bitfinexTicker;
   }
 
+  /**
+   * 获取 Bitfinex 订单簿
+   * @param pair 对
+   * @param limitBids 限制投标
+   * @param limitAsks 限制Asks
+   * @return
+   * @throws IOException
+   */
   public BitfinexDepth getBitfinexOrderBook(String pair, Integer limitBids, Integer limitAsks)
       throws IOException {
     BitfinexDepth bitfinexDepth;
@@ -80,6 +96,14 @@ public class BitfinexMarketDataServiceRaw extends BitfinexBaseService {
     return bitfinexDepth;
   }
 
+  /**
+   * 获取 Bitfinex 借单薄
+   * @param currency 货币
+   * @param limitBids 额度bids
+   * @param limitAsks 额度借
+   * @return
+   * @throws IOException
+   */
   public BitfinexLendDepth getBitfinexLendBook(String currency, int limitBids, int limitAsks)
       throws IOException {
     BitfinexLendDepth bitfinexLendDepth =
@@ -90,6 +114,13 @@ public class BitfinexMarketDataServiceRaw extends BitfinexBaseService {
     return bitfinexLendDepth;
   }
 
+  /**
+   * 获取bitfinex交易
+   * @param pair
+   * @param sinceTimestamp
+   * @return
+   * @throws IOException
+   */
   public BitfinexTrade[] getBitfinexTrades(String pair, long sinceTimestamp) throws IOException {
     BitfinexTrade[] bitfinexTrades =
         decorateApiCall(() -> bitfinex.getTrades(pair, sinceTimestamp))
@@ -109,6 +140,11 @@ public class BitfinexMarketDataServiceRaw extends BitfinexBaseService {
     return bitfinexLends;
   }
 
+  /**
+   * 获取bitfinex符号s
+   * @return
+   * @throws IOException
+   */
   public Collection<String> getBitfinexSymbols() throws IOException {
     return decorateApiCall(() -> bitfinex.getSymbols())
         .withRetry(retry("market-symbols"))
@@ -116,6 +152,11 @@ public class BitfinexMarketDataServiceRaw extends BitfinexBaseService {
         .call();
   }
 
+  /**
+   * 获取交换符号s
+   * @return
+   * @throws IOException
+   */
   public List<CurrencyPair> getExchangeSymbols() throws IOException {
     List<CurrencyPair> currencyPairs = new ArrayList<>();
     for (String symbol : bitfinex.getSymbols()) {
@@ -124,6 +165,11 @@ public class BitfinexMarketDataServiceRaw extends BitfinexBaseService {
     return currencyPairs;
   }
 
+  /**
+   * 获取符号详情
+   * @return
+   * @throws IOException
+   */
   public List<BitfinexSymbolDetail> getSymbolDetails() throws IOException {
     return decorateApiCall(() -> bitfinex.getSymbolsDetails())
         .withRetry(retry("market-symbolDetail"))
@@ -132,6 +178,12 @@ public class BitfinexMarketDataServiceRaw extends BitfinexBaseService {
   }
 
   //////// v2
+
+  /**
+   * 获取Bitfinex 平台状态
+   * @return
+   * @throws IOException
+   */
   public Integer[] getBitfinexPlatformStatus() throws IOException {
     return decorateApiCall(bitfinexV2::getPlatformStatus)
         .withRetry(retry("platform-status"))
@@ -139,6 +191,12 @@ public class BitfinexMarketDataServiceRaw extends BitfinexBaseService {
         .call();
   }
 
+  /**
+   * 获取bitfinex代码
+   * @param currencyPairs 货币对
+   * @return
+   * @throws IOException
+   */
   public org.knowm.xchange.bitfinex.v2.dto.marketdata.BitfinexTicker[] getBitfinexTickers(
       Collection<CurrencyPair> currencyPairs) throws IOException {
     List<ArrayNode> tickers =
@@ -152,6 +210,12 @@ public class BitfinexMarketDataServiceRaw extends BitfinexBaseService {
     return BitfinexAdapters.adoptBitfinexTickers(tickers);
   }
 
+  /**
+   * 获取bitfinex代码V2
+   * @param currencyPair 货币对
+   * @return
+   * @throws IOException
+   */
   public org.knowm.xchange.bitfinex.v2.dto.marketdata.BitfinexTicker getBitfinexTickerV2(
       CurrencyPair currencyPair) throws IOException {
     List<ArrayNode> tickers =
@@ -172,6 +236,16 @@ public class BitfinexMarketDataServiceRaw extends BitfinexBaseService {
     }
   }
 
+  /**
+   * 获取bitfinex公共交易
+   * @param currencyPair 货币对
+   * @param limitTrades 交易额度
+   * @param startTimestamp 开始时间
+   * @param endTimestamp 结束时间
+   * @param sort 种类
+   * @return
+   * @throws IOException
+   */
   public BitfinexPublicTrade[] getBitfinexPublicTrades(
       CurrencyPair currencyPair, int limitTrades, long startTimestamp, long endTimestamp, int sort)
       throws IOException {
@@ -208,6 +282,12 @@ public class BitfinexMarketDataServiceRaw extends BitfinexBaseService {
     }
   }
 
+  /**
+   * 获取状态
+   * @param pairs 对
+   * @return
+   * @throws IOException
+   */
   public List<Status> getStatus(List<CurrencyPair> pairs) throws IOException {
     try {
       return decorateApiCall(
@@ -222,6 +302,15 @@ public class BitfinexMarketDataServiceRaw extends BitfinexBaseService {
     }
   }
 
+  /**
+   * 获得资金历史蜡烛
+   * @param candlePeriod 蜡烛期间
+   * @param pair 对
+   * @param fundingPeriod 出资 期间
+   * @param numOfCandles 蜡烛数
+   * @return
+   * @throws IOException
+   */
   public List<BitfinexCandle> getFundingHistoricCandles(
       String candlePeriod, String pair, int fundingPeriod, int numOfCandles) throws IOException {
     final String fundingPeriodStr = "p" + fundingPeriod;
@@ -257,6 +346,8 @@ public class BitfinexMarketDataServiceRaw extends BitfinexBaseService {
   }
 
   /**
+   * 获取状态
+   *
    * @see https://docs.bitfinex.com/reference#rest-public-stats1 The Stats endpoint provides various
         statistics on a specified trading pair or funding currency. Use the available keys to
         specify which statistic you wish to retrieve. Please note that the "Side" path param is

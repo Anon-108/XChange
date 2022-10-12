@@ -10,7 +10,9 @@ public class BitfinexCancelOfferRequest {
 
   @JsonProperty("nonce")
   protected String nonce;
-
+  /**
+   * 报价 ID
+   */
   @JsonProperty("offer_id")
   @JsonRawValue
   private long offerId;

@@ -21,6 +21,10 @@ public class BitfinexAccountFeesResponse {
                     entry -> entry.getValue()));
   }
 
+  /**
+   * 获取提取
+   * @return
+   */
   public Map<Currency, BigDecimal> getWithdraw() {
     return withdraw;
   }

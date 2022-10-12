@@ -3,6 +3,9 @@ package org.knowm.xchange.bitfinex.v1.dto.marketdata;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Arrays;
 
+/**
+ * Bitfinex 借贷深度
+ */
 public class BitfinexLendDepth {
 
   private final BitfinexLendLevel[] asks;

@@ -5,7 +5,9 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import lombok.Value;
 
 @Value
-/** see https://docs.bitfinex.com/reference#formData-rest-auth-ledgers */
+/**
+ * 分类帐 /总帐 /分类账 /帐户 请求
+ * see https://docs.bitfinex.com/reference#formData-rest-auth-ledgers */
 @JsonInclude(Include.NON_NULL)
 public class LedgerRequest {
   private Long category;

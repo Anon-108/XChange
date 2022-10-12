@@ -3,19 +3,55 @@ package org.knowm.xchange.bitfinex.v1.dto.trade;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
 
+/**
+ * Bitfinex 报价状态响应
+ */
 public class BitfinexOfferStatusResponse {
 
   private final long id;
+  /**
+   * 货币
+   */
   private final String currency;
+  /**
+   * 比例/费率
+   */
   private final BigDecimal rate;
+  /**
+   *  一段时间，时期
+   */
   private final int period;
+  /**
+   * 方向，方位；趋势
+   */
   private final String direction;
+  /**
+   * 类型
+   */
   private final String type;
+  /**
+   * 时间戳
+   */
   private final BigDecimal timestamp;
+  /**
+   * 生存，活着
+   */
   private final boolean isLive;
+  /**
+   *  取消；作废
+   */
   private final boolean isCancelled;
+  /**
+   *  起初的，原先的 数量
+   */
   private final BigDecimal originalAmount;
+  /**
+   * 剩下的，遗留的； 数量
+   */
   private final BigDecimal remainingAmount;
+  /**
+   * 处决；实施；完成 数量
+   */
   private final BigDecimal executedAmount;
 
   public BitfinexOfferStatusResponse(
