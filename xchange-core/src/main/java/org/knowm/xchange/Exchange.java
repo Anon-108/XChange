@@ -27,6 +27,7 @@ import si.mazi.rescu.SynchronizedValueFactory;
  * * <p>消费者可以选择默认（无参数）或配置的访问器
  */
 public interface Exchange {
+  String USE_SANDBOX = "Use_Sandbox";
 
   /** @return The ExchangeSpecification in use for this exchange
    * @return 用于此交换的 ExchangeSpecification*/
