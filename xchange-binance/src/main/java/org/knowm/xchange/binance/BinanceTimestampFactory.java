@@ -14,17 +14,38 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import si.mazi.rescu.SynchronizedValueFactory;
 
+/**
+ * 币安时间戳工厂
+ */
 public class BinanceTimestampFactory implements SynchronizedValueFactory<Long> {
 
   private static final Logger LOG = LoggerFactory.getLogger(BinanceTimestampFactory.class);
 
   private final Binance binance;
+  /**
+   * 恢复规范
+   */
   private final ExchangeSpecification.ResilienceSpecification resilienceSpecification;
+  /**
+   * 恢复注册表
+   */
   private final ResilienceRegistries resilienceRegistries;
 
+  /**
+   * delta 服务器时间过期
+   */
   private Long deltaServerTimeExpire;
+  /**
+   * delta服务器时间
+   */
   private Long deltaServerTime;
 
+  /**
+   * 币安时间戳工厂
+   * @param binance
+   * @param resilienceSpecification 恢复规范
+   * @param resilienceRegistries 恢复注册
+   */
   public BinanceTimestampFactory(
       Binance binance,
       ExchangeSpecification.ResilienceSpecification resilienceSpecification,

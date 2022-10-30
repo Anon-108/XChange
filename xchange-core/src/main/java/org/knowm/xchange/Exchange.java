@@ -92,6 +92,7 @@ public interface Exchange {
   }
 
   /**
+   *获取默认交换规范
    * @return A default ExchangeSpecification to use during the creation process if one is not   supplied
    * * @return 如果未提供，则在创建过程中使用的默认 ExchangeSpecification
    */
@@ -106,6 +107,7 @@ public interface Exchange {
   void applySpecification(ExchangeSpecification exchangeSpecification);
 
   /**
+   * 获取市场数据服务
    * A market data service typically consists of a regularly updated list of the available prices for the various symbols
    * * 市场数据服务通常包括定期更新的各种交易品种的可用价格列表
    *

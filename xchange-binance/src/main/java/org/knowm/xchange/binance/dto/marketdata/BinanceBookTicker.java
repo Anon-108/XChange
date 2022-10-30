@@ -6,18 +6,50 @@ import org.knowm.xchange.binance.BinanceAdapters;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.marketdata.Ticker;
 
+/**
+ * 币安簿册代码
+ */
 public final class BinanceBookTicker {
+  /**
+   * 修改id
+   */
   public long updateId;
+  /**
+   * （成双的两物品）一对
+   */
   private CurrencyPair pair;
+  /**
+   * 买价 /买入价
+   */
   private final BigDecimal bidPrice;
+  /**
+   * 买价 /买入数量
+   */
   private final BigDecimal bidQty;
+  /**
+   * 卖价；卖盘价
+   */
   private final BigDecimal askPrice;
+  /**
+   * 卖；卖盘数量
+   */
   private final BigDecimal askQty;
+  /**
+   *  象征，标志；符号
+   */
   private final String symbol;
 
-  // The cached ticker
+  // The cached ticker 缓存的代码
   private Ticker ticker;
 
+  /**
+   * 币安簿册代码
+   * @param bidPrice 买价 /买入价
+   * @param bidQty 买价 /买入数量
+   * @param askPrice 卖价；卖盘价
+   * @param askQty 卖；卖盘数量
+   * @param symbol 象征，标志；符号
+   */
   public BinanceBookTicker(
       @JsonProperty("bidPrice") BigDecimal bidPrice,
       @JsonProperty("bidQty") BigDecimal bidQty,

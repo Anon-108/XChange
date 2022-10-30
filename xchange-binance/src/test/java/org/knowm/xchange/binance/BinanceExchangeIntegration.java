@@ -14,6 +14,9 @@ import org.knowm.xchange.ExchangeSpecification;
 import org.knowm.xchange.binance.dto.meta.BinanceSystemStatus;
 import org.knowm.xchange.binance.service.BinanceAccountService;
 
+/**
+ * Binance交换集成
+ */
 public class BinanceExchangeIntegration {
   protected static BinanceExchange exchange;
   @Rule public WireMockRule wireMockRule = new WireMockRule();
@@ -55,6 +58,9 @@ public class BinanceExchangeIntegration {
     specification.setPort(wireMockRule.port());
     specification.setShouldLoadRemoteMetaData(false);
     exchangeMocked.applySpecification(specification);
+    // TODO 请求代理接口  仅在本地测试开启
+    specification.setProxyHost("127.0.0.1");
+    specification.setProxyPort(10809);
     return exchangeMocked;
   }
 }

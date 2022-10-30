@@ -33,6 +33,9 @@ import org.knowm.xchange.dto.trade.LimitOrder;
 import org.knowm.xchange.dto.trade.MarketOrder;
 import org.knowm.xchange.dto.trade.StopOrder;
 
+/**
+ * 币安适配器
+ */
 public class BinanceAdapters {
   private static final DateTimeFormatter DATE_TIME_FMT =
       DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -41,9 +44,13 @@ public class BinanceAdapters {
 
   /**
    * Converts a datetime as string in time zone UTC to a Date object
+   * 将时区 UTC 中的日期时间字符串转换为 Date 对象
    *
    * @param dateTime String that represents datetime in zone UTC
+   *                 * @param dateTime 字符串，表示区域 UTC 中的日期时间
+   *
    * @return Date Object in time zone UTC
+   * * @return UTC 时区中的日期对象
    */
   public static Date toDate(String dateTime) {
     return java.util.Date.from(Instant.from(toLocalDateTime(dateTime).atZone(ZoneId.of("UTC"))));
@@ -74,7 +81,7 @@ public class BinanceAdapters {
       case SELL:
         return OrderType.ASK;
       default:
-        throw new RuntimeException("Not supported order side: " + side);
+        throw new RuntimeException("Not supported order side 不支持订单方: " + side);
     }
   }
 
@@ -85,29 +92,35 @@ public class BinanceAdapters {
       case BID:
         return OrderSide.BUY;
       default:
-        throw new RuntimeException("Not supported order type: " + type);
+        throw new RuntimeException("Not supported order type 不支持的订单类型: " + type);
     }
   }
 
   public static CurrencyPair convert(String symbol) {
     // Iterate by base currency priority at binance.
+    // 按币安的基础货币优先级进行迭代。
     for (Currency base : Arrays.asList(Currency.BTC, Currency.ETH, Currency.BNB, Currency.USDT)) {
       if (symbol.contains(base.toString())) {
         String counter = symbol.replace(base.toString(), "");
         return new CurrencyPair(base, new Currency(counter));
       }
     }
-    throw new IllegalArgumentException("Could not parse currency pair from '" + symbol + "'");
+    throw new IllegalArgumentException("Could not parse currency pair from 无法解析来自的货币对 '" + symbol + "'");
   }
 
   public static long id(String id) {
     try {
       return Long.valueOf(id);
     } catch (Throwable e) {
-      throw new IllegalArgumentException("Binance id must be a valid long number.", e);
+      throw new IllegalArgumentException("Binance id must be a valid long number . Binance id 必须是一个有效的长数字", e);
     }
   }
 
+  /**
+   * 适配订单状态
+   * @param orderStatus
+   * @return
+   */
   public static Order.OrderStatus adaptOrderStatus(OrderStatus orderStatus) {
     switch (orderStatus) {
       case NEW:
@@ -129,10 +142,20 @@ public class BinanceAdapters {
     }
   }
 
+  /**
+   * 转换类型
+   * @param isBuyer 是买方
+   * @return
+   */
   public static OrderType convertType(boolean isBuyer) {
     return isBuyer ? OrderType.BID : OrderType.ASK;
   }
 
+  /**
+   * 适配符号
+   * @param symbol
+   * @return
+   */
   public static CurrencyPair adaptSymbol(String symbol) {
     int pairLength = symbol.length();
     if (symbol.endsWith("USDT")) {
@@ -151,6 +174,11 @@ public class BinanceAdapters {
     }
   }
 
+  /**
+   * 适配订单
+   * @param order
+   * @return
+   */
   public static Order adaptOrder(BinanceOrder order) {
     OrderType type = convert(order.side);
     CurrencyPair currencyPair = adaptSymbol(order.symbol);
@@ -179,6 +207,11 @@ public class BinanceAdapters {
     return builder.build();
   }
 
+  /**
+   * 适配/调整 价格数量
+   * @param priceQuantity
+   * @return
+   */
   private static Ticker adaptPriceQuantity(BinancePriceQuantity priceQuantity) {
     return new Ticker.Builder()
         .currencyPair(adaptSymbol(priceQuantity.symbol))
@@ -189,12 +222,25 @@ public class BinanceAdapters {
         .build();
   }
 
+  /**
+   * 适配/调整 价格数量
+   * @param priceQuantities 价格数量
+   * @return
+   */
   public static List<Ticker> adaptPriceQuantities(List<BinancePriceQuantity> priceQuantities) {
     return priceQuantities.stream()
         .map(BinanceAdapters::adaptPriceQuantity)
         .collect(Collectors.toList());
   }
 
+  /**
+   * 适配货币元数据
+   * @param currencies 货币
+   * @param currency 货币
+   * @param assetDetailMap 资产详情map
+   * @param precision 精度
+   * @return
+   */
   static CurrencyMetaData adaptCurrencyMetaData(
       Map<Currency, CurrencyMetaData> currencies,
       Currency currency,
@@ -222,6 +268,12 @@ public class BinanceAdapters {
     return new CurrencyMetaData(precision, withdrawalFee, minWithdrawalAmount);
   }
 
+  /**
+   * 获取钱包健康
+   * @param depositEnabled 存款启用
+   * @param withdrawEnabled 提取启用
+   * @return
+   */
   private static WalletHealth getWalletHealth(boolean depositEnabled, boolean withdrawEnabled) {
     if (depositEnabled && withdrawEnabled) {
       return WalletHealth.ONLINE;
@@ -235,6 +287,11 @@ public class BinanceAdapters {
     return WalletHealth.OFFLINE;
   }
 
+  /**
+   * 适配订单类型
+   * @param order
+   * @return
+   */
   public static org.knowm.xchange.binance.dto.trade.OrderType adaptOrderType(StopOrder order) {
 
     if (order.getIntention() == null) {

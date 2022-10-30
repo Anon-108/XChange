@@ -12,15 +12,24 @@ import org.knowm.xchange.exceptions.OrderAmountUnderMinimumException;
 import org.knowm.xchange.exceptions.OrderNotValidException;
 import org.knowm.xchange.exceptions.RateLimitExceededException;
 
-/** @author walec51 */
+/**
+ * Binance错误适配器
+ * @author walec51 */
 public final class BinanceErrorAdapter {
-
+  /**
+   * Binance错误适配器
+   */
   private BinanceErrorAdapter() {}
 
+  /**
+   * 适配
+   * @param e
+   * @return
+   */
   public static ExchangeException adapt(BinanceException e) {
     String message = e.getMessage();
     if (StringUtils.isEmpty(message)) {
-      message = "Operation failed without any error message";
+      message = "Operation failed without any error message 操作失败，没有任何错误信息";
     }
     switch (e.getCode()) {
       case -1002:
@@ -50,6 +59,12 @@ public final class BinanceErrorAdapter {
     }
   }
 
+  /**
+   * 创建订单无效异常
+   * @param message
+   * @param e
+   * @return
+   */
   private static ExchangeException createOrderNotValidException(
       String message, BinanceException e) {
     if (e.getMessage().contains("MIN_NOTIONAL")) {

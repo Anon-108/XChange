@@ -1,20 +1,40 @@
 package org.knowm.xchange.binance.dto.meta.exchangeinfo;
 
+/**
+ * 过滤器
+ */
 public class Filter {
+  /**
+   * 最高价格
+   */
   private String maxPrice;
-
+  /**
+   * 过滤器类型
+   */
   private String filterType;
-
+  /**
+   * tick/钩? 大小
+   */
   private String tickSize;
-
+  /**
+   * 最低价
+   */
   private String minPrice;
-
+  /**
+   * 最小数量
+   */
   private String minQty;
-
+  /**
+   * 最大数量
+   */
   private String maxQty;
-
+  /**
+   * 步骤 /台阶/移动 大小
+   */
   private String stepSize;
-
+  /**
+   * 最小 概念的，纯理论的?
+   */
   private String minNotional;
 
   public String getMaxPrice() {

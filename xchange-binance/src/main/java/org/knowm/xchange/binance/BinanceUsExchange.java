@@ -10,6 +10,9 @@ import org.knowm.xchange.binance.service.BinanceUsAccountService;
 import org.knowm.xchange.client.ExchangeRestProxyBuilder;
 import org.knowm.xchange.utils.AuthUtils;
 
+/**
+ * 币安美国交易所
+ */
 public class BinanceUsExchange extends BinanceExchange {
 
   @Override
@@ -25,6 +28,9 @@ public class BinanceUsExchange extends BinanceExchange {
     return spec;
   }
 
+  /**
+   * 初始化服务器
+   */
   @Override
   protected void initServices() {
     this.binance =
@@ -39,6 +45,9 @@ public class BinanceUsExchange extends BinanceExchange {
     this.accountService = new BinanceUsAccountService(this, binance, getResilienceRegistries());
   }
 
+  /**
+   * 远程初始化
+   */
   @Override
   public void remoteInit() {
     BinanceMarketDataService marketDataService = (BinanceMarketDataService) this.marketDataService;

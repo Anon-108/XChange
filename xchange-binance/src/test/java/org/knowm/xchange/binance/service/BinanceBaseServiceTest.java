@@ -13,15 +13,20 @@ import org.knowm.xchange.binance.BinanceExchange;
 import org.knowm.xchange.binance.BinanceResilience;
 import org.knowm.xchange.client.ExchangeRestProxyBuilder;
 
+/**
+ * 币安基础服务测试
+ */
 public class BinanceBaseServiceTest {
   /**
-   * Tests the functionality of the {@link BinanceBaseService#getRecvWindow()} to safely obtain a
-   * value for the recvWindow for various supplied inputs.
+   * 测试Recv窗口
+   *
+   * Tests the functionality of the {@link BinanceBaseService#getRecvWindow()} to safely obtain a value for the recvWindow for various supplied inputs.
+   * * 测试 {@link BinanceBaseService#getRecvWindow()} 的功能，以安全地获取各种提供的输入的 recvWindow 值。
    */
   @Test
   public void testGetRecvWindow() {
-    // Simple helper function that prepares a service with the "recvWindow" param and calls the
-    // getter.
+    // Simple helper function that prepares a service with the "recvWindow" param and calls the getter.
+  // 简单的辅助函数，它使用“recvWindow”参数准备服务并调用 getter。
     Function<Object, Long> serviceBuilder =
         obj -> {
           Map<String, Object> params = new HashMap<>();
@@ -47,10 +52,14 @@ public class BinanceBaseServiceTest {
 
   /**
    * Constructs a simple instance of the {@link BinanceBaseService} with the exchange-specific
-   * parameters set to the given map.
+    parameters set to the given map.
+   构造具有特定于交易所的 {@link BinanceBaseService} 的简单实例
+   参数设置为给定的map。
    *
    * @param exchangeSpecificParams The parameters to set on the base service.
+   *                               要在基本服务上设置的参数。
    * @return The instance of the service.
+   *    服务的实例。
    */
   private BinanceBaseService getBaseService(Map<String, Object> exchangeSpecificParams) {
     ExchangeSpecification spec = new BinanceExchange().getDefaultExchangeSpecification();

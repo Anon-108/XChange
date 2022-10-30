@@ -20,22 +20,31 @@ import org.knowm.xchange.service.trade.TradeService;
 import org.knowm.xchange.service.trade.params.orders.OpenOrdersParamCurrencyPair;
 import org.knowm.xchange.service.trade.params.orders.OpenOrdersParams;
 
+/**
+ * 贸易服务恢复/弹性测试
+ */
 public class TradeServiceResilienceTest extends AbstractResilienceTest {
-
+  /**
+   * 恢复弹性注册表
+   */
   @Before
   public void resertResilienceRegistries() {
     BinanceExchange.resetResilienceRegistries();
   }
 
+  /**
+   * 如果启用了首次调用超时和重试应该会成功
+   * @throws Exception
+   */
   @Test
   public void shouldSucceedIfFirstCallTimeoutedAndRetryIsEnabled() throws Exception {
-    // given
+    // given 规定的，指定的
     TradeService service = createExchangeWithRetryEnabled().getTradeService();
     stubForOpenOrdersWithFirstCallTimetoutAndSecondSuccessful();
     OpenOrdersParams params = service.createOpenOrdersParams();
     ((OpenOrdersParamCurrencyPair) params).setCurrencyPair(CurrencyPair.LTC_BTC);
 
-    // when
+    // when  在……时候；在……之后
     OpenOrders openOrders = service.getOpenOrders(params);
 
     // then
@@ -46,6 +55,10 @@ public class TradeServiceResilienceTest extends AbstractResilienceTest {
         .isEqualTo(CurrencyPair.LTC_BTC);
   }
 
+  /**
+   * 如果首次调用超时并重试已禁用，则应该失败
+   * @throws Exception
+   */
   @Test
   public void shouldFailIfFirstCallTimeoutedAndRetryIsDisabled() throws Exception {
     // given
@@ -61,6 +74,9 @@ public class TradeServiceResilienceTest extends AbstractResilienceTest {
     assertThat(exception).isInstanceOf(IOException.class);
   }
 
+  /**
+   * 第一次调用超时第二次成功的未结订单存根
+   */
   private void stubForOpenOrdersWithFirstCallTimetoutAndSecondSuccessful() {
     stubFor(
         get(urlPathEqualTo("/api/v3/openOrders"))

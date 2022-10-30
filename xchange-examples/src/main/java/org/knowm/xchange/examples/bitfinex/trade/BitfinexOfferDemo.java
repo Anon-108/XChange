@@ -14,7 +14,7 @@ import org.knowm.xchange.dto.trade.FloatingRateLoanOrder;
 import org.knowm.xchange.examples.bitfinex.BitfinexDemoUtils;
 
 /**
- * Bitfinex 优惠演示
+ * Bitfinex 出价演示
  */
 public class BitfinexOfferDemo {
 

@@ -27,14 +27,14 @@ public class BitfinexTradeDemo {
   }
   public static void main(String[] args) throws IOException {
 
-    Exchange bfx = ExchangeFactory.INSTANCE.createExchange(BitfinexExchange.class);
-    MarketDataService marketDataService = bfx.getMarketDataService();
-    Ticker ticker = marketDataService.getTicker(CurrencyPair.EOS_USD);
-    System.out.println(ticker.toString());
+//    Exchange bfx = ExchangeFactory.INSTANCE.createExchange(BitfinexExchange.class);
+//    MarketDataService marketDataService = bfx.getMarketDataService();
+//    Ticker ticker = marketDataService.getTicker(CurrencyPair.EOS_USD);
+//    System.out.println(ticker.toString());
 
-//    Exchange bfx = BitfinexDemoUtils.createExchange();
+    Exchange bfx = BitfinexDemoUtils.createExchange();
 //
-//    raw(bfx);
+    raw(bfx);
   }
 
   private static void raw(Exchange bfx) throws IOException {

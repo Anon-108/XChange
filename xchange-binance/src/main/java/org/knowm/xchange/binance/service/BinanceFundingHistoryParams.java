@@ -7,12 +7,26 @@ import org.knowm.xchange.service.trade.params.HistoryParamsFundingType;
 import org.knowm.xchange.service.trade.params.TradeHistoryParamCurrency;
 import org.knowm.xchange.service.trade.params.TradeHistoryParamsTimeSpan;
 
+/**
+ * 币安资金历史参数
+ */
 public class BinanceFundingHistoryParams
     implements TradeHistoryParamCurrency, TradeHistoryParamsTimeSpan, HistoryParamsFundingType {
-
+  /**
+   * 货币
+   */
   private Currency currency;
+  /**
+   * 类型
+   */
   private Type type;
+  /**
+   * 开始时间
+   */
   private Date startTime;
+  /**
+   * 结束时间
+   */
   private Date endTime;
 
   @Override

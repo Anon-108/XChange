@@ -13,6 +13,7 @@ import java.util.Map;
 import javax.annotation.Nullable;
 
 /**
+ * 账户信息
  * DTO representing account information
  * * DTO 代表账户信息
  *

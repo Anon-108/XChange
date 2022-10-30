@@ -33,6 +33,7 @@ public class AuthUtils {
   }
 
   /**
+   * 设置 Api 和 SecretKey
    * Read the API & Secret key from a resource called {@code prefix}-{@code secret.keys}. NOTE: This
     file MUST NEVER be commited to source control. It is therefore added to .gitignore.
    从名为 {@code prefix}-{@code secret.keys} 的资源中读取 API 和密钥。 注意：这

@@ -4,6 +4,9 @@ import static java.util.concurrent.TimeUnit.DAYS;
 import static java.util.concurrent.TimeUnit.HOURS;
 import static java.util.concurrent.TimeUnit.MINUTES;
 
+/**
+ * k线 时间间隔，间隙
+ */
 public enum KlineInterval {
   m1("1m", MINUTES.toMillis(1)),
   m3("3m", MINUTES.toMillis(3)),

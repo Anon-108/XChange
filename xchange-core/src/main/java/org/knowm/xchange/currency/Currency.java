@@ -12,6 +12,8 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 /**
+ * 货币
+ *
  * A Currency class roughly modeled after {@link java.util.Currency}. Each object retains the code
   it was acquired with -- so {@link #getInstance}("BTC").{@link #getCurrencyCode}() will always be
   "BTC", even though the proposed ISO 4217 code is "XBT"
@@ -23,6 +25,9 @@ import java.util.TreeSet;
 public class Currency implements Comparable<Currency>, Serializable {
 
   private static final long serialVersionUID = -7340731832345284129L;
+  /**
+   * 货币
+   */
   private static final Map<String, Currency> currencies = new HashMap<>();
 
   /** Global currency codes
@@ -480,7 +485,9 @@ public class Currency implements Comparable<Currency>, Serializable {
   public static final Currency ZRX = createCurrency("ZRX", "0x", null);
 
   private final String code;
-
+  /**
+   * 属性
+   */
   private final CurrencyAttributes attributes;
 
   /** Public constructor. Links to an existing currency.
@@ -491,6 +498,11 @@ public class Currency implements Comparable<Currency>, Serializable {
     this.attributes = getInstance(code).attributes;
   }
 
+  /**
+   *货币
+   * @param alternativeCode 替代代码
+   * @param attributes 属性
+   */
   private Currency(String alternativeCode, CurrencyAttributes attributes) {
 
     this.code = alternativeCode;
@@ -511,7 +523,9 @@ public class Currency implements Comparable<Currency>, Serializable {
     return new TreeSet<>(currencies.keySet());
   }
 
-  /** Returns a Currency instance for the given currency code.
+  /**
+   * 实例化
+   * Returns a Currency instance for the given currency code.
    * 返回给定货币代码的 Currency 实例。*/
   @JsonCreator
   public static Currency getInstance(String currencyCode) {
@@ -525,7 +539,9 @@ public class Currency implements Comparable<Currency>, Serializable {
     }
   }
 
-  /** Returns the Currency instance for the given currency code only if one already exists.
+  /**
+   * 获取实例无创建
+   * Returns the Currency instance for the given currency code only if one already exists.
    * 仅当一个已经存在时，才返回给定货币代码的货币实例。*/
   public static Currency getInstanceNoCreate(String currencyCode) {
 
@@ -533,6 +549,8 @@ public class Currency implements Comparable<Currency>, Serializable {
   }
 
   /**
+   * 创建货币
+   *
    * Factory
    * 工厂
    *
@@ -574,7 +592,9 @@ public class Currency implements Comparable<Currency>, Serializable {
     return currency;
   }
 
-  /** Gets the currency code originally used to acquire this object.
+  /**
+   * 获取货币代码
+   * Gets the currency code originally used to acquire this object.
    * 获取最初用于获取此对象的货币代码。*/
   @JsonValue
   public String getCurrencyCode() {
@@ -583,6 +603,8 @@ public class Currency implements Comparable<Currency>, Serializable {
   }
 
   /**
+   * 获取代码货币
+   *
    * Gets the equivalent object with the passed code.
    * 使用传递的代码获取等效对象。
    *
@@ -612,6 +634,7 @@ public class Currency implements Comparable<Currency>, Serializable {
   }
 
   /**
+   * 得到Iso4217货币
    * Gets the equivalent object with an ISO 4217 code, or if none a code which looks ISO compatible (starts with an X), or the constructed currency code if neither exist.
    * 获取具有 ISO 4217 代码的等效对象，或者如果没有一个看起来与 ISO 兼容的代码（以 X 开头），或者如果两者都不存在，则获取构造的货币代码。
    */
@@ -625,21 +648,28 @@ public class Currency implements Comparable<Currency>, Serializable {
     return getCodeCurrency(attributes.isoCode);
   }
 
-  /** Gets the equivalent object that was created with the "commonly used" code.
+  /**
+   * 获取常用货币
+   *
+   * Gets the equivalent object that was created with the "commonly used" code.
    * 获取使用“常用”代码创建的等效对象。 */
   public Currency getCommonlyUsedCurrency() {
 
     return getCodeCurrency(attributes.commonCode);
   }
 
-  /** Gets the set of all currency codes associated with this currency.
+  /**
+   * 获取货币代码s
+   * Gets the set of all currency codes associated with this currency.
    * 获取与此货币关联的所有货币代码的集合。 */
   public Set<String> getCurrencyCodes() {
 
     return attributes.codes;
   }
 
-  /** Gets the unicode symbol of this currency.
+  /**
+   * 获取符号
+   * Gets the unicode symbol of this currency.
    * 获取此货币的 unicode 符号。 */
   public String getSymbol() {
 

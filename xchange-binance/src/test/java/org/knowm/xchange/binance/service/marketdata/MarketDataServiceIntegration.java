@@ -10,14 +10,21 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.knowm.xchange.binance.BinanceExchangeIntegration;
+import org.knowm.xchange.binance.dto.marketdata.BinanceKline;
 import org.knowm.xchange.binance.dto.marketdata.BinanceTicker24h;
+import org.knowm.xchange.binance.dto.marketdata.KlineInterval;
 import org.knowm.xchange.binance.service.BinanceMarketDataService;
 import org.knowm.xchange.currency.Currency;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.service.marketdata.MarketDataService;
 
+/**
+ * 市场数据服务集成
+ */
 public class MarketDataServiceIntegration extends BinanceExchangeIntegration {
-
+  /**
+   * 市场服务
+   */
   static MarketDataService marketService;
 
   @BeforeClass
@@ -26,7 +33,7 @@ public class MarketDataServiceIntegration extends BinanceExchangeIntegration {
     marketService = exchange.getMarketDataService();
   }
 
-  @Before
+//  @Before
   public void before() {
     Assume.assumeNotNull(exchange.getExchangeSpecification().getApiKey());
   }
@@ -66,5 +73,17 @@ public class MarketDataServiceIntegration extends BinanceExchangeIntegration {
   private BinanceTicker24h getBinanceTicker24h(CurrencyPair pair) throws IOException {
     BinanceMarketDataService service = (BinanceMarketDataService) marketService;
     return service.ticker24h(pair);
+  }
+  private  List<BinanceKline> getKline(CurrencyPair pair, KlineInterval interval) throws IOException {
+    BinanceMarketDataService service = (BinanceMarketDataService) marketService;
+    return service.klines(pair,interval);
+  }
+
+  @Test
+  public void testGetKline() throws IOException {
+    System.out.println("=====================>开始:");
+//    List<BinanceKline> kline = getKline(CurrencyPair.EOS_USD, KlineInterval.h1);
+//    System.out.println(kline);
+    System.out.println("=====================>结束:");
   }
 }

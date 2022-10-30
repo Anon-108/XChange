@@ -2,6 +2,7 @@ package org.knowm.xchange.bitfinex.v2.dto.marketdata;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.Instant;
+import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import lombok.Builder;
@@ -29,6 +30,7 @@ public class BitfinexCandle {
    */
   public ZonedDateTime getCandleDateTime() {
     final Instant instant = Instant.ofEpochMilli(millisecondTimestamp);
-    return ZonedDateTime.ofInstant(instant, ZoneOffset.UTC);
+    return ZonedDateTime.ofInstant(instant, ZoneOffset.UTC); //原始代码
+//    return ZonedDateTime.ofInstant(instant, ZoneId.of("Asia/Shanghai"));
   }
 }

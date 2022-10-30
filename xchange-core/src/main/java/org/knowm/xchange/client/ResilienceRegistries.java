@@ -14,9 +14,14 @@ import org.knowm.xchange.exceptions.ExchangeUnavailableException;
 import org.knowm.xchange.exceptions.InternalServerException;
 import org.knowm.xchange.exceptions.OperationTimeoutException;
 
+/**
+ * 恢复注册
+ */
 @Beta
 public class ResilienceRegistries {
-
+  /**
+   * 重试配置
+   */
   public static final RetryConfig DEFAULT_RETRY_CONFIG =
       RetryConfig.custom()
           .maxAttempts(3)
@@ -49,27 +54,47 @@ public class ResilienceRegistries {
           .retryExceptions(
               UnknownHostException.class, SocketException.class, ExchangeUnavailableException.class)
           .build();
-
+  /**
+   * 速度限制器配置
+   */
   public static final RateLimiterConfig DEFAULT_GLOBAL_RATE_LIMITER_CONFIG =
       RateLimiterConfig.custom()
           .timeoutDuration(Duration.ofSeconds(30))
           .limitRefreshPeriod(Duration.ofMinutes(1))
           .limitForPeriod(1200)
           .build();
-
+  /**
+   * 重试注册
+   */
   private final RetryRegistry retryRegistry;
-
+  /**
+   * 速度限制器注册
+   */
   private final RateLimiterRegistry rateLimiterRegistry;
 
+  /**
+   * 恢复注册表
+   */
   public ResilienceRegistries() {
     this(DEFAULT_RETRY_CONFIG, DEFAULT_NON_IDEMPOTENT_CALLS_RETRY_CONFIG);
   }
 
+  /**
+   * 恢复注册表
+   * @param globalRetryConfig 全局重试配置
+   * @param nonIdempotentCallsRetryConfig 非幂等调用重试配置
+   */
   public ResilienceRegistries(
       RetryConfig globalRetryConfig, RetryConfig nonIdempotentCallsRetryConfig) {
     this(globalRetryConfig, nonIdempotentCallsRetryConfig, DEFAULT_GLOBAL_RATE_LIMITER_CONFIG);
   }
 
+  /**
+   * 恢复注册表
+   * @param globalRetryConfig 全局重试配置
+   * @param nonIdempotentCallsRetryConfig 非幂等调用重试配置
+   * @param globalRateLimiterConfig 全局速率限制器配置
+   */
   public ResilienceRegistries(
       RetryConfig globalRetryConfig,
       RetryConfig nonIdempotentCallsRetryConfig,
@@ -79,20 +104,39 @@ public class ResilienceRegistries {
         RateLimiterRegistry.of(globalRateLimiterConfig));
   }
 
+  /**
+   * 恢复注册表
+   * @param retryRegistry 重试注册表
+   * @param rateLimiterRegistry 速率限制器注册表
+   */
   public ResilienceRegistries(
       RetryRegistry retryRegistry, RateLimiterRegistry rateLimiterRegistry) {
     this.retryRegistry = retryRegistry;
     this.rateLimiterRegistry = rateLimiterRegistry;
   }
 
+  /**
+   * 重试
+   * @return
+   */
   public RetryRegistry retries() {
     return retryRegistry;
   }
 
+  /**
+   * 速率限制器
+   * @return
+   */
   public RateLimiterRegistry rateLimiters() {
     return rateLimiterRegistry;
   }
 
+  /**
+   * 重试注册表
+   * @param globalRetryConfig 全局重试配置
+   * @param nonIdempotentCallsRetryConfig 非幂等调用重试配置
+   * @return
+   */
   private static RetryRegistry retryRegistryOf(
       RetryConfig globalRetryConfig, RetryConfig nonIdempotentCallsRetryConfig) {
     RetryRegistry registry = RetryRegistry.of(globalRetryConfig);

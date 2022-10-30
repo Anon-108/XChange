@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 交换规范
+ * 交换规范/配置
  * Specification to provide the following to {@link ExchangeFactory}:
  * * 向 {@link ExchangeFactory} 提供以下内容的规范：
  *
@@ -19,25 +19,81 @@ import java.util.Map;
  */
 public class ExchangeSpecification {
 
+  /**
+   * 交换类
+   */
   private final Class<? extends Exchange> exchangeClass;
+  /**
+   * 交换描述
+   */
   private String exchangeName;
+  /**
+   * 交换描述
+   */
   private String exchangeDescription;
+  /**
+   * 用户名
+   */
   private String userName;
+  /**
+   * 密码
+   */
   private String password;
+  /**
+   * 秘钥
+   */
   private String secretKey;
+  /**
+   * api键
+   */
   private String apiKey;
   private String sslUri;
+  /**
+   * 纯文本 Uri
+   */
   private String plainTextUri;
+  /**
+   * 覆盖 Websocket Api Uri
+   */
   private String overrideWebsocketApiUri;
+  /**
+   * 主机
+   */
   private String host;
+  /**
+   * 端口
+   */
   private int port = 80;
+  /**
+   * 代理主机
+   */
   private String proxyHost;
+  /**
+   * 代理端口
+   */
   private Integer proxyPort;
-  private int httpConnTimeout = 0; // default rescu configuration will be used if value not changed // 如果值没有改变，将使用默认的 rescu 配置
-  private int httpReadTimeout = 0; // default rescu configuration will be used if value not changed  // 如果值没有改变，将使用默认的 rescu 配置
+  /**
+   * http 连接超时
+   * // 如果值没有改变，将使用默认的 rescu 配置
+   */
+  private int httpConnTimeout = 0; // default rescu configuration will be used if value not changed
+  /**
+   * http 读取超时
+   * // 如果值没有改变，将使用默认的 rescu 配置
+   */
+  private int httpReadTimeout = 0; // default rescu configuration will be used if value not changed
+  /**
+   * 弹性/恢复规范/配置
+   */
   private ResilienceSpecification resilience = new ResilienceSpecification();
+  /**
+   * 元数据 Json 文件覆盖
+   */
   private String metaDataJsonFileOverride = null;
-  private boolean shouldLoadRemoteMetaData = true; // default value
+  /**
+   * 应该加载远程元数据
+   */
+  private boolean shouldLoadRemoteMetaData = true; // default value 默认值
   /** arbitrary exchange params that can be set for unique cases
    * 可以为特殊情况设置的任意交换参数*/
   private Map<String, Object> exchangeSpecificParameters = new HashMap<>();

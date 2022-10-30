@@ -6,16 +6,35 @@ import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.utils.Assert;
 import org.knowm.xchange.utils.jackson.CurrencyPairDeserializer;
 
+/**
+ * Binance价格
+ */
 public final class BinancePrice implements Comparable<BinancePrice> {
 
+  /**
+   * 对
+   */
   private final CurrencyPair pair;
+  /**
+   * 价格
+   */
   private final BigDecimal price;
 
+  /**
+   * Binance价格
+   * @param symbol 符号
+   * @param price 价格
+   */
   public BinancePrice(
       @JsonProperty("symbol") String symbol, @JsonProperty("price") BigDecimal price) {
     this(CurrencyPairDeserializer.getCurrencyPairFromString(symbol), price);
   }
 
+  /**
+   * Binance价格
+   * @param pair 对
+   * @param price 价格
+   */
   public BinancePrice(CurrencyPair pair, BigDecimal price) {
     Assert.notNull(price, "Null price");
     Assert.notNull(pair, "Null pair");

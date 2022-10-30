@@ -20,8 +20,16 @@ import org.knowm.xchange.client.ResilienceRegistries;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.utils.StreamUtils;
 
+/**
+ * 币安市场数据服务原始
+ */
 public class BinanceMarketDataServiceRaw extends BinanceBaseService {
-
+  /**
+   * 币安市场数据服务原始
+   * @param exchange 交换
+   * @param binance 币安
+   * @param resilienceRegistries 恢复注册
+   */
   protected BinanceMarketDataServiceRaw(
       BinanceExchange exchange,
       BinanceAuthenticated binance,
@@ -41,6 +49,13 @@ public class BinanceMarketDataServiceRaw extends BinanceBaseService {
         .call();
   }
 
+  /**
+   * 获取币安订单帐薄
+   * @param pair 货币对
+   * @param limit 限制/额度
+   * @return
+   * @throws IOException
+   */
   public BinanceOrderbook getBinanceOrderbook(CurrencyPair pair, Integer limit) throws IOException {
     return decorateApiCall(() -> binance.depth(BinanceAdapters.toSymbol(pair), limit))
         .withRetry(retry("depth"))
@@ -68,6 +83,16 @@ public class BinanceMarketDataServiceRaw extends BinanceBaseService {
     return klines(pair, interval, null, null, null);
   }
 
+  /**
+   * k线
+   * @param pair 货币对
+   * @param interval 区间/时间间隔
+   * @param limit 限制
+   * @param startTime 开始时间
+   * @param endTime 结束时间
+   * @return
+   * @throws IOException
+   */
   public List<BinanceKline> klines(
       CurrencyPair pair, KlineInterval interval, Integer limit, Long startTime, Long endTime)
       throws IOException {
@@ -84,6 +109,11 @@ public class BinanceMarketDataServiceRaw extends BinanceBaseService {
         .collect(Collectors.toList());
   }
 
+  /**
+   * 股票行情自动收录器24小时
+   * @return
+   * @throws IOException
+   */
   public List<BinanceTicker24h> ticker24h() throws IOException {
     return decorateApiCall(() -> binance.ticker24h())
         .withRetry(retry("ticker24h"))
@@ -91,6 +121,12 @@ public class BinanceMarketDataServiceRaw extends BinanceBaseService {
         .call();
   }
 
+  /**
+   * 股票行情自动收录器24小时
+   * @param pair 货币对
+   * @return
+   * @throws IOException
+   */
   public BinanceTicker24h ticker24h(CurrencyPair pair) throws IOException {
     BinanceTicker24h ticker24h =
         decorateApiCall(() -> binance.ticker24h(BinanceAdapters.toSymbol(pair)))
@@ -101,12 +137,23 @@ public class BinanceMarketDataServiceRaw extends BinanceBaseService {
     return ticker24h;
   }
 
+  /**
+   * 股票价格
+   * @param pair 货币对
+   * @return
+   * @throws IOException
+   */
   public BinancePrice tickerPrice(CurrencyPair pair) throws IOException {
     return tickerAllPrices().stream()
         .filter(p -> p.getCurrencyPair().equals(pair))
         .collect(StreamUtils.singletonCollector());
   }
 
+  /**
+   * 股票所有价格
+   * @return
+   * @throws IOException
+   */
   public List<BinancePrice> tickerAllPrices() throws IOException {
     return decorateApiCall(() -> binance.tickerAllPrices())
         .withRetry(retry("tickerAllPrices"))
@@ -114,6 +161,11 @@ public class BinanceMarketDataServiceRaw extends BinanceBaseService {
         .call();
   }
 
+  /**
+   * 股票所有帐薄股票代码
+   * @return
+   * @throws IOException
+   */
   public List<BinancePriceQuantity> tickerAllBookTickers() throws IOException {
     return decorateApiCall(() -> binance.tickerAllBookTickers())
         .withRetry(retry("tickerAllBookTickers"))
@@ -121,6 +173,11 @@ public class BinanceMarketDataServiceRaw extends BinanceBaseService {
         .call();
   }
 
+  /**
+   * 深度许可
+   * @param limit 限制/额度
+   * @return
+   */
   protected int depthPermits(Integer limit) {
     if (limit == null || limit <= 100) {
       return 1;
@@ -132,6 +189,11 @@ public class BinanceMarketDataServiceRaw extends BinanceBaseService {
     return 50;
   }
 
+  /**
+   * agg 交易许可证
+   * @param limit
+   * @return
+   */
   protected int aggTradesPermits(Integer limit) {
     if (limit != null && limit > 500) {
       return 2;

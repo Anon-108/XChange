@@ -6,25 +6,43 @@ import org.junit.Rule;
 import org.knowm.xchange.ExchangeFactory;
 import org.knowm.xchange.ExchangeSpecification;
 
+/**
+ * 抽象弹性测试
+ */
 public class AbstractResilienceTest {
 
   @Rule public WireMockRule wireMockRule = new WireMockRule();
 
   public static int READ_TIMEOUT_MS = 1000;
 
+  /**
+   * 恢复弹性注册表
+   */
   @Before
   public void resertResilienceRegistries() {
     BinanceExchange.resetResilienceRegistries();
   }
 
+  /**
+   * 创建启用重试的 Exchange
+   * @return
+   */
   protected BinanceExchange createExchangeWithRetryEnabled() {
     return createExchange(true, false);
   }
 
+  /**
+   * 创建禁用重试的 Exchange
+   * @return
+   */
   protected BinanceExchange createExchangeWithRetryDisabled() {
     return createExchange(false, false);
   }
 
+  /**
+   * 创建启用了速率限制器的 Exchange
+   * @return
+   */
   protected BinanceExchange createExchangeWithRateLimiterEnabled() {
     return createExchange(false, true);
   }

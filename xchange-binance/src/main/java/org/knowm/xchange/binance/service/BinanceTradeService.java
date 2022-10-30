@@ -49,8 +49,16 @@ import org.knowm.xchange.service.trade.params.orders.OrderQueryParamCurrencyPair
 import org.knowm.xchange.service.trade.params.orders.OrderQueryParams;
 import org.knowm.xchange.utils.Assert;
 
+/**
+ * 币安交易服务
+ */
 public class BinanceTradeService extends BinanceTradeServiceRaw implements TradeService {
-
+  /**
+   * 币安交易服务
+   * @param exchange
+   * @param binance
+   * @param resilienceRegistries
+   */
   public BinanceTradeService(
       BinanceExchange exchange,
       BinanceAuthenticated binance,
@@ -63,6 +71,12 @@ public class BinanceTradeService extends BinanceTradeServiceRaw implements Trade
     return getOpenOrders(new DefaultOpenOrdersParam());
   }
 
+  /**
+   * 获取打开的订单s
+   * @param pair 货币对
+   * @return
+   * @throws IOException
+   */
   public OpenOrders getOpenOrders(CurrencyPair pair) throws IOException {
     return getOpenOrders(new DefaultOpenOrdersParamCurrencyPair(pair));
   }
@@ -130,6 +144,11 @@ public class BinanceTradeService extends BinanceTradeServiceRaw implements Trade
         orderType, order, order.getLimitPrice(), order.getStopPrice(), null, null, tif);
   }
 
+  /**
+   * 订单生效时间
+   * @param order 订单
+   * @return
+   */
   private Optional<TimeInForce> timeInForceFromOrder(Order order) {
     return order.getOrderFlags().stream()
         .filter(flag -> flag instanceof TimeInForce)
@@ -137,6 +156,18 @@ public class BinanceTradeService extends BinanceTradeServiceRaw implements Trade
         .findFirst();
   }
 
+  /**
+   * 下订单
+   * @param type 类型
+   * @param order 订单
+   * @param limitPrice 限制价格
+   * @param stopPrice 停止价格
+   * @param quoteOrderQty 订单数量报价
+   * @param trailingDelta 尾随  变量增量
+   * @param tif 生效时间
+   * @return
+   * @throws IOException
+   */
   private String placeOrder(
       OrderType type,
       Order order,
@@ -170,11 +201,29 @@ public class BinanceTradeService extends BinanceTradeServiceRaw implements Trade
     }
   }
 
+  /**
+   * 下测试订单
+   * @param type 类型
+   * @param order 订单
+   * @param limitPrice 限制价格
+   * @param stopPrice 停止价格
+   * @throws IOException
+   */
   public void placeTestOrder(
       OrderType type, Order order, BigDecimal limitPrice, BigDecimal stopPrice) throws IOException {
     placeTestOrder(type, order, limitPrice, stopPrice, null, null);
   }
 
+  /**
+   * 下测试订单
+   * @param type 类型
+   * @param order 订单
+   * @param limitPrice 限制价格
+   * @param stopPrice 停止价格
+   * @param quoteOrderQty 报价订单数量
+   * @param trailingDelta
+   * @throws IOException
+   */
   public void placeTestOrder(
       OrderType type,
       Order order,
@@ -205,6 +254,11 @@ public class BinanceTradeService extends BinanceTradeServiceRaw implements Trade
     }
   }
 
+  /**
+   * 获取客户订单Id
+   * @param order 订单
+   * @return
+   */
   private String getClientOrderId(Order order) {
 
     String clientOrderId = null;
@@ -221,7 +275,7 @@ public class BinanceTradeService extends BinanceTradeServiceRaw implements Trade
 
   @Override
   public boolean cancelOrder(String orderId) {
-    throw new ExchangeException("You need to provide the currency pair to cancel an order.");
+    throw new ExchangeException("You need to provide the currency pair to cancel an order. 您需要提供货币对才能取消订单。");
   }
 
   @Override
@@ -230,7 +284,7 @@ public class BinanceTradeService extends BinanceTradeServiceRaw implements Trade
       if (!(params instanceof CancelOrderByCurrencyPair)
           && !(params instanceof CancelOrderByIdParams)) {
         throw new ExchangeException(
-            "You need to provide the currency pair and the order id to cancel an order.");
+            "You need to provide the currency pair and the order id to cancel an order. 您需要提供货币对和订单 ID 才能取消订单。");
       }
       CancelOrderByCurrencyPair paramCurrencyPair = (CancelOrderByCurrencyPair) params;
       CancelOrderByIdParams paramId = (CancelOrderByIdParams) params;
@@ -255,12 +309,12 @@ public class BinanceTradeService extends BinanceTradeServiceRaw implements Trade
     try {
       Assert.isTrue(
           params instanceof TradeHistoryParamCurrencyPair,
-          "You need to provide the currency pair to get the user trades.");
+          "You need to provide the currency pair to get the user trades. 您需要提供货币对才能让用户进行交易。");
       TradeHistoryParamCurrencyPair pairParams = (TradeHistoryParamCurrencyPair) params;
       CurrencyPair pair = pairParams.getCurrencyPair();
       if (pair == null) {
         throw new ExchangeException(
-            "You need to provide the currency pair to get the user trades.");
+            "You need to provide the currency pair to get the user trades. 您需要提供货币对才能让用户进行交易。");
       }
       Long orderId = null;
       Long startTime = null;
@@ -283,7 +337,10 @@ public class BinanceTradeService extends BinanceTradeServiceRaw implements Trade
       }
       if ((fromId != null) && (startTime != null || endTime != null)) {
         throw new ExchangeException(
-            "You should either specify the id from which you get the user trades from or start and end times. If you specify both, Binance will only honour the fromId parameter.");
+            "You should either specify the id from which you get the user trades from or start and end times." +
+                    "您应该指定从中获取用户交易的 ID，或者指定开始和结束时间。" +
+                    " If you specify both, Binance will only honour the fromId parameter." +
+                    "如果您同时指定两者，币安将只接受 fromId 参数。");
       }
 
       Integer limit = null;
@@ -347,14 +404,16 @@ public class BinanceTradeService extends BinanceTradeServiceRaw implements Trade
       for (OrderQueryParams param : params) {
         if (!(param instanceof OrderQueryParamCurrencyPair)) {
           throw new ExchangeException(
-              "Parameters must be an instance of OrderQueryParamCurrencyPair");
+              "Parameters must be an instance of OrderQueryParamCurrencyPair " +
+                      "参数必须是 OrderQueryParamCurrencyPair 的实例");
         }
         OrderQueryParamCurrencyPair orderQueryParamCurrencyPair =
             (OrderQueryParamCurrencyPair) param;
         if (orderQueryParamCurrencyPair.getCurrencyPair() == null
             || orderQueryParamCurrencyPair.getOrderId() == null) {
           throw new ExchangeException(
-              "You need to provide the currency pair and the order id to query an order.");
+              "You need to provide the currency pair and the order id to query an order." +
+                      "您需要提供货币对和订单id来查询订单。");
         }
 
         orders.add(
@@ -370,16 +429,30 @@ public class BinanceTradeService extends BinanceTradeServiceRaw implements Trade
     }
   }
 
+  /**
+   * 币安订单标志
+   */
   public interface BinanceOrderFlags extends IOrderFlags {
-
+    /**
+     * 客户 ID
+     * @param clientId 客户 ID
+     * @return
+     */
     static BinanceOrderFlags withClientId(String clientId) {
       return new ClientIdFlag(clientId);
     }
 
-    /** Used in fields 'newClientOrderId' */
+    /**
+     * 获取客户id
+     * 在字段“newClientOrderId”中使用
+     * Used in fields 'newClientOrderId'
+     * */
     String getClientId();
   }
 
+  /**
+   * 客户id标记
+   */
   @Value
   static final class ClientIdFlag implements BinanceOrderFlags {
 

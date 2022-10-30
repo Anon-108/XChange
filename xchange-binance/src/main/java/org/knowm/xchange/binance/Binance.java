@@ -22,7 +22,10 @@ import org.knowm.xchange.binance.dto.meta.exchangeinfo.BinanceExchangeInfo;
 public interface Binance {
 
   /**
+   * 系统状态
+   *
    * Fetch system status which is normal or system maintenance.
+   * 获取正常或系统维护的系统状态。
    *
    * @throws IOException
    */
@@ -31,6 +34,7 @@ public interface Binance {
   BinanceSystemStatus systemStatus() throws IOException;
 
   /**
+   * 测试到Rest API的连接性。
    * Test connectivity to the Rest API.
    *
    * @return
@@ -42,7 +46,7 @@ public interface Binance {
 
   /**
    * Test connectivity to the Rest API and get the current server time.
-   *
+   *  测试与 Rest API 的连接并获取当前服务器时间。
    * @return
    * @throws IOException
    */
@@ -52,6 +56,7 @@ public interface Binance {
 
   /**
    * Current exchange trading rules and symbol information.
+   * 当前的交易所交易规则和符号信息。
    *
    * @return
    * @throws IOException
@@ -62,8 +67,8 @@ public interface Binance {
 
   /**
    * @param symbol
-   * @param limit optional, default 100 max 5000. Valid limits: [5, 10, 20, 50, 100, 500, 1000,
-   *     5000]
+   * @param limit optional, default 100 max 5000. Valid limits: [5, 10, 20, 50, 100, 500, 1000, 5000]
+   *              @param limit 可选，默认 100 最大 5000。有效限制：[5, 10, 20, 50, 100, 500, 1000, 5000]
    * @return
    * @throws IOException
    * @throws BinanceException
@@ -74,18 +79,27 @@ public interface Binance {
       throws IOException, BinanceException;
 
   /**
-   * Get compressed, aggregate trades. Trades that fill at the time, from the same order, with the
-   * same price will have the quantity aggregated.<br>
-   * If both startTime and endTime are sent, limit should not be sent AND the distance between
-   * startTime and endTime must be less than 24 hours.<br>
-   * If frondId, startTime, and endTime are not sent, the most recent aggregate trades will be
-   * returned.
+   * Get compressed, aggregate trades. Trades that fill at the time, from the same order, with the same price will have the quantity aggregated.<br>
+   * * 获得压缩的聚合交易。 同一订单以相同价格在同一时间成交的交易将汇总数量。<br>
+   *
+   * If both startTime and endTime are sent, limit should not be sent AND the distance between startTime and endTime must be less than 24 hours.<br>
+   * * 如果同时发送 startTime 和 endTime，则不应发送 limit 并且 startTime 和 endTime 之间的距离必须小于 24 小时。<br>
+   *
+   * If frondId, startTime, and endTime are not sent, the most recent aggregate trades will be returned.
+   * * 如果没有发送 frondId、startTime 和 endTime，将返回最近的聚合交易。
    *
    * @param symbol
    * @param fromId optional, ID to get aggregate trades from INCLUSIVE.
+   *               * @param fromId 可选，从 INCLUSIVE 获取聚合交易的 ID。
+   *
    * @param startTime optional, Timestamp in ms to get aggregate trades from INCLUSIVE.
+   *                  * @param startTime 可选，以毫秒为单位的时间戳，用于从 INCLUSIVE 获取聚合交易。
+   *
    * @param endTime optional, Timestamp in ms to get aggregate trades until INCLUSIVE.
+   *                * @param endTime 可选，以毫秒为单位的时间戳以获取聚合交易，直到包含在内。
+   *
    * @param limit optional, Default 500; max 500.
+   *                * @param limit 可选，默认 500； 最多 500 个。
    * @return
    * @throws IOException
    * @throws BinanceException
@@ -102,13 +116,17 @@ public interface Binance {
 
   /**
    * Kline/candlestick bars for a symbol. Klines are uniquely identified by their open time.<br>
+   * 符号的 Kline/烛台柱。 Klines 通过其开放时间进行唯一标识。<br>
+   *
    * If startTime and endTime are not sent, the most recent klines are returned.
+   * 如果未发送 startTime 和 endTime，则返回最近的 klines。
    *
    * @param symbol
    * @param interval
    * @param limit optional, default 500; max 500.
-   * @param startTime optional
-   * @param endTime optional
+   *              @param limit 可选，默认 500； 最多 500 个。
+   * @param startTime optional 可选
+   * @param endTime optional 可选
    * @return
    * @throws IOException
    * @throws BinanceException
@@ -124,8 +142,8 @@ public interface Binance {
       throws IOException, BinanceException;
 
   /**
-   * 24 hour price change statistics for all symbols. - bee carreful this api call have a big
-   * weight, only about 4 call per minut can be without ban.
+   * 24 hour price change statistics for all symbols. - bee carreful this api call have a big weight, only about 4 call per minut can be without ban.
+   * * 所有品种的 24 小时价格变化统计。 - 注意这个 api 调用权重很大，每分钟只有大约 4 个调用可以不受禁止。
    *
    * @return
    * @throws IOException
@@ -137,6 +155,7 @@ public interface Binance {
 
   /**
    * 24 hour price change statistics.
+   * 24小时价格变化统计。
    *
    * @param symbol
    * @return
@@ -150,6 +169,7 @@ public interface Binance {
 
   /**
    * Latest price for a symbol.
+   * 符号的最新价格。
    *
    * @return
    * @throws IOException
@@ -162,6 +182,7 @@ public interface Binance {
 
   /**
    * Latest price for all symbols.
+   * 所有符号的最新价格。
    *
    * @return
    * @throws IOException
@@ -173,6 +194,7 @@ public interface Binance {
 
   /**
    * Best price/qty on the order book for all symbols.
+   * * 所有符号的订单簿上的最佳价格/数量。
    *
    * @return
    * @throws IOException

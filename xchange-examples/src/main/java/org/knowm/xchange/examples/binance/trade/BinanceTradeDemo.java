@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import org.knowm.xchange.Exchange;
+import org.knowm.xchange.ExchangeSpecification;
 import org.knowm.xchange.binance.BinanceExchange;
 import org.knowm.xchange.binance.service.BinanceTradeService;
 import org.knowm.xchange.currency.CurrencyPair;
@@ -18,29 +19,43 @@ import org.knowm.xchange.service.trade.params.*;
 import org.knowm.xchange.service.trade.params.orders.*;
 import org.knowm.xchange.utils.StreamUtils;
 
+/**
+ * 交易演示
+ */
 public class BinanceTradeDemo {
 
   public static void main(String[] args) throws IOException {
 
     Exchange exchange = BinanceDemoUtils.createExchange();
+    ExchangeSpecification exchangeSpecification= exchange.getExchangeSpecification();
+//    ExchangeSpecification exchangeSpecification2 = exchange.getDefaultExchangeSpecification();
+//    spec.setProxyHost("127.0.0.1");
+//    spec.setProxyPort(10809);
+
+    exchange.applySpecification(exchangeSpecification);
 
     generic(exchange);
     raw((BinanceExchange) exchange);
   }
 
+  /**
+   * 一般的，通用的
+   * @param exchange
+   * @throws IOException
+   */
   public static void generic(Exchange exchange) throws IOException {
 
-    CurrencyPair pair = CurrencyPair.EOS_ETH;
+    CurrencyPair pair = CurrencyPair.EOS_USDT;
     TradeService tradeService = exchange.getTradeService();
 
-    // Get open orders
+    // Get open orders 得到开放订单
     OpenOrders orders = tradeService.getOpenOrders(new DefaultOpenOrdersParamCurrencyPair(pair));
     LimitOrder order = orders.getOpenOrders().stream().collect(StreamUtils.singletonCollector());
     if (order != null) {
       System.out.println(order);
     }
 
-    // Get orders using params
+    // Get orders using params 使用参数获取订单
     if (order != null) {
       Class queryParamClass = exchange.getTradeService().getRequiredOrderQueryParamClass();
       OrderQueryParams queryParams = new DefaultQueryOrderParam(order.getId());
@@ -56,7 +71,7 @@ public class BinanceTradeDemo {
       }
     }
 
-    // Cancel order
+    // Cancel order 撤销订单
     if (order != null) {
       List<Class> classList =
           Arrays.asList(exchange.getTradeService().getRequiredCancelOrderParamClasses());
@@ -75,7 +90,7 @@ public class BinanceTradeDemo {
 
     CurrencyPair pair = CurrencyPair.EOS_ETH;
     BinanceTradeService tradeService = (BinanceTradeService) exchange.getTradeService();
-    // Get open orders
+    // Get open orders 得到开放订单
     OpenOrders orders = tradeService.getOpenOrders(pair);
     LimitOrder order = orders.getOpenOrders().stream().collect(StreamUtils.singletonCollector());
     if (order != null) {
