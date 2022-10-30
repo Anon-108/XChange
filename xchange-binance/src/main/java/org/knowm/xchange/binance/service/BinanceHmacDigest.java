@@ -12,19 +12,35 @@ import org.slf4j.LoggerFactory;
 import si.mazi.rescu.Params;
 import si.mazi.rescu.RestInvocation;
 
+/**
+ * 币安 Hmac 文摘/摘要
+ */
 public class BinanceHmacDigest extends BaseParamsDigest {
 
   private static final Logger LOG = LoggerFactory.getLogger(BinanceHmacDigest.class);
 
+  /**
+   * 币安 Hmac 文摘/摘要
+   * @param secretKeyBase64 密钥Base64
+   */
   private BinanceHmacDigest(String secretKeyBase64) {
     super(secretKeyBase64, HMAC_SHA_256);
   }
 
+  /**
+   * 创建实例
+   * @param secretKeyBase64
+   * @return
+   */
   public static BinanceHmacDigest createInstance(String secretKeyBase64) {
     return secretKeyBase64 == null ? null : new BinanceHmacDigest(secretKeyBase64);
   }
 
-  /** @return the query string except of the "signature" parameter */
+  /**
+   * 获取查询
+   * @param restInvocation rest调用
+   * @return the query string except of the "signature" parameter
+   * 除“signature”参数外的查询字符串 */
   private static String getQuery(RestInvocation restInvocation) {
     final Params p = Params.of();
     restInvocation.getParamsMap().get(QueryParam.class).asHttpHeaders().entrySet().stream()

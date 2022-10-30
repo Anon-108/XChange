@@ -2,10 +2,8 @@ package org.knowm.xchange.binance.service;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 import org.knowm.xchange.binance.BinanceAuthenticated;
 import org.knowm.xchange.binance.BinanceExchange;
 import org.knowm.xchange.binance.dto.account.AssetDetail;
@@ -22,11 +20,20 @@ import org.knowm.xchange.service.trade.params.WithdrawFundsParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * 币安美国账户服务
+ */
 public class BinanceUsAccountService extends BinanceAccountService {
 
-  private final String NOT_SUPPORTED = "Not Supported by Binance.US";
+  private final String NOT_SUPPORTED = "Not Supported by Binance.US Binance.US 不支持";
   protected final Logger LOG = LoggerFactory.getLogger(getClass());
 
+  /**
+   * 币安美国账户服务
+   * @param exchange 交换
+   * @param binance 币安
+   * @param resilienceRegistries 恢复注册
+   */
   public BinanceUsAccountService(
       BinanceExchange exchange,
       BinanceAuthenticated binance,

@@ -39,7 +39,7 @@ import org.knowm.xchange.service.trade.params.TradeHistoryParamPaging;
 import org.knowm.xchange.service.trade.params.TradeHistoryParams;
 import org.knowm.xchange.service.trade.params.TradeHistoryParamsTimeSpan;
 import org.knowm.xchange.service.trade.params.WithdrawFundsParams;
-
+/** Binance账户服务 */
 public class BinanceAccountService extends BinanceAccountServiceRaw implements AccountService {
 
   public BinanceAccountService(
@@ -49,6 +49,11 @@ public class BinanceAccountService extends BinanceAccountServiceRaw implements A
     super(exchange, binance, resilienceRegistries);
   }
 
+  /**
+   * 转移历史状态
+   * @param historyStatus 历史状态
+   * @return
+   */
   private static FundingRecord.Status transferHistoryStatus(String historyStatus) {
     Status status;
     switch (historyStatus) {
@@ -58,7 +63,7 @@ public class BinanceAccountService extends BinanceAccountServiceRaw implements A
       default:
         status =
             Status.resolveStatus(
-                historyStatus); // FIXME not documented yet in Binance spot api docs
+                historyStatus); // FIXME not documented yet in Binance spot api docs 币安现货 api 文档中尚未记录 FIXME
         if (status == null) {
           status = Status.FAILED;
         }
@@ -66,7 +71,10 @@ public class BinanceAccountService extends BinanceAccountServiceRaw implements A
     return status;
   }
 
-  /** (0:Email Sent,1:Cancelled 2:Awaiting Approval 3:Rejected 4:Processing 5:Failure 6Completed) */
+  /**
+   *  (0:Email Sent,1:Cancelled 2:Awaiting Approval 3:Rejected 4:Processing 5:Failure 6Completed)
+   *  （0：已发送电子邮件，1：已取消 2：等待批准 3：已拒绝 4：正在处理 5：失败 6已完成）
+   *  */
   private static FundingRecord.Status withdrawStatus(int status) {
     switch (status) {
       case 0:
@@ -81,11 +89,12 @@ public class BinanceAccountService extends BinanceAccountServiceRaw implements A
       case 6:
         return Status.COMPLETE;
       default:
-        throw new RuntimeException("Unknown binance withdraw status: " + status);
+        throw new RuntimeException("Unknown binance withdraw status 未知的币安提取状态: " + status);
     }
   }
 
-  /** (0:pending,6: credited but cannot withdraw,1:success) */
+  /** (0:pending,6: credited but cannot withdraw,1:success)
+   * （0：待处理，6：已记入但不能提现，1：成功） */
   private static FundingRecord.Status depositStatus(int status) {
     switch (status) {
       case 0:
@@ -94,7 +103,7 @@ public class BinanceAccountService extends BinanceAccountServiceRaw implements A
       case 1:
         return Status.COMPLETE;
       default:
-        throw new RuntimeException("Unknown binance deposit status: " + status);
+        throw new RuntimeException("Unknown binance deposit status 币安存款状态不明: " + status);
     }
   }
 
@@ -198,7 +207,7 @@ public class BinanceAccountService extends BinanceAccountServiceRaw implements A
             : depositAddress.addressTag;
     return new AddressWithTag(depositAddress.address, destinationTag);
   }
-
+  /** 获得资产的详细信息*/
   public Map<String, AssetDetail> getAssetDetails() throws IOException {
     try {
       return super.requestAssetDetail();
@@ -263,11 +272,13 @@ public class BinanceAccountService extends BinanceAccountServiceRaw implements A
       boolean subAccount = false;
 
       // Get transfer history from a master account to a sub account
+      // 获取主账户到子账户的转账记录
       if (params instanceof BinanceMasterAccountTransferHistoryParams) {
         email = ((BinanceMasterAccountTransferHistoryParams) params).getEmail();
       }
 
       // Get transfer history from a sub account to a master/sub account
+      // 获取子账户到主/子账户的转账历史
       if (params instanceof BinanceSubAccountTransferHistoryParams) {
         subAccount = true;
       }

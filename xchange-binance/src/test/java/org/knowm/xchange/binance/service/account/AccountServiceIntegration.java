@@ -24,6 +24,9 @@ import org.knowm.xchange.dto.meta.CurrencyPairMetaData;
 import org.knowm.xchange.service.trade.params.TradeHistoryParams;
 import org.knowm.xchange.utils.StreamUtils;
 
+/**
+ * 帐户服务集成
+ */
 public class AccountServiceIntegration extends BinanceExchangeIntegration {
 
   static BinanceAccountService accountService;
@@ -39,6 +42,10 @@ public class AccountServiceIntegration extends BinanceExchangeIntegration {
     Assume.assumeNotNull(exchange.getExchangeSpecification().getApiKey());
   }
 
+  /**
+   * 测试资产详情
+   * @throws Exception
+   */
   @Test
   public void testAssetDetail() throws Exception {
     assumeProduction();

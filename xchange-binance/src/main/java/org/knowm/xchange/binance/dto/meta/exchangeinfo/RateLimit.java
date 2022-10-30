@@ -1,12 +1,24 @@
 package org.knowm.xchange.binance.dto.meta.exchangeinfo;
 
+/**
+ * 速率限制
+ */
 public class RateLimit {
+  /**
+   * 限制
+   */
   private String limit;
-
+  /**
+   * 间隔时间，间隙
+   */
   private String interval;
-
+  /**
+   * 间隔，间隙 数
+   */
   private String intervalNum;
-
+  /**
+   * 速率限制类型
+   */
   private String rateLimitType;
 
   public String getLimit() {

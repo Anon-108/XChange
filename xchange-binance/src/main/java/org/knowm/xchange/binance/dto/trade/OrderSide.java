@@ -2,6 +2,9 @@ package org.knowm.xchange.binance.dto.trade;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 
+/**
+ * 订单对立面
+ */
 public enum OrderSide {
   BUY,
   SELL;
@@ -11,7 +14,7 @@ public enum OrderSide {
     try {
       return OrderSide.valueOf(s);
     } catch (Exception e) {
-      throw new RuntimeException("Unknown order side " + s + ".");
+      throw new RuntimeException("Unknown order side 未知订单对立面" + s + ".");
     }
   }
 }

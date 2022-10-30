@@ -9,10 +9,22 @@ import javax.ws.rs.core.Response;
 import org.knowm.xchange.ExchangeSpecification;
 import si.mazi.rescu.HttpStatusExceptionSupport;
 
+/**
+ * 恢复工具类
+ */
 public final class ResilienceUtils {
-
+  /**
+   * 恢复工具类
+   */
   private ResilienceUtils() {}
 
+  /**
+   * 装修Api调用
+   * @param resilienceSpecification 回弹/恢复规格
+   * @param callable
+   * @param <T>
+   * @return
+   */
   public static <T> DecorateCallableApi<T> decorateApiCall(
       ExchangeSpecification.ResilienceSpecification resilienceSpecification,
       CallableApi<T> callable) {
@@ -31,10 +43,20 @@ public final class ResilienceUtils {
         && ((HttpStatusExceptionSupport) throwable).getHttpStatusCode() == status.getStatusCode();
   }
 
+  /**
+   * 可调用 API
+   * @param <T>
+   */
   public interface CallableApi<T> extends Callable<T> {
 
     T call() throws IOException;
 
+    /**
+     * 包装可调用
+     * @param callable 调用
+     * @param <T>
+     * @return
+     */
     static <T> CallableApi<T> wrapCallable(Callable<T> callable) {
       return () -> {
         try {
@@ -48,10 +70,19 @@ public final class ResilienceUtils {
     }
   }
 
+  /**
+   * 装修可调用的Api
+   * @param <T>
+   */
   public static class DecorateCallableApi<T> {
     private final ExchangeSpecification.ResilienceSpecification resilienceSpecification;
     private CallableApi<T> callable;
 
+    /**
+     * 装修可调用的Api
+     * @param resilienceSpecification 弹性/恢复规范
+     * @param callable 可调用
+     */
     private DecorateCallableApi(
         ExchangeSpecification.ResilienceSpecification resilienceSpecification,
         CallableApi<T> callable) {
@@ -59,6 +90,11 @@ public final class ResilienceUtils {
       this.callable = callable;
     }
 
+    /**
+     * 重试
+     * @param retryContext 重试上下文
+     * @return
+     */
     public DecorateCallableApi<T> withRetry(Retry retryContext) {
       if (resilienceSpecification.isRetryEnabled()) {
         this.callable =
@@ -67,6 +103,11 @@ public final class ResilienceUtils {
       return this;
     }
 
+    /**
+     * 速率限制器
+     * @param rateLimiter 速率限制器
+     * @return
+     */
     public DecorateCallableApi<T> withRateLimiter(RateLimiter rateLimiter) {
       if (resilienceSpecification.isRateLimiterEnabled()) {
         return this.withRateLimiter(rateLimiter, 1);
@@ -74,6 +115,12 @@ public final class ResilienceUtils {
       return this;
     }
 
+    /**
+     * 速率限制器
+     * @param rateLimiter 速率限制器
+     * @param permits 许可证
+     * @return
+     */
     public DecorateCallableApi<T> withRateLimiter(RateLimiter rateLimiter, int permits) {
       if (resilienceSpecification.isRateLimiterEnabled()) {
         this.callable =

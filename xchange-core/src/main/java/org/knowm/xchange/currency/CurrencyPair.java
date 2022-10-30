@@ -6,6 +6,7 @@ import java.io.Serializable;
 import org.knowm.xchange.instrument.Instrument;
 
 /**
+ * 货币对
  * Value object to provide the following to API:
  * 向 API 提供以下内容的值对象：
  *
@@ -319,6 +320,7 @@ public class CurrencyPair extends Instrument implements Comparable<CurrencyPair>
   public static final CurrencyPair EOS_ETH = new CurrencyPair(Currency.EOS, Currency.ETH);
   public static final CurrencyPair EOS_BTC = new CurrencyPair(Currency.EOS, Currency.BTC);
   public static final CurrencyPair EOS_USD = new CurrencyPair(Currency.EOS, Currency.USD);
+  public static final CurrencyPair EOS_USDT = new CurrencyPair(Currency.EOS, Currency.USDT);
 
   public static final CurrencyPair BCC_USD = new CurrencyPair(Currency.BCC, Currency.USD);
   public static final CurrencyPair BCC_BTC = new CurrencyPair(Currency.BCC, Currency.BTC);

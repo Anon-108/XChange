@@ -112,7 +112,7 @@ public interface Bitfinex {
    * @throws BitfinexExceptionV2
    */
   @GET
-  @Path("candles/trade:{candlePeriod}:{symbol}:{fundingPeriod}/hist")
+  @Path("candles/trade:{candlePeriod}:{symbol}:{fundingPeriod}/hist")  //      https://api-pub.bitfinex.com/v2/candles/trade:1h:fUSD:a30:p2:p30/hist
   List<BitfinexCandle> getHistoricFundingCandles(
       @PathParam("candlePeriod") String candlePeriod,
       @PathParam("symbol") String currency,

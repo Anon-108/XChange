@@ -2,7 +2,9 @@ package org.knowm.xchange.service.trade.params;
 
 import java.util.Date;
 
-/** Common implementation of {@link TradeHistoryParamsTimeSpan}.
+/**
+ * 默认交易历史参数时间跨度
+ * Common implementation of {@link TradeHistoryParamsTimeSpan}.
  * {@link TradeHistoryParamsTimeSpan} 的通用实现。 */
 public class DefaultTradeHistoryParamsTimeSpan implements TradeHistoryParamsTimeSpan {
 

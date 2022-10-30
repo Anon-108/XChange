@@ -28,6 +28,9 @@ import org.knowm.xchange.dto.trade.LimitOrder;
 import org.knowm.xchange.dto.trade.MarketOrder;
 import org.knowm.xchange.dto.trade.StopOrder;
 
+/**
+ * 贸易服务集成
+ */
 public class TradeServiceIntegration extends BinanceExchangeIntegration {
 
   static BinanceTradeService tradeService;
@@ -43,6 +46,10 @@ public class TradeServiceIntegration extends BinanceExchangeIntegration {
     Assume.assumeNotNull(exchange.getExchangeSpecification().getApiKey());
   }
 
+  /**
+   * test Place 测试订单 限价订单不应该抛出任何异常
+   * @throws IOException
+   */
   @Test
   public void testPlaceTestOrderLimitOrderShouldNotThrowAnyException() throws IOException {
     final LimitOrder limitOrder = sampleLimitOrder();
@@ -50,6 +57,11 @@ public class TradeServiceIntegration extends BinanceExchangeIntegration {
     tradeService.placeTestOrder(LIMIT, limitOrder, limitOrder.getLimitPrice(), null);
   }
 
+  /**
+   * 限价单样本
+   * @return
+   * @throws IOException
+   */
   private LimitOrder sampleLimitOrder() throws IOException {
     final CurrencyPair currencyPair = CurrencyPair.BTC_USDT;
     final BigDecimal amount = BigDecimal.ONE;
@@ -61,6 +73,12 @@ public class TradeServiceIntegration extends BinanceExchangeIntegration {
         .build();
   }
 
+  /**
+   * 货币对限价
+   * @param currencyPair
+   * @return
+   * @throws IOException
+   */
   private BigDecimal limitPriceForCurrencyPair(CurrencyPair currencyPair) throws IOException {
     return exchange
         .getMarketDataService()
@@ -70,6 +88,10 @@ public class TradeServiceIntegration extends BinanceExchangeIntegration {
         .getLimitPrice();
   }
 
+  /**
+   * test Place 测试订单 市价单不应该抛出任何异常
+   * @throws IOException
+   */
   @Test
   public void testPlaceTestOrderMarketOrderShouldNotThrowAnyException() throws IOException {
     final MarketOrder marketOrder = sampleMarketOrder();
@@ -77,12 +99,20 @@ public class TradeServiceIntegration extends BinanceExchangeIntegration {
     tradeService.placeTestOrder(MARKET, marketOrder, null, null);
   }
 
+  /**
+   * 市价单样本
+   * @return
+   */
   private MarketOrder sampleMarketOrder() {
     final CurrencyPair currencyPair = CurrencyPair.BTC_USDT;
     final BigDecimal amount = BigDecimal.ONE;
     return new MarketOrder.Builder(BID, currencyPair).originalAmount(amount).build();
   }
 
+  /**
+   * 测试地点 测试订单 止损限价单不应抛出任何异常
+   * @throws IOException
+   */
   @Test
   public void testPlaceTestOrderStopLossLimitOrderShouldNotThrowAnyException() throws IOException {
     final StopOrder stopLimitOrder = sampleStopLimitOrder();
@@ -94,6 +124,11 @@ public class TradeServiceIntegration extends BinanceExchangeIntegration {
         stopLimitOrder.getStopPrice());
   }
 
+  /**
+   * 样本止损限价单
+   * @return
+   * @throws IOException
+   */
   private StopOrder sampleStopLimitOrder() throws IOException {
     final CurrencyPair currencyPair = CurrencyPair.BTC_USDT;
     final BigDecimal amount = BigDecimal.ONE;
@@ -109,6 +144,10 @@ public class TradeServiceIntegration extends BinanceExchangeIntegration {
         .build();
   }
 
+  /**
+   * 测试地点 测试订单 止盈限价订单不应抛出任何异常
+   * @throws IOException
+   */
   @Test
   public void testPlaceTestOrderTakeProfitLimitOrderShouldNotThrowAnyException()
       throws IOException {
@@ -121,6 +160,11 @@ public class TradeServiceIntegration extends BinanceExchangeIntegration {
         takeProfitLimitOrder.getStopPrice());
   }
 
+  /**
+   * 样本止盈限价单
+   * @return
+   * @throws IOException
+   */
   private StopOrder sampleTakeProfitLimitOrder() throws IOException {
     final CurrencyPair currencyPair = CurrencyPair.BTC_USDT;
     final BigDecimal amount = BigDecimal.ONE;
@@ -136,6 +180,10 @@ public class TradeServiceIntegration extends BinanceExchangeIntegration {
         .build();
   }
 
+  /**
+   * 测试灰尘日志
+   * @throws IOException
+   */
   @Test
   public void testDustLog() throws IOException {
     BinanceExchange exchangeMocked = createExchangeMocked();

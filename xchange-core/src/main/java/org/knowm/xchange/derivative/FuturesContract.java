@@ -8,28 +8,46 @@ import java.util.Objects;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.instrument.Instrument;
 
+/**
+ * 期货合约
+ */
 public class FuturesContract extends Instrument
     implements Derivative, Comparable<FuturesContract>, Serializable {
 
   private static final long serialVersionUID = 6876906648149216819L;
-
+  /**
+   * 比较仪；比测仪
+   */
   private static final Comparator<FuturesContract> COMPARATOR =
       Comparator.comparing(FuturesContract::getCurrencyPair)
           .thenComparing(FuturesContract::getPrompt);
 
-  /** The CurrencyPair the FuturesContract is based upon
+  /**
+   * 货币对
+   * The CurrencyPair the FuturesContract is based upon
    * 期货合约所基于的货币对 */
   private final CurrencyPair currencyPair;
 
-  /** The Date when the FuturesContract expires, when null it is perpetual
+  /**
+   *提示 /温馨提示 /提示符
+   * The Date when the FuturesContract expires, when null it is perpetual
    * FuturesContract 到期的日期，如果为 null，则为永久*/
   private final String prompt;
 
+  /**
+   * 期货合约
+   * @param currencyPair 货币对
+   * @param prompt  提示  /温馨提示 /提示符
+   */
   public FuturesContract(CurrencyPair currencyPair, String prompt) {
     this.currencyPair = currencyPair;
     this.prompt = prompt;
   }
 
+  /**
+   * 期货合约
+   * @param symbol
+   */
   @JsonCreator
   public FuturesContract(final String symbol) {
     String[] parts = symbol.split("/");

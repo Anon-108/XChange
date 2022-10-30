@@ -9,12 +9,29 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.function.BiConsumer;
 
+/**
+ * 币安订单簿
+ */
 public final class BinanceOrderbook {
-
+    /**
+     * 最后更新Id
+     */
   public final long lastUpdateId;
+    /**
+     * 出价，喊价
+     */
   public final SortedMap<BigDecimal, BigDecimal> bids;
+    /**
+     * 卖/喊出价
+     */
   public final SortedMap<BigDecimal, BigDecimal> asks;
 
+    /**
+     * 币安订单簿
+     * @param lastUpdateId 最后更新Id
+     * @param bidsJson 出价，喊价json
+     * @param asksJson 卖/喊出价json
+     */
   public BinanceOrderbook(
       @JsonProperty("lastUpdateId") long lastUpdateId,
       @JsonProperty("bids") List<Object[]> bidsJson,

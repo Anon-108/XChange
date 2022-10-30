@@ -4,13 +4,39 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
 import java.util.List;
 
+/**
+ * 少量,小额?运球?
+ */
 public final class BinanceDribblets {
+  /**
+   * 操作时间
+   */
   private final Long operateTime;
+  /**
+   * 总转账金额
+   */
   private final BigDecimal totalTransferedAmount;
+  /**
+   * 服务费总额
+   */
   private final BigDecimal totalServiceChargeAmount;
+  /**
+   * 交易id
+   */
   private final String transId;
+  /**
+   * binance 少量,小额?运球? 细节
+   */
   private final List<BinanceDribbletDetails> binanceDribbletDetails;
 
+  /**
+   * binance 少量,小额?运球? 细节
+   * @param operateTime 操作时间
+   * @param totalTransferedAmount 总转账金额
+   * @param totalServiceChargeAmount 服务费总额
+   * @param transId 交易id
+   * @param binanceDribbletDetails binance 少量,小额?运球? 细节
+   */
   public BinanceDribblets(
       @JsonProperty("operateTime") Long operateTime,
       @JsonProperty("totalTransferedAmount") BigDecimal totalTransferedAmount,

@@ -7,36 +7,127 @@ import org.knowm.xchange.binance.BinanceAdapters;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.marketdata.Ticker;
 
+/**
+ * Binance股票24小时
+ */
 public final class BinanceTicker24h {
-
+  /**
+   * 价格变化
+   */
   private final BigDecimal priceChange;
+  /**
+   * 价格变化百分比
+   */
   private final BigDecimal priceChangePercent;
+  /**
+   *  加权/加重的/权重 平均价格
+   */
   private final BigDecimal weightedAvgPrice;
+  /**
+   * 上一个/前一个 收盘价
+   */
   private final BigDecimal prevClosePrice;
+  /**
+   * 最后价格
+   */
   private final BigDecimal lastPrice;
+  /**
+   * 最后数量
+   */
   private final BigDecimal lastQty;
+  /**
+   * 买价 /买入价
+   */
   private final BigDecimal bidPrice;
+  /**
+   * 买/买入数量
+   */
   private final BigDecimal bidQty;
+  /**
+   * 卖价；卖盘价
+   */
   private final BigDecimal askPrice;
+  /**
+   * 卖；卖盘数量
+   */
   private final BigDecimal askQty;
+  /**
+   *  开盘价
+   */
   private final BigDecimal openPrice;
+  /**
+   * 最高价
+   */
   private final BigDecimal highPrice;
+  /**
+   *  最底价
+   */
   private final BigDecimal lowPrice;
+  /**
+   * 交易量
+   */
   private final BigDecimal volume;
+  /**
+   * 报价量
+   */
   private final BigDecimal quoteVolume;
+  /**
+   * 开盘时间
+   */
   private final long openTime;
+  /**
+   * 关闭时间
+   */
   private final long closeTime;
+  /**
+   * 第一个id
+   */
   private final long firstId;
+  /**
+   * 最后一个id
+   */
   private final long lastId;
+  /**
+   * 统计/计数
+   */
   private final long count;
+  /**
+   * 符号
+   */
   private final String symbol;
 
   // The curency pair that is unfortunately not returned in the response
+  //在响应中不幸没有返回的货币对
   private CurrencyPair pair;
 
   // The cached ticker
+  //缓存的股票
   private Ticker ticker;
 
+  /**
+   * Binance股票24小时
+   * @param priceChange 价格变化
+   * @param priceChangePercent 价格变化百分比
+   * @param weightedAvgPrice 加权/加重的/权重 平均价格
+   * @param prevClosePrice  上一个/前一个 收盘价
+   * @param lastPrice 最后价格
+   * @param lastQty 最后价格
+   * @param bidPrice 买价 /买入价
+   * @param bidQty 买/买入数量
+   * @param askPrice 卖价；卖盘价
+   * @param askQty 卖；卖盘数量
+   * @param openPrice 开盘价
+   * @param highPrice 最高价
+   * @param lowPrice 最底价
+   * @param volume 交易量
+   * @param quoteVolume 报价量
+   * @param openTime 开盘时间
+   * @param closeTime 关闭时间
+   * @param firstId  第一个id
+   * @param lastId 最后一个id
+   * @param count  统计/计数
+   * @param symbol 符号
+   */
   public BinanceTicker24h(
       @JsonProperty("priceChange") BigDecimal priceChange,
       @JsonProperty("priceChangePercent") BigDecimal priceChangePercent,
@@ -166,10 +257,18 @@ public final class BinanceTicker24h {
     return count;
   }
 
+  /**
+   * 获取开盘时间
+   * @return
+   */
   public Date getOpenTime() {
     return new Date(openTime);
   }
 
+  /**
+   * 获取关闭时间
+   * @return
+   */
   public Date getCloseTime() {
     return new Date(closeTime);
   }
@@ -199,5 +298,34 @@ public final class BinanceTicker24h {
               .build();
     }
     return ticker;
+  }
+
+  @Override
+  public String toString() {
+    return "BinanceTicker24h{" +
+            "priceChange=" + priceChange +
+            ", priceChangePercent=" + priceChangePercent +
+            ", weightedAvgPrice=" + weightedAvgPrice +
+            ", prevClosePrice=" + prevClosePrice +
+            ", lastPrice=" + lastPrice +
+            ", lastQty=" + lastQty +
+            ", bidPrice=" + bidPrice +
+            ", bidQty=" + bidQty +
+            ", askPrice=" + askPrice +
+            ", askQty=" + askQty +
+            ", openPrice=" + openPrice +
+            ", highPrice=" + highPrice +
+            ", lowPrice=" + lowPrice +
+            ", volume=" + volume +
+            ", quoteVolume=" + quoteVolume +
+            ", openTime=" + openTime +
+            ", closeTime=" + closeTime +
+            ", firstId=" + firstId +
+            ", lastId=" + lastId +
+            ", count=" + count +
+            ", symbol='" + symbol + '\'' +
+            ", pair=" + pair +
+            ", ticker=" + ticker +
+            '}';
   }
 }

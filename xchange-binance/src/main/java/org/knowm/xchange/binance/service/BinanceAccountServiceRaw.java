@@ -23,8 +23,16 @@ import org.knowm.xchange.binance.dto.account.WithdrawResponse;
 import org.knowm.xchange.client.ResilienceRegistries;
 import org.knowm.xchange.currency.Currency;
 
+/**
+ * 币安账户服务原始
+ */
 public class BinanceAccountServiceRaw extends BinanceBaseService {
-
+  /**
+   * 币安账户服务原始
+   * @param exchange 交换
+   * @param binance 币安
+   * @param resilienceRegistries 回弹/恢复力  支持私有/登记/注册
+   */
   public BinanceAccountServiceRaw(
       BinanceExchange exchange,
       BinanceAuthenticated binance,
@@ -32,6 +40,12 @@ public class BinanceAccountServiceRaw extends BinanceBaseService {
     super(exchange, binance, resilienceRegistries);
   }
 
+  /**
+   * 帐户
+   * @return
+   * @throws BinanceException
+   * @throws IOException
+   */
   public BinanceAccountInformation account() throws BinanceException, IOException {
     return decorateApiCall(
             () -> binance.account(getRecvWindow(), getTimestampFactory(), apiKey, signatureCreator))
@@ -40,6 +54,15 @@ public class BinanceAccountServiceRaw extends BinanceBaseService {
         .call();
   }
 
+  /**
+   * 提，取
+   * @param coin 币
+   * @param address 地址
+   * @param amount 数量
+   * @return
+   * @throws IOException
+   * @throws BinanceException
+   */
   public WithdrawResponse withdraw(String coin, String address, BigDecimal amount)
       throws IOException, BinanceException {
     // the name parameter seams to be mandatory
@@ -47,6 +70,16 @@ public class BinanceAccountServiceRaw extends BinanceBaseService {
     return withdraw(coin, address, null, amount, name);
   }
 
+  /**
+   * 提，取
+   * @param coin 币
+   * @param address 地址
+   * @param addressTag 地址标签
+   * @param amount 数量
+   * @return
+   * @throws IOException
+   * @throws BinanceException
+   */
   public WithdrawResponse withdraw(
       String coin, String address, String addressTag, BigDecimal amount)
       throws IOException, BinanceException {
@@ -55,6 +88,17 @@ public class BinanceAccountServiceRaw extends BinanceBaseService {
     return withdraw(coin, address, addressTag, amount, name);
   }
 
+  /**
+   * 提，取
+   * @param coin 币
+   * @param address 地址
+   * @param addressTag 地址标签
+   * @param amount 数量
+   * @param name 名称
+   * @return
+   * @throws IOException
+   * @throws BinanceException
+   */
   private WithdrawResponse withdraw(
       String coin, String address, String addressTag, BigDecimal amount, String name)
       throws IOException, BinanceException {
@@ -75,6 +119,12 @@ public class BinanceAccountServiceRaw extends BinanceBaseService {
         .call();
   }
 
+  /**
+   * 请求存款地址
+   * @param currency 通货，货币；通用，
+   * @return
+   * @throws IOException
+   */
   public DepositAddress requestDepositAddress(Currency currency) throws IOException {
     return decorateApiCall(
             () ->
@@ -89,6 +139,11 @@ public class BinanceAccountServiceRaw extends BinanceBaseService {
         .call();
   }
 
+  /**
+   *请求资产详细信息
+   * @return
+   * @throws IOException
+   */
   public Map<String, AssetDetail> requestAssetDetail() throws IOException {
     return decorateApiCall(
             () ->
@@ -99,6 +154,15 @@ public class BinanceAccountServiceRaw extends BinanceBaseService {
         .call();
   }
 
+  /**
+   * depositHistory
+   * @param asset 资产
+   * @param startTime 开始时间
+   * @param endTime 结束时间
+   * @return
+   * @throws BinanceException
+   * @throws IOException
+   */
   public List<BinanceDeposit> depositHistory(String asset, Long startTime, Long endTime)
       throws BinanceException, IOException {
     return decorateApiCall(
@@ -116,6 +180,15 @@ public class BinanceAccountServiceRaw extends BinanceBaseService {
         .call();
   }
 
+  /**
+   * 提取历史
+   * @param asset 资产
+   * @param startTime 开始时间
+   * @param endTime 结束时间
+   * @return
+   * @throws BinanceException
+   * @throws IOException
+   */
   public List<BinanceWithdraw> withdrawHistory(String asset, Long startTime, Long endTime)
       throws BinanceException, IOException {
     return decorateApiCall(
@@ -133,11 +206,28 @@ public class BinanceAccountServiceRaw extends BinanceBaseService {
         .call();
   }
 
+  /**
+   * 获取资产红利
+   * @param startTime 开始时间
+   * @param endTime 结束时间
+   * @return
+   * @throws BinanceException
+   * @throws IOException
+   */
   public List<AssetDividendResponse.AssetDividend> getAssetDividend(Long startTime, Long endTime)
       throws BinanceException, IOException {
     return getAssetDividend("", startTime, endTime);
   }
 
+  /**
+   * getAssetDividend
+   * @param asset 资产
+   * @param startTime 开始时间
+   * @param endTime 结束时间
+   * @return
+   * @throws BinanceException
+   * @throws IOException
+   */
   public List<AssetDividendResponse.AssetDividend> getAssetDividend(
       String asset, Long startTime, Long endTime) throws BinanceException, IOException {
     return decorateApiCall(
@@ -156,6 +246,17 @@ public class BinanceAccountServiceRaw extends BinanceBaseService {
         .getData();
   }
 
+  /**
+   * 获取转账记录
+   * @param fromEmail 发件人邮箱地址
+   * @param startTime 开始时间
+   * @param endTime 结束时间
+   * @param page 页
+   * @param limit 限制/额度
+   * @return
+   * @throws BinanceException
+   * @throws IOException
+   */
   public List<TransferHistory> getTransferHistory(
       String fromEmail, Long startTime, Long endTime, Integer page, Integer limit)
       throws BinanceException, IOException {
@@ -176,6 +277,17 @@ public class BinanceAccountServiceRaw extends BinanceBaseService {
         .call();
   }
 
+  /**
+   * 获取子用户历史
+   * @param asset 资产
+   * @param type 类型
+   * @param startTime 开始时间
+   * @param endTime 结束时间
+   * @param limit 限制/额度
+   * @return
+   * @throws BinanceException
+   * @throws IOException
+   */
   public List<TransferSubUserHistory> getSubUserHistory(
       String asset, Integer type, Long startTime, Long endTime, Integer limit)
       throws BinanceException, IOException {

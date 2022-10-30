@@ -10,18 +10,45 @@ import si.mazi.rescu.ClientConfig;
 import si.mazi.rescu.IRestProxyFactory;
 import si.mazi.rescu.Interceptor;
 import si.mazi.rescu.RestProxyFactoryImpl;
-
+/**
+ *Exchange Rest 代理生成器
+ */
 public final class ExchangeRestProxyBuilder<T> {
-
+/**
+ * rest接口
+ */
   private final Class<T> restInterface;
+  /**
+   * 交换规范
+   */
   private final ExchangeSpecification exchangeSpecification;
+  /**
+   * 自定义拦截器
+   */
   private final List<Interceptor> customInterceptors = new ArrayList<>();
+  /**
+   * 客户端配置定制器
+   */
   private final List<ClientConfigCustomizer> clientConfigCustomizers = new ArrayList<>();
+  /**
+   * 客户配置
+   */
   private ClientConfig clientConfig;
+  /**
+   * 恢复注册
+   */
   private ResilienceRegistries resilienceRegistries;
+  /**
+   * 基础地址
+   */
   private String baseUrl;
+  /**
+   * rest代理工厂
+   */
   private IRestProxyFactory restProxyFactory = new RestProxyFactoryImpl();
-
+/**
+ * Exchange Rest 代理生成器
+ */
   private ExchangeRestProxyBuilder(
       Class<T> restInterface, ExchangeSpecification exchangeSpecification) {
     this.restInterface = restInterface;
@@ -30,44 +57,68 @@ public final class ExchangeRestProxyBuilder<T> {
         Optional.ofNullable(exchangeSpecification.getSslUri())
             .orElseGet(exchangeSpecification::getPlainTextUri);
   }
-
+/**
+ * 用于接口
+ */
   public static <T> ExchangeRestProxyBuilder<T> forInterface(
       Class<T> restInterface, ExchangeSpecification exchangeSpecification) {
     return new ExchangeRestProxyBuilder<>(restInterface, exchangeSpecification)
         .customInterceptors(InterceptorProvider.provide());
   }
-
+/**
+ * 客户配置
+ */
   public ExchangeRestProxyBuilder<T> clientConfig(ClientConfig value) {
     this.clientConfig = value;
     return this;
   }
-
+/**
+ * 客户配置定制器
+ */
   public ExchangeRestProxyBuilder<T> clientConfigCustomizer(
       ClientConfigCustomizer clientConfigCustomizer) {
     this.clientConfigCustomizers.add(clientConfigCustomizer);
     return this;
   }
-
+/**
+ * 基础地址
+ */
   public ExchangeRestProxyBuilder<T> baseUrl(String baseUrl) {
     this.baseUrl = baseUrl;
     return this;
   }
-
+/**
+ *  自定义拦截器
+ */
   public ExchangeRestProxyBuilder<T> customInterceptor(Interceptor value) {
     this.customInterceptors.add(value);
     return this;
   }
 
+  /**
+   * 自定义拦截器
+   * @param interceptors 拦截器
+   * @return
+   */
   public ExchangeRestProxyBuilder<T> customInterceptors(Collection<Interceptor> interceptors) {
     customInterceptors.addAll(interceptors);
     return this;
   }
 
+  /**
+   * rest代理工厂
+   * @param restProxyFactory rest代理工厂
+   * @return
+   */
   public ExchangeRestProxyBuilder<T> restProxyFactory(IRestProxyFactory restProxyFactory) {
     this.restProxyFactory = restProxyFactory;
     return this;
   }
 
+  /**
+   * 构建
+   * @return
+   */
   public T build() {
     if (clientConfig == null) {
       clientConfig = createClientConfig(exchangeSpecification);

@@ -35,9 +35,17 @@ import org.knowm.xchange.service.trade.params.CandleStickDataParams;
 import org.knowm.xchange.service.trade.params.DefaultCandleStickParam;
 import org.knowm.xchange.service.trade.params.DefaultCandleStickParamWithLimit;
 
+/**
+ * 币安市场数据服务
+ */
 public class BinanceMarketDataService extends BinanceMarketDataServiceRaw
     implements MarketDataService {
-
+  /**
+   * 币安市场数据服务
+   * @param exchange
+   * @param binance
+   * @param resilienceRegistries 恢复注册
+   */
   public BinanceMarketDataService(
       BinanceExchange exchange,
       BinanceAuthenticated binance,
@@ -65,6 +73,12 @@ public class BinanceMarketDataService extends BinanceMarketDataServiceRaw
     }
   }
 
+  /**
+   * 转换订单簿
+   * @param ob 订单薄
+   * @param pair  对
+   * @return
+   */
   public static OrderBook convertOrderBook(BinanceOrderbook ob, CurrencyPair pair) {
     List<LimitOrder> bids =
         ob.bids.entrySet().stream()
@@ -96,15 +110,24 @@ public class BinanceMarketDataService extends BinanceMarketDataServiceRaw
   }
 
   /**
+   * 获得交易
+   *
    * optional parameters provided in the args array:
+   * args 数组中提供的可选参数：
    *
    * <ul>
    *   <li>0: Long fromId optional, ID to get aggregate trades from INCLUSIVE.
-   *   <li>1: Long startTime optional, Timestamp in ms to get aggregate trades from INCLUSIVE.
-   *   <li>2: Long endTime optional, Timestamp in ms to get aggregate trades until INCLUSIVE.
-   *   <li>3: Integer limit optional, Default 500; max 500.
-   * </ul>
+   *   0：长 fromId 可选，ID 从 INCLUSIVE 获取聚合交易。
    *
+   *   <li>1: Long startTime optional, Timestamp in ms to get aggregate trades from INCLUSIVE.
+   *   1：Long startTime 可选，以毫秒为单位的时间戳，用于从 INCLUSIVE 获取聚合交易。
+   *
+   *   <li>2: Long endTime optional, Timestamp in ms to get aggregate trades until INCLUSIVE.
+   *   2：Long endTime 可选，以毫秒为单位的时间戳以获取聚合交易，直到 INCLUSIVE。
+   *
+   *   <li>3: Integer limit optional, Default 500; max 500.
+   *   3：整数限制可选，默认500； 最多 500 个。
+   * </ul>
    * <p>
    */
   @Override
@@ -178,6 +201,14 @@ public class BinanceMarketDataService extends BinanceMarketDataServiceRaw
     }
   }
 
+  /**
+   * 交易的论点
+   * @param args  参数
+   * @param index 下标
+   * @param converter  转换
+   * @param <T>
+   * @return
+   */
   private <T extends Number> T tradesArgument(
       Object[] args, int index, Function<String, T> converter) {
     if (index >= args.length) {
@@ -196,6 +227,11 @@ public class BinanceMarketDataService extends BinanceMarketDataServiceRaw
     }
   }
 
+  /**
+   * 获取所有的帐薄报价
+   * @return
+   * @throws IOException
+   */
   public List<Ticker> getAllBookTickers() throws IOException {
     List<BinancePriceQuantity> binanceTickers = tickerAllBookTickers();
     return BinanceAdapters.adaptPriceQuantities(binanceTickers);

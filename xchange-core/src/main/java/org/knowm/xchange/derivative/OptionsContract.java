@@ -13,21 +13,34 @@ import java.util.Objects;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.instrument.Instrument;
 
+/**
+ * 期权合约
+ */
 public class OptionsContract extends Instrument
     implements Derivative, Comparable<OptionsContract>, Serializable {
 
   private static final long serialVersionUID = 4546376909031640294L;
 
+  /**
+   * 期权类型
+   */
   public enum OptionType {
     CALL("C"),
     PUT("P");
-
+    /**
+     *  后缀
+     */
     private final String postfix;
 
     OptionType(String postfix) {
       this.postfix = postfix;
     }
 
+    /**
+     * 从……开始字符串
+     * @param s
+     * @return
+     */
     public static OptionType fromString(String s) {
       if (CALL.postfix.equalsIgnoreCase(s)) return CALL;
       if (PUT.postfix.equalsIgnoreCase(s)) return PUT;
@@ -35,23 +48,44 @@ public class OptionsContract extends Instrument
     }
   }
 
+  /**
+   * 日期解析器
+   */
   private static final ThreadLocal<DateFormat> DATE_PARSER =
       ThreadLocal.withInitial(() -> new SimpleDateFormat("yyMMdd"));
-
+  /**
+   * 比较
+   */
   private static final Comparator<OptionsContract> COMPARATOR =
       Comparator.comparing(OptionsContract::getCurrencyPair)
           .thenComparing(OptionsContract::getExpireDate)
           .thenComparing(OptionsContract::getStrike)
           .thenComparing(OptionsContract::getType);
-
+  /**
+   * 货币对
+   */
   private final CurrencyPair currencyPair;
 
+  /**
+   * 到期日期
+   */
   private final Date expireDate;
-
+  /**
+   * 好球 /击 /突然发生 /中划线/罢工
+   */
   private final BigDecimal strike;
-
+  /**
+   * 类型
+   */
   private final OptionType type;
 
+  /**
+   * 期权合约
+   * @param currencyPair 货币对
+   * @param expireDate 到期时间
+   * @param strike
+   * @param type 类型
+   */
   private OptionsContract(
       CurrencyPair currencyPair, Date expireDate, BigDecimal strike, OptionType type) {
     this.currencyPair = currencyPair;
@@ -60,6 +94,10 @@ public class OptionsContract extends Instrument
     this.type = type;
   }
 
+  /**
+   * 期权合约
+   * @param symbol
+   */
   @JsonCreator
   public OptionsContract(final String symbol) {
     String[] parts = symbol.split("/");

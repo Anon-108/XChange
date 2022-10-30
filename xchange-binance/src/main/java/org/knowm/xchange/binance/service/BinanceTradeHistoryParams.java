@@ -7,23 +7,43 @@ import org.knowm.xchange.service.trade.params.TradeHistoryParamLimit;
 import org.knowm.xchange.service.trade.params.TradeHistoryParamsIdSpan;
 import org.knowm.xchange.service.trade.params.TradeHistoryParamsTimeSpan;
 
+/**
+ * 币安交易历史参数
+ */
 public class BinanceTradeHistoryParams
     implements TradeHistoryParamCurrencyPair,
         TradeHistoryParamLimit,
         TradeHistoryParamsIdSpan,
         TradeHistoryParamsTimeSpan {
 
-  /** mandatory */
+  /** 货币对
+   * mandatory  强制的 /强制性 / */
   private CurrencyPair currencyPair;
-  /** optional */
+  /**
+   * 限制/额度
+   * optional
+   * 可选择的，选修的
+   * */
   private Integer limit;
-  /** optional */
+  /**
+   * 开始id
+   * optional
+   * 可选择的，选修的 */
   private String startId;
-  /** ignored */
+  /**
+   * 结束id
+   * ignored
+   * 忽略 */
   private String endId;
-  /** optional */
+  /**
+   * 开始时间
+   * optional
+   * 可选择的，选修的 */
   private Date startTime;
-  /** optional */
+  /**
+   * 结束时间
+   * optional
+   * 可选择的，选修的 */
   private Date endTime;
 
   public BinanceTradeHistoryParams(CurrencyPair currencyPair) {

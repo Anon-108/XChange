@@ -1,33 +1,68 @@
 package org.knowm.xchange.binance.dto.meta.exchangeinfo;
 
+/**
+ * 符号/股票代码
+ */
 public class Symbol {
-
+  /**
+   *  报价 /引用 资产
+   */
   private String quoteAsset;
-
+  /**
+   * 冰山允许
+   */
   private String icebergAllowed;
-
+  /**
+   * oco 允许
+   */
   private String ocoAllowed;
-
+  /**
+   * 是否允许保证金/融资融券交易
+   */
   private String isMarginTradingAllowed;
-
+  /**
+   * 是否允许现货交易
+   */
   private String isSpotTradingAllowed;
 
+  /**
+   * 基础资产
+   */
   private String baseAsset;
-
+  /**
+   *  符号/股票代码
+   */
   private String symbol;
-
+  /**
+   * 状态
+   */
   private String status;
 
+  /**
+   * 报价精度
+   */
   private String quotePrecision;
 
+  /**
+   * 报价资产精度
+   */
   private String quoteAssetPrecision;
-
+  /**
+   * 基础资产精度
+   */
   private String baseAssetPrecision;
-
+  /**
+   * 订单类型
+   */
   private String[] orderTypes;
-
+  /**
+   * 过滤器
+   */
   private Filter[] filters;
 
+  /**
+   * 许可，权限
+   */
   private String[] permissions;
 
   public String getQuoteAsset() {

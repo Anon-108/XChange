@@ -9,7 +9,9 @@ import org.knowm.xchange.bitfinex.service.BitfinexMarketDataServiceRaw;
 import org.knowm.xchange.bitfinex.v2.dto.marketdata.BitfinexCandle;
 import org.knowm.xchange.service.marketdata.MarketDataService;
 
-/** @author cyrus13 */
+/**
+ * 蜡烛演示
+ * @author cyrus13 */
 public class CandlesDemo {
 
   public static void main(String[] args) throws Exception {
@@ -30,7 +32,13 @@ public class CandlesDemo {
 
   private static void raw(BitfinexMarketDataServiceRaw marketDataService) throws IOException {
     List<BitfinexCandle> candleList =
-        marketDataService.getFundingHistoricCandles("15m", "fEUR", 2, 10);
-    System.out.println(candleList);
+//        marketDataService.getFundingHistoricCandles("15m", "fEUR", 2, 10);
+        marketDataService.getFundingHistoricCandles("1m", "fUSD", 2, 3);
+//    System.out.println(candleList);
+    System.out.println("======================================================");
+    candleList.forEach(item->{
+      System.out.println("时间: "+item.getCandleDateTime());
+      System.out.println(item);
+    });
   }
 }
